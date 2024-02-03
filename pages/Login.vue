@@ -1,31 +1,12 @@
 <script setup lang="ts">
-import axios, { AxiosError } from 'axios';
-
 const username = ref<string>('');
 const password = ref<string>('');
 const errorAlert = ref<string>('');
 
 const onSubmitLogin = async () => {
-    try {
-        const response = await axios({
-            method: 'post',
-            url: "http://localhost:8080/v1/auth/login",
-            data: {
-                email: username.value,
-                password: password.value
-            }
-        });
+    const data =  await useApi.authenService.login({ email: username.value, password: password.value });
 
-        navigateTo('/dashboard');
-    } catch (error) {
-        if (error instanceof AxiosError) {
-            console.log(error.response?.data);
-
-            const { message, status } = error.response?.data?.detail;
-
-            errorAlert.value = message;
-        }
-    }
+    console.log(data);
 }
 </script>
 
