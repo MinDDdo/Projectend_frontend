@@ -1,5 +1,5 @@
-import authenService from "~/services/authen";
-import teacherService from "~/services/teacher";
+import authenService from "~/services/authen.services";
+import teacherService from "~/services/teacher.services";
 
 const useApi = {
     authenService,
