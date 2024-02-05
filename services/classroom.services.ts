@@ -42,7 +42,7 @@ export const getClassroomById = async (classroomId: string) => {
     try {
         const response = await axios({
             method: 'get',
-            url: "http://localhost/v1/classroom/getById" + classroomId
+            url: "http://localhost/v1/classroom/getById/" + classroomId
         })
         return response.data;
 
