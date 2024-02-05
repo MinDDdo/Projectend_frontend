@@ -5,7 +5,7 @@ export const createAttendance = async (data: AttendanceCreateDto) => {
     try {
         const response = await axios({
             method: 'post',
-            url: "http://localhost/:8080/v1/attendance/create-attendance/",
+            url: "http://localhost/:8080/v1/attendance/create-attendance",
             data: {
                 attendance_date: data?.attendance_date,
                 student: data?.student,
@@ -61,7 +61,7 @@ export const getAllAttendance = async (classroomId: string) => {
     try {
         const response = await axios({
             method: 'get',
-            url: "http://localhost/:8080/v1/attendance/"+ classroomId +"getAll-attendance"
+            url: "http://localhost/:8080/v1/attendance/"+ classroomId +"/getAll-attendance"
         })
         return response.data;
         
