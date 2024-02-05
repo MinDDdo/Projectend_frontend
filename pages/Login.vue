@@ -11,51 +11,41 @@ const onSubmitLogin = async () => {
 </script>
 
 <template>
-    <div class="h-screen">
-        <Navbar logo="Login" />
-
-        <main class="mt-24 flex flex-col max-w-[500px] mx-auto h-full just">
-            <div class="flex flex-col justify-center items-center gap-y-2">
-                <h1 class="text-2xl font-bold">เข้าสู่ระบบ</h1>
-
-                <p class="text-gray-500">
-                    กรอกชื่อผู้ใช้และรหัสผ่านของคุณเพื่อเข้าสู่ระบบ
-                </p>
+    <div class="h-screen bg-[#EEF5FF]">
+        <div class="flex justify-between items-center px-10 pt-4">
+            <div class="">
+                <img src="~/assets/images/logo.png" alt="logo" />
             </div>
 
-            <form 
-                class="mt-10 flex flex-col gap-y-4"
-                @submit.prevent="onSubmitLogin"
-            >
-                <Input 
-                    v-model="username" 
-                    type="text" 
-                    placeholder="ชื่อผู้ใช้" 
-                />
+            <p>เกี่ยวกับเรา</p>
+        </div>
 
-                <Input 
-                    v-model="password" 
-                    type="password" 
-                    placeholder="รหัสผ่าน" 
-                />
+        <div class="mt-10 flex justify-center">
+            <div class="bg-white min-w-[550px] max-w-[550px] min-h-[420px] max-h-[420px] rounded-[40px] p-10">
+                <h1 class="text-[24px] text-center">เข้าสู่ระบบ</h1>
+                <p class="mt-4 text-center">กรอกชื่อผู้ใช้และรหัสผ่านของคุณเพื่อเข้าสู่ระบบ</p>
 
-                <p class="text-red-500" v-if="errorAlert !== ''">
-                    {{ errorAlert }}
+                <form class="flex flex-col mt-8 gap-y-7">
+                    <input 
+                        type="text" 
+                        placeholder="อีเมล" 
+                        class="p-2 px-5 rounded-xl  bg-[#DCF2F1]" 
+                    />
+
+                    <input 
+                        type="password" 
+                        placeholder="รหัสผ่าน" 
+                        class="p-2 px-5 rounded-xl bg-[#DCF2F1]" 
+                    />
+
+                    <button type="submit" class="p-2 text-white font-bold bg-[#676B7D] rounded-xl">เข้าสู่ระบบ</button>
+                </form>
+
+                <p class="mt-8 text-center">
+                    ยังไม่มีบัญชี? <span class="underline">ลงทะเบียน</span> 
                 </p>
-
-                <button 
-                    class="bg-purple-600 p-2 rounded-xl mt-5 font-bold"
-                    type="submit"
-                >
-                    เข้าสู่ระบบ
-                </button>
-            </form>
-
-            <div class="mt-8 flex gap-x-1 justify-center">
-                <p>ยังไม่มีบัญชี</p>
-                <p class="underline">ลงทะเบียน</p>
             </div>
-        </main>
+        </div>
     </div>
 </template>
 
