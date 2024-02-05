@@ -26,7 +26,7 @@ export const getAllAssignment = async (classroomId: string) => {
     try {
         const response = await axios({
             method: 'get',
-            url: "http://localhost/:8080/v1/assignment"+ classroomId +"/getAll-assignment"
+            url: "http://localhost/:8080/v1/assignment/"+ classroomId +"/getAll-assignment"
         })
         return response.data;
 
@@ -42,7 +42,7 @@ export const getAssignmentById = async (assignmentId: string) => {
     try {
         const response = await axios({
             method: 'get',
-            url: "http://localhost/:8080/v1/assignment/getById-assignment" + assignmentId
+            url: "http://localhost/:8080/v1/assignment/getById-assignment/" + assignmentId
         })
         return response.data;
 
@@ -58,7 +58,7 @@ export const updateAssignmentById = async (assignmentId: string, data: Assignmen
     try {
         const response = await axios({
             method: 'put',
-            url: "http://localhost/:8080/v1/assignment/update-assignment" + assignmentId,
+            url: "http://localhost/:8080/v1/assignment/update-assignment/" + assignmentId,
             data: {
                 assign_name: data.assign_name,
                 assign_detail: data.assign_detail,
@@ -95,7 +95,7 @@ export const checkAssignment = async (assignmentId: string, data: AssignmentChec
     try {
         const response = await axios({
             method: 'post',
-            url: "http://localhost/:8080/v1/assignment/check-assignment" + assignmentId,
+            url: "http://localhost/:8080/v1/assignment/check-assignment/" + assignmentId,
             data: {
                 no: data.no,
                 checked: data.checked
