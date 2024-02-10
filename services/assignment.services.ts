@@ -1,11 +1,25 @@
 import axios, { AxiosError } from "axios";
 import type { AssignmentCheckDto, AssignmentCreateDto, AssignmentUpdateDto, AssigntmentCheckStatus } from "~/interfaces/assignment.interface";
+import { checkToken } from "./auth"; 
 
 export const createAssignment = async (classroomId: string, data: AssignmentCreateDto ) => {
     try {
+        const authStore = useStore.authStore();
+
+        if (!await checkToken()) {
+            console.log('Unauthorize');
+
+            return null;
+        }
+
+        const apiUrl = useRuntimeConfig().public.apiUrl;
+
         const response = await axios({
             method: 'post',
-            url: "http://localhost/:8080/v1/assignment/create-attendance",
+            url: apiUrl + "assignment/create-attendance",
+            headers: {
+                'Authorization': 'Bearer ' + authStore.access_token
+            },
             data: {
                 assign_name: data.assign_name,
                 assign_detail: data.assign_detail,
@@ -18,15 +32,28 @@ export const createAssignment = async (classroomId: string, data: AssignmentCrea
         if (error instanceof AxiosError){
             return error.response?.data;
         }
-        return 'Something went wrong';
+        return null;
     }
 }
 
 export const getAllAssignment = async (classroomId: string) => {
     try {
+        const authStore = useStore.authStore();
+
+        if (!await checkToken()) {
+            console.log('Unauthorize');
+
+            return null;
+        }
+
+        const apiUrl = useRuntimeConfig().public.apiUrl;
+
         const response = await axios({
             method: 'get',
-            url: "http://localhost/:8080/v1/assignment/"+ classroomId +"/getAll-assignment"
+            url: apiUrl + "assignment/"+ classroomId +"/getAll-assignment",
+            headers: {
+                'Authorization': 'Bearer ' + authStore.access_token
+            }
         })
         return response.data;
 
@@ -34,15 +61,28 @@ export const getAllAssignment = async (classroomId: string) => {
         if (error instanceof AxiosError){
             return error.response?.data;
         }
-        return 'Something went wrong'
+        return null;
     }
 }
 
 export const getAssignmentById = async (assignmentId: string) => {
     try {
+        const authStore = useStore.authStore();
+
+        if (!await checkToken()) {
+            console.log('Unauthorize');
+
+            return null;
+        }
+
+        const apiUrl = useRuntimeConfig().public.apiUrl;
+
         const response = await axios({
             method: 'get',
-            url: "http://localhost/:8080/v1/assignment/getById-assignment/" + assignmentId
+            url: apiUrl + "assignment/getById-assignment/" + assignmentId,
+            headers: {
+                'Authorization': 'Bearer ' + authStore.access_token
+            }
         })
         return response.data;
 
@@ -50,15 +90,28 @@ export const getAssignmentById = async (assignmentId: string) => {
         if (error instanceof AxiosError){
             return error.response?.data;
         }
-        return 'Something went wrong'
+        return null;
     }
 }
 
 export const updateAssignmentById = async (assignmentId: string, data: AssignmentUpdateDto) => {
     try {
+        const authStore = useStore.authStore();
+
+        if (!await checkToken()) {
+            console.log('Unauthorize');
+
+            return null;
+        }
+
+        const apiUrl = useRuntimeConfig().public.apiUrl;
+
         const response = await axios({
             method: 'put',
-            url: "http://localhost/:8080/v1/assignment/update-assignment/" + assignmentId,
+            url: apiUrl + "assignment/update-assignment/" + assignmentId,
+            headers: {
+                'Authorization': 'Bearer ' + authStore.access_token
+            },
             data: {
                 assign_name: data.assign_name,
                 assign_detail: data.assign_detail,
@@ -71,15 +124,28 @@ export const updateAssignmentById = async (assignmentId: string, data: Assignmen
         if (error instanceof AxiosError){
             return error.response?.data;
         }
-        return 'Somethong went wrong'
+        return null;
     }
 }
 
 export const deleteAssignmentById = async (assignmentId: string) => {
     try {
+        const authStore = useStore.authStore();
+
+        if (!await checkToken()) {
+            console.log('Unauthorize');
+
+            return null;
+        }
+
+        const apiUrl = useRuntimeConfig().public.apiUrl;
+
         const response = await axios({
             method: 'delete',
-            url: "http://localhost:8080/v1/assignmnet/delete-assignment/" + assignmentId
+            url: apiUrl + "assignmnet/delete-assignment/" + assignmentId,
+            headers: {
+                'Authorization': 'Bearer ' + authStore.access_token
+            }
         })
         return response.data;
 
@@ -87,15 +153,28 @@ export const deleteAssignmentById = async (assignmentId: string) => {
         if (error instanceof AxiosError){
             return error.response?.data;
         }
-        return 'Something went wrong'
+        return null;
     }
 }
 
 export const checkAssignment = async (assignmentId: string, data: AssignmentCheckDto) => {
     try {
+        const authStore = useStore.authStore();
+
+        if (!await checkToken()) {
+            console.log('Unauthorize');
+
+            return null;
+        }
+
+        const apiUrl = useRuntimeConfig().public.apiUrl;
+
         const response = await axios({
             method: 'post',
-            url: "http://localhost/:8080/v1/assignment/check-assignment/" + assignmentId,
+            url: apiUrl + "assignment/check-assignment/" + assignmentId,
+            headers: {
+                'Authorization': 'Bearer ' + authStore.access_token
+            },
             data: {
                 no: data.no,
                 checked: data.checked
@@ -107,15 +186,28 @@ export const checkAssignment = async (assignmentId: string, data: AssignmentChec
         if (error instanceof AxiosError){
             return error.response?.data;
         }
-        return 'Something went wrong'
+        return null;
     }
 }
 
 export const studentCheckStatusAssignment = async (data: AssigntmentCheckStatus) => {
     try {
+        const authStore = useStore.authStore();
+
+        if (!await checkToken()) {
+            console.log('Unauthorize');
+
+            return null;
+        }
+
+        const apiUrl = useRuntimeConfig().public.apiUrl; 
+
         const response = await axios({
             method: 'post',
-            url: "http://localhost/:8080/v1/assignment/check-handin",
+            url: apiUrl + "assignment/check-handin",
+            headers: {
+                'Authorization': 'Bearer ' + authStore.access_token
+            },
             data: {
                 no: data.no,
                 classroom_id: data.classroom_id
@@ -126,7 +218,7 @@ export const studentCheckStatusAssignment = async (data: AssigntmentCheckStatus)
         if (error instanceof AxiosError){
             return error.response?.data
         }
-        return 'Something went wrong'
+        return null;
     }
 }
 
