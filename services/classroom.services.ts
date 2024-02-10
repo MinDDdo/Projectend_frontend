@@ -5,6 +5,8 @@ import type { Response } from "~/interfaces/response.interface";
 
 export const createClassroom = async (data: ClassroomCreateDto) => {
     try {
+        const authStore = useStore.authStore();
+
         if (await checkToken()) {
             console.log('Unauthorize');
 
@@ -13,13 +15,11 @@ export const createClassroom = async (data: ClassroomCreateDto) => {
 
         const apiUrl = useRuntimeConfig().public.apiUrl;
 
-        const access_token = await useAuth.getToken('access_token');
-
         const response = await axios({
             method: 'post',
             url: apiUrl + "classroom/create",
             headers: {
-                'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + authStore.access_token
             },
             data: {
                 name: data.name,
@@ -32,7 +32,7 @@ export const createClassroom = async (data: ClassroomCreateDto) => {
         if (error instanceof AxiosError){
             return error.response?.data;
         }
-        return 'Something went wrong';
+        return null;
     }
 }
 
@@ -70,9 +70,22 @@ export const getAllClassroom = async (teacherId: string): Promise<Response<any> 
 
 export const getClassroomById = async (classroomId: string) => {
     try {
+        const authStore = useStore.authStore();
+
+        if (!await checkToken()) {
+            console.log('Unauthorize');
+
+            return null;
+        }
+
+        const apiUrl = useRuntimeConfig().public.apiUrl;
+        
         const response = await axios({
             method: 'get',
-            url: "http://localhost/v1/classroom/getById/" + classroomId
+            url: apiUrl + "classroom/getById/" + classroomId,
+            headers: {
+                'Authorization': 'Bearer ' + authStore.access_token 
+            }
         })
         return response.data;
 
@@ -80,15 +93,28 @@ export const getClassroomById = async (classroomId: string) => {
         if (error instanceof AxiosError){
             return error.response?.data;
         }
-        return 'Something went wrong';
+        return null;
     }
 }
 
 export const updateClassroomById = async (classroomId:string, data: ClassroomUpdateDto) => {
     try{
+        const authStore = useStore.authStore();
+
+        if (!await checkToken()) {
+            console.log('Unauthorize');
+
+            return null;
+        }
+
+        const apiUrl = useRuntimeConfig().public.apiUrl;
+
         const response = await axios({
             method: 'put',
-            url: "http://localhost/v1/classroom/updateById/" + classroomId,
+            url: apiUrl + "classroom/updateById/" + classroomId,
+            headers: {
+                'Authorization': 'Bearer ' + authStore.access_token
+            },
             data: {
                 name: data.name
             }
@@ -99,15 +125,28 @@ export const updateClassroomById = async (classroomId:string, data: ClassroomUpd
         if (error instanceof AxiosError){
             return error.response?.data;
         }
-        return 'Something went wrong';
+        return null;
     }
 }
 
 export const deleteClassroomById = async (classroomId: string) => {
     try {
+        const authStore = useStore.authStore();
+
+        if (!await checkToken()) {
+            console.log('Unauthorize');
+
+            return null;
+        }
+
+        const apiUrl = useRuntimeConfig().public.apiUrl;
+
         const response = await axios({
             method: 'delete',
-            url: "http://localhost/v1/classroom/deleteById/" + classroomId
+            url: apiUrl + "classroom/deleteById/" + classroomId,
+            headers: {
+                'Authorization': 'Bearer ' + authStore.access_token
+            }
         })
         return response.data;
 
@@ -115,7 +154,7 @@ export const deleteClassroomById = async (classroomId: string) => {
         if (error instanceof AxiosError){
             return error.response?.data;
         }
-        return 'Something went wrong';
+        return null;
     }
 }
 

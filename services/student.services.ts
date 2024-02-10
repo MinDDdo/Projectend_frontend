@@ -1,11 +1,25 @@
 import axios, { AxiosError } from "axios";
 import type { StudentCreateDto, RandomGroupDto, StudentUpdateDto } from "~/interfaces/student.interface";
+import { checkToken } from "./auth"; 
 
 export const createStudent = async (classroomId: string, data: StudentCreateDto) => {
     try {
+        const authStore = useStore.authStore();
+
+        if (!await checkToken()) {
+            console.log('Unauthorize');
+
+            return null;
+        }
+
+        const apiUrl = useRuntimeConfig().public.apiUrl;
+
         const response = await axios({
             method: 'post',
-            url: "http://localhost:8080/v1/student/"+ classroomId +"/create-student" ,
+            url: apiUrl + "student/"+ classroomId +"/create-student" ,
+            headers: {
+                'Authorization': 'Bearer ' + authStore.access_token
+            },
             data: {
                 firstname: data.firstname,
                 lastname: data.lastname,
@@ -18,15 +32,28 @@ export const createStudent = async (classroomId: string, data: StudentCreateDto)
             return error.response?.data;
         }
 
-        return 'Something went worong';
+        return null;
     }
 }
 
 export const updateStudent = async (studentId: string, data: StudentUpdateDto) => {
     try {
+        const authStore = useStore.authStore();
+
+        if (!await checkToken()) {
+            console.log('Unauthorize');
+
+            return null;
+        }
+
+        const apiUrl = useRuntimeConfig().public.apiUrl;
+
         const response = await axios({
             method: 'put',
-            url: "http://localhost:8080/v1/student/update-student/" + studentId,
+            url: apiUrl + "student/update-student/" + studentId,
+            headers: {
+                'Authorization': 'Bearer ' + authStore.access_token
+            },
             data: {
                 firstname: data.firstname,
                 lastname: data.lastname
@@ -39,15 +66,28 @@ export const updateStudent = async (studentId: string, data: StudentUpdateDto) =
             return error.response?.data;
         }
 
-        return 'Something went worong';
+        return null;
     }
 }
 
 export const getAllStudent = async (classroomId: string) => {
     try {
+        const authStore = useStore.authStore();
+
+        if (!await checkToken()) {
+            console.log('Unauthorize');
+
+            return null;
+        }
+
+        const apiUrl = useRuntimeConfig().public.apiUrl;
+
         const response = await axios({
             method: 'get',
-            url: "http://localhost:8080/v1/student/"+ classroomId +"/getAll-student"
+            url: apiUrl + "student/"+ classroomId +"/getAll-student",
+            headers: {
+                'Authorization': 'Bearer ' + authStore.access_token
+            }
         })
         return response.data;
 
@@ -56,15 +96,28 @@ export const getAllStudent = async (classroomId: string) => {
             return error.response?.data;
         }
 
-        return 'Something went wrong';
+        return null;
     }
 }
 
 export const getStudentById = async (classroomId: string ,studentId: string) => {
     try {
+        const authStore = useStore.authStore();
+
+        if (!await checkToken()) {
+            console.log('Unauthorize');
+
+            return null;
+        }
+
+        const apiUrl = useRuntimeConfig().public.apiUrl;
+
         const response = await axios({
             method: 'get',
-            url: "http://localhost:8080/v1/student/"+ classroomId +"/getById-student/" + studentId
+            url: apiUrl + "student/"+ classroomId +"/getById-student/" + studentId,
+            headers: {
+                'Authorization': 'Bearer ' + authStore.access_token
+            }
         })
         return response.data;
 
@@ -72,15 +125,28 @@ export const getStudentById = async (classroomId: string ,studentId: string) => 
         if (error instanceof AxiosError){
             return error.response?.data;
         }
-        return 'Something went wrong';
+        return null;
     }
 }
 
 export const deleteStudentById = async (studentId: string) => {
     try {
+        const authStore = useStore.authStore();
+
+        if (!await checkToken()) {
+            console.log('Unauthorize');
+
+            return null;
+        }
+
+        const apiUrl = useRuntimeConfig().public.apiUrl;
+
         const response = await axios({
             method: 'delete',
-            url: "http://localhost:8080/v1/student/deleteById-student/" + studentId
+            url: apiUrl + "student/deleteById-student/" + studentId,
+            headers: {
+                'Authorization': 'Bearer ' + authStore.access_token
+            }
         })
 
         return response.data;
@@ -89,15 +155,28 @@ export const deleteStudentById = async (studentId: string) => {
         if (error instanceof AxiosError){
             return error.response?.data;
         }
-        return 'Something went wrong';
+        return null;
     }
 }
 
 export const randomGroup = async (classroomId: string, data: RandomGroupDto) => {
     try {
+        const authStore = useStore.authStore();
+
+        if (!await checkToken()) {
+            console.log('Unauthorize');
+
+            return null;
+        }
+
+        const apiUrl = useRuntimeConfig().public.apiUrl;
+
         const response = await axios({
             method: 'post',
-            url: "http://localhost:8080/v1/student/"+ classroomId +"/group-student",
+            url: apiUrl + "student/"+ classroomId +"/group-student",
+            headers: {
+                'Authorization': 'Bearer ' + authStore.access_token
+            },
             data: {
                 group_size: data.group_size
             }
@@ -108,7 +187,7 @@ export const randomGroup = async (classroomId: string, data: RandomGroupDto) => 
         if (error instanceof AxiosError){
             return error.response?.data;
         } 
-        return 'Something went wrong';
+        return null;
     }
 }
 

@@ -4,9 +4,11 @@ import type { TeacherSigupDto, TeacherUpdateDto } from '~/interfaces/teacher.int
 
 export const signup = async (data: TeacherSigupDto) => {
     try {
+        const apiUrl = useRuntimeConfig().public.apiUrl;
+
         const response = await axios({
             method: 'post',
-            url: "http://localhost:8080/v1/teacher/signup",
+            url: apiUrl + "teacher/signup",
             data: {
                 firstname: data.firstname,
                 lastname: data.lastname,
@@ -29,9 +31,11 @@ export const signup = async (data: TeacherSigupDto) => {
 
 export const update = async (teacherId: string ,data: TeacherUpdateDto) => {
     try {
+        const apiUrl = useRuntimeConfig().public.apiUrl;
+
         const response = await axios({
             method: 'post',
-            url: "http://localhost:8080/v1/teacher/update/" + teacherId,
+            url: apiUrl + "teacher/update/" + teacherId,
             data: {
                 firstname: data.firstname, 
                 lastname: data.lastname,

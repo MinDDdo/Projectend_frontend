@@ -1,12 +1,26 @@
 import axios, { AxiosError } from 'axios';
 import type { LoginDto, LoginResponse, RefreshTokenDto } from '~/interfaces/authen.interface';
 import type { Response } from '~/interfaces/response.interface';
+import { checkToken } from "./auth"; 
 
 export const login = async ({ email, password }: LoginDto): Promise<Response<LoginResponse> | null> => {
     try {
+        const authStore = useStore.authStore();
+
+        if (!await checkToken()) {
+            console.log('Unauthorize');
+
+            return null;
+        }
+
+        const apiUrl = useRuntimeConfig().public.apiUrl;
+
         const response = await axios<Response<LoginResponse>>({
             method: 'post',
-            url: "http://localhost:8080/v1/auth/login",
+            url: apiUrl + "auth/login",
+            headers: {
+                'Authorization': 'Bearer ' + authStore.access_token
+            },
             data: {
                 email: email,
                 password: password
@@ -28,9 +42,22 @@ export const login = async ({ email, password }: LoginDto): Promise<Response<Log
 
 export const refreshToken = async ({ refresh_token }: RefreshTokenDto) => {
     try {
+        const authStore = useStore.authStore();
+
+        if (!await checkToken()) {
+            console.log('Unauthorize');
+
+            return null;
+        }
+
+        const apiUrl = useRuntimeConfig().public.apiUrl;
+
         const response = await axios({
             method: 'post',
-            url: "http://localhost:8080/v1/auth/refresh_token",
+            url: apiUrl + "auth/refresh_token",
+            headers: {
+                'Authorization': 'Bearer ' + authStore.access_token
+            },
             data: {
                 refresh_token: refresh_token
             }
@@ -42,7 +69,7 @@ export const refreshToken = async ({ refresh_token }: RefreshTokenDto) => {
             return error.response?.data;
         }
 
-        return 'Something went wrong';
+        return null;
     }
 }
 
