@@ -1,19 +1,33 @@
 import axios, { AxiosError } from "axios";
 import type { ClassroomCreateDto, ClassroomUpdateDto } from "~/interfaces/classroom.interface";
-
+import { checkToken } from "./auth"; 
+import type { Response } from "~/interfaces/response.interface";
 
 export const createClassroom = async (data: ClassroomCreateDto) => {
     try {
+        if (await checkToken()) {
+            console.log('Unauthorize');
+
+            return null;
+        }
+
+        const apiUrl = useRuntimeConfig().public.apiUrl;
+
+        const access_token = await useAuth.getToken('access_token');
+
         const response = await axios({
             method: 'post',
-            url: "http://localhost/8080/v1/classroom/create",
+            url: apiUrl + "classroom/create",
+            headers: {
+                'Authorization': 'Bearer ' + access_token
+            },
             data: {
                 name: data.name,
                 owner: data.owner
             }
         })
-        return response.data;
 
+        return response.data;
     }catch (error) {
         if (error instanceof AxiosError){
             return error.response?.data;
@@ -22,19 +36,35 @@ export const createClassroom = async (data: ClassroomCreateDto) => {
     }
 }
 
-export const getAllClassroom = async (teacherId: string) => {
+export const getAllClassroom = async (teacherId: string): Promise<Response<any> | null> => {
     try {
+        const authStore = useStore.authStore();
+
+        if (!await checkToken()) {
+            console.log('Unauthorize');
+
+            return null;
+        }
+
+        const apiUrl = useRuntimeConfig().public.apiUrl;
+
         const response = await axios({
             method: 'get',
-            url: "http://localhost:8080/v1/classroom/getAll/" + teacherId
+            url: apiUrl + "classroom/getAll/" + teacherId,
+            headers: {
+                'Authorization': 'Bearer ' + authStore.access_token
+            }
         })
-        return response.data;
 
+        return response.data;
     }catch (error){
+        console.log(error);
+
         if (error instanceof AxiosError){
             return error.response?.data;
         }
-        return 'Something went wrong';
+        
+        return null;
     }
 }
 
