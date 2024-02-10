@@ -1,12 +1,24 @@
 <script setup lang="ts">
-const username = ref<string>('');
-const password = ref<string>('');
-const errorAlert = ref<string>('');
+const email = ref<string>('test@test.com');
+const password = ref<string>('123456');
+
+const authStore = useStore.authStore();
 
 const onSubmitLogin = async () => {
-    const data =  await useApi.authenService.login({ email: username.value, password: password.value });
+    const data =  await useApi.authenService.login({ email: email.value, password: password.value });
 
+    if (!data) {
+        return console.error('Something went wrong');
+    }
     console.log(data);
+
+    authStore.access_token = data.result.data.access_token;
+    authStore.refresh_token = data.result.data.refresh_token;
+
+    // await useAuth.createToken('refresh_token', data.result.data.refresh_token);
+    // await useAuth.createToken('access_token', data.result.data.access_token);
+
+    await navigateTo('/dashboard');
 }
 </script>
 
@@ -25,16 +37,21 @@ const onSubmitLogin = async () => {
                 <h1 class="text-[24px] text-center">เข้าสู่ระบบ</h1>
                 <p class="mt-4 text-center">กรอกชื่อผู้ใช้และรหัสผ่านของคุณเพื่อเข้าสู่ระบบ</p>
 
-                <form class="flex flex-col mt-8 gap-y-7">
+                <form 
+                    @submit.prevent="onSubmitLogin"
+                    class="flex flex-col mt-8 gap-y-7"
+                >
                     <input 
                         type="text" 
-                        placeholder="อีเมล" 
+                        placeholder="อีเมล"
+                        v-model="email" 
                         class="p-2 px-5 rounded-xl  bg-[#DCF2F1]" 
                     />
 
                     <input 
                         type="password" 
-                        placeholder="รหัสผ่าน" 
+                        placeholder="รหัสผ่าน"
+                        v-model="password" 
                         class="p-2 px-5 rounded-xl bg-[#DCF2F1]" 
                     />
 

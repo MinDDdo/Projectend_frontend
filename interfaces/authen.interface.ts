@@ -6,3 +6,8 @@ export interface LoginDto {
 export interface RefreshTokenDto {
     refresh_token: string;
 }
+
+export interface LoginResponse {
+    access_token: string;
+    refresh_token: string;
+}

@@ -1,10 +1,10 @@
 import axios, { AxiosError } from 'axios';
-import type { LoginDto, RefreshTokenDto } from '~/interfaces/authen.interface';
+import type { LoginDto, LoginResponse, RefreshTokenDto } from '~/interfaces/authen.interface';
 import type { Response } from '~/interfaces/response.interface';
 
-export const login = async ({ email, password }: LoginDto): Promise<Response<any> | any> => {
+export const login = async ({ email, password }: LoginDto): Promise<Response<LoginResponse> | null> => {
     try {
-        const response = await axios({
+        const response = await axios<Response<LoginResponse>>({
             method: 'post',
             url: "http://localhost:8080/v1/auth/login",
             data: {
@@ -13,13 +13,16 @@ export const login = async ({ email, password }: LoginDto): Promise<Response<any
             }
         })
 
+        console.log(response);
+        
         return response.data;
     }catch (error){
         if (error instanceof AxiosError) {
             return error.response?.data;
         }
 
-        return 'Something went wrong';
+        console.log(error);
+        return null;
     }
 }
 
