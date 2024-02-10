@@ -1,8 +1,11 @@
 <script setup lang="ts">
+import { jwtDecode } from 'jwt-decode';
+
 const email = ref<string>('test@test.com');
 const password = ref<string>('123456');
 
 const authStore = useStore.authStore();
+const teacherStore = useStore.teacherStore();
 
 const onSubmitLogin = async () => {
     const data =  await useApi.authenService.login({ email: email.value, password: password.value });
@@ -15,10 +18,11 @@ const onSubmitLogin = async () => {
     authStore.access_token = data.result.data.access_token;
     authStore.refresh_token = data.result.data.refresh_token;
 
-    // await useAuth.createToken('refresh_token', data.result.data.refresh_token);
-    // await useAuth.createToken('access_token', data.result.data.access_token);
+    const decode: { id: string } = jwtDecode(authStore.access_token);
 
-    await navigateTo('/dashboard');
+    teacherStore.id = decode.id;
+
+    await navigateTo('/classroomlist');
 }
 </script>
 

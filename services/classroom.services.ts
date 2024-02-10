@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import type { ClassroomCreateDto, ClassroomUpdateDto } from "~/interfaces/classroom.interface";
+import type { ClassroomCreateDto, ClassroomResponse, ClassroomUpdateDto } from "~/interfaces/classroom.interface";
 import { checkToken } from "./auth"; 
 import type { Response } from "~/interfaces/response.interface";
 
@@ -36,7 +36,7 @@ export const createClassroom = async (data: ClassroomCreateDto) => {
     }
 }
 
-export const getAllClassroom = async (teacherId: string): Promise<Response<any> | null> => {
+export const getAllClassroom = async (teacherId: string): Promise<Response<ClassroomResponse[]> | null> => {
     try {
         const authStore = useStore.authStore();
 
@@ -48,7 +48,7 @@ export const getAllClassroom = async (teacherId: string): Promise<Response<any> 
 
         const apiUrl = useRuntimeConfig().public.apiUrl;
 
-        const response = await axios({
+        const response = await axios<Response<ClassroomResponse[]>>({
             method: 'get',
             url: apiUrl + "classroom/getAll/" + teacherId,
             headers: {
