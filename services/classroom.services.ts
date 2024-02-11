@@ -7,7 +7,7 @@ export const createClassroom = async (data: ClassroomCreateDto) => {
     try {
         const authStore = useStore.authStore();
 
-        if (await checkToken()) {
+        if (!await checkToken()) {
             console.log('Unauthorize');
 
             return null;
@@ -23,7 +23,10 @@ export const createClassroom = async (data: ClassroomCreateDto) => {
             },
             data: {
                 name: data.name,
-                owner: data.owner
+                owner: data.owner,
+                subject_code: data.subject_code,
+                grade: data.grade,
+                image: data.image
             }
         })
 

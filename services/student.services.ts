@@ -1,6 +1,8 @@
 import axios, { AxiosError } from "axios";
-import type { StudentCreateDto, RandomGroupDto, StudentUpdateDto } from "~/interfaces/student.interface";
+import { type StudentCreateDto, type RandomGroupDto, type StudentUpdateDto, type StudentResponse } from "~/interfaces/student.interface";
 import { checkToken } from "./auth"; 
+import type { Response } from "~/interfaces/response.interface";
+
 
 export const createStudent = async (classroomId: string, data: StudentCreateDto) => {
     try {
@@ -82,7 +84,7 @@ export const getAllStudent = async (classroomId: string) => {
 
         const apiUrl = useRuntimeConfig().public.apiUrl;
 
-        const response = await axios({
+        const response = await axios<Response<StudentResponse[]>>({
             method: 'get',
             url: apiUrl + "student/"+ classroomId +"/getAll-student",
             headers: {
