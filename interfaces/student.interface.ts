@@ -12,3 +12,12 @@ export interface StudentUpdateDto {
 export interface RandomGroupDto {
     group_size: number;
 }
+
+export interface StudentResponse {
+    classroom_id: string;
+    no: number;
+    firstname: string;
+    lastname: string;
+    refresh_token: string;
+    image: string;
+}
