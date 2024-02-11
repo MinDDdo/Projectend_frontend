@@ -1,5 +1,29 @@
 <script setup lang="ts">
 
+const classroomName = ref<string>('');
+const grade = ref<string>('');
+const subjectCode = ref<string>('');
+
+const onSubmitCreateclassroom = async () => {
+    const data = await useApi.classroomService.createClassroom({ 
+        name: classroomName.value,
+        owner: "65c0f97b48f2c8d8846a2251",
+        subject_code: subjectCode.value,
+        grade: grade.value,
+        image: "aaaa"
+    })
+
+    if (!data) {
+        return navigateTo('/');
+    }
+    
+    classroomName.value = ""
+    grade.value = ""
+    subjectCode.value = ""
+
+    navigateTo('/classroomlist')
+}
+
 </script>
 <template>
     <div class="h-screen bg-[#EEF5FF] ">
@@ -41,24 +65,28 @@
                      </div>
                 </div>
                 
-                <form class="flex flex-col mt-8 gap-y-7 w-[500px]">
+                <form 
+                    @submit.prevent="onSubmitCreateclassroom"
+                    class="flex flex-col mt-8 gap-y-7 w-[500px]">
                     <input 
                         type="text" 
                         placeholder="ชื่อชั้นเรียน" 
+                        v-model="classroomName"
                         class="p-2 px-5 rounded-xl  bg-[#DCF2F1]
                                 h-[50px] text-[18px]" 
                     />
 
-                   
                     <input 
                         type="text" 
                         placeholder="ชั้นเรียน" 
+                        v-model="grade"
                         class="p-2 px-5 rounded-xl  bg-[#DCF2F1]
                             h-[50px] text-[18px]" 
                     />
                     <input 
                         type="text" 
-                        placeholder="เพิ่มเติม" 
+                        placeholder="รหัสวิชา" 
+                        v-model="subjectCode"
                         class="p-2 px-5 rounded-xl  bg-[#DCF2F1]
                                 h-[50px] text-[18px]" 
                     />
@@ -74,31 +102,22 @@
                             สร้าง
                         </button>
                     </div>
-                   
                 </form>
-                
             </div>
-                        
-                        
-                        
-                
-                    </div>
-
-                    <div class="absolute  -top-9
+                                    
+            </div>
+                <div class="absolute  -top-9
                     bg-[#7071E8] text-white p-2
                     min-w-[300px] max-w-[300px] 
                     min-h-[65px] max-h-[65px] rounded-[20px] 
-                     text-[26px] px-20
-                    ">
-                        <p>สร้างชั้นเรียน</p>
-                        
-                
-                     </div>
+                    text-[26px] px-20
+                ">
+                    <p>สร้างชั้นเรียน</p>
                 </div>
-                
-
             </div>
+            
         </div>
     </div>
+</div>
     
 </template>

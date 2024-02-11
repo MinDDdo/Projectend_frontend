@@ -1,6 +1,9 @@
 export interface ClassroomCreateDto {
     name: string;
     owner: string;
+    subject_code: string;
+    grade: string;
+    image: string;
 }
 
 export interface ClassroomUpdateDto {
