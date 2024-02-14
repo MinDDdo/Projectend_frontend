@@ -1,16 +1,22 @@
 <script setup lang="ts">
 
+const route = useRoute();
+
 import type { StudentResponse } from '~/interfaces/student.interface';
+import Classroomlist from '../Classroomlist.vue';
+import type { ClassroomResponse } from '~/interfaces/classroom.interface';
 
 const studentList = ref<StudentResponse[]>([]);
+const classroom = ref<ClassroomResponse | null>(null);
 
 onMounted(async () => {
     await getAllStudent();
+    await getClassroomById();
 })
 
 const getAllStudent = async () => {
     
-    const data = await useApi.studentService.getAllStudent('65c50290b5b53b7488e65981');
+    const data = await useApi.studentService.getAllStudent(route.params?.id + '');
 
     if (!data) {
             return navigateTo('/');
@@ -18,6 +24,18 @@ const getAllStudent = async () => {
     
         studentList.value = data.result.data;
 } 
+
+const getClassroomById = async () => {
+
+    const data = await useApi.classroomService.getClassroomById(route.params?.id + '')
+
+    if (!data) {
+        return navigateTo('/');
+    }
+
+    classroom.value = data.result.data;
+}
+
 
 </script>
 
@@ -36,7 +54,7 @@ const getAllStudent = async () => {
 
         <div class="flex justify-center relative">
             <div class="bg-[#475A7D] p-3 w-[260px] mt-5 rounded-[15px] absolute left-1/2 transform -translate-x-1/2 -top-[30px]">
-                <p class="font-bold text-2xl text-white text-center">ภาษาไทย</p>
+                <p class="font-bold text-2xl text-white text-center">{{ classroom?.name}}</p>
             </div>
         </div>
 
@@ -52,17 +70,17 @@ const getAllStudent = async () => {
                         <p class="self-cente font-bold ">รหัสห้องเรียน</p>
                         <div class="mt-2">
                             <div class="bg-[#FF90BC] p-3 w-[200px] rounded-[15px]">
-                                <p class="text-center font-bold text-white">004266</p>
+                                <p class="text-center font-bold text-white">{{ classroom?.code}}</p>
                             </div>
                         </div>
                     </div>
 
                     <div class="flex flex-col items-center justify-center w-1/2 mt-7">
                         <div class="bg-[#FFF8E3] p-1 w-[100px] h-[35px] rounded-[8px]">
-                            <p class="text-center font-medium">n22101</p>
+                            <p class="text-center font-medium">{{ classroom?.subject_code}}</p>
                         </div>
                         <div class="bg-[#D2E0FB] p-1 rounded-[8px] w-[80px] h-[30px] mt-3">
-                            <p class="text-center ">ป.5/2</p>
+                            <p class="text-center ">{{ classroom?.grade }}</p>
                         </div>
                     </div>
                 </div>

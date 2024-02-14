@@ -71,7 +71,7 @@ export const getAllClassroom = async (teacherId: string): Promise<Response<Class
     }
 }
 
-export const getClassroomById = async (classroomId: string) => {
+export const getClassroomById = async (classroomId: string): Promise<Response<ClassroomResponse> | null> => {
     try {
         const authStore = useStore.authStore();
 
@@ -83,7 +83,7 @@ export const getClassroomById = async (classroomId: string) => {
 
         const apiUrl = useRuntimeConfig().public.apiUrl;
         
-        const response = await axios({
+        const response = await axios<Response<ClassroomResponse>>({
             method: 'get',
             url: apiUrl + "classroom/getById/" + classroomId,
             headers: {

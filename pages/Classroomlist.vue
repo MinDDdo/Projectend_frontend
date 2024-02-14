@@ -79,9 +79,9 @@ const getAllClassroom = async () => {
                     type="button" 
                     class="flex justify-center cursor-pointer"
                 >
-                    <div class="bg-[#7071E8] p-2 w-[180px] rounded-[15px] mt-3">
+                    <NuxtLink :to="'classroom/'+ item.id" class="bg-[#7071E8] p-2 w-[180px] rounded-[15px] mt-3">
                         <p class="text-center text-white text-lg ">เข้าชั้นเรียน</p>
-                    </div>
+                    </NuxtLink>
                 </button>
             </div>
 
