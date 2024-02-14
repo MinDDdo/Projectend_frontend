@@ -50,10 +50,10 @@ const getAllClassroom = async () => {
         </div>
 
         <div class="flex justify-center mt-9">
-            <button class="bg-[#8EACCD] p-2 w-[250px] rounded-[15px] flex justify-center items-center">
+            <NuxtLink to="/createclassroom" class="bg-[#8EACCD] p-2 w-[250px] rounded-[15px] flex justify-center items-center">
                 <p class=" text-white text-xl">สร้างชั้นเรียน</p>
                 <img src="~/assets/images/add.png" :draggable="false" alt="add" class="ml-1 w-[20px] h-auto" />
-            </button>
+            </NuxtLink>
         </div>
 
         <div class="grid grid-cols-4 justify-center mx-10 pb-24 mt-20 gap-8">
@@ -79,9 +79,9 @@ const getAllClassroom = async () => {
                     type="button" 
                     class="flex justify-center cursor-pointer"
                 >
-                    <div class="bg-[#7071E8] p-2 w-[180px] rounded-[15px] mt-3">
+                    <NuxtLink :to="'classroom/'+ item.id" class="bg-[#7071E8] p-2 w-[180px] rounded-[15px] mt-3">
                         <p class="text-center text-white text-lg ">เข้าชั้นเรียน</p>
-                    </div>
+                    </NuxtLink>
                 </button>
             </div>
 

@@ -15,3 +15,4 @@ export interface TeacherUpdateDto {
     line_contact?: string; 
     phone_contact?: string;
 }
+

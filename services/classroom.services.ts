@@ -7,7 +7,7 @@ export const createClassroom = async (data: ClassroomCreateDto) => {
     try {
         const authStore = useStore.authStore();
 
-        if (await checkToken()) {
+        if (!await checkToken()) {
             console.log('Unauthorize');
 
             return null;
@@ -23,7 +23,10 @@ export const createClassroom = async (data: ClassroomCreateDto) => {
             },
             data: {
                 name: data.name,
-                owner: data.owner
+                owner: data.owner,
+                subject_code: data.subject_code,
+                grade: data.grade,
+                image: data.image
             }
         })
 
@@ -68,7 +71,7 @@ export const getAllClassroom = async (teacherId: string): Promise<Response<Class
     }
 }
 
-export const getClassroomById = async (classroomId: string) => {
+export const getClassroomById = async (classroomId: string): Promise<Response<ClassroomResponse> | null> => {
     try {
         const authStore = useStore.authStore();
 
@@ -80,7 +83,7 @@ export const getClassroomById = async (classroomId: string) => {
 
         const apiUrl = useRuntimeConfig().public.apiUrl;
         
-        const response = await axios({
+        const response = await axios<Response<ClassroomResponse>>({
             method: 'get',
             url: apiUrl + "classroom/getById/" + classroomId,
             headers: {
