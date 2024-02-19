@@ -22,6 +22,19 @@ const getAllClassroom = async () => {
 
     classroomList.value = data.result.data;
 }
+
+const onClickDeleteClassroom = async (classroomId: string) => {
+    
+    const data = await useApi.classroomService.deleteClassroomById(classroomId);
+    
+    if (!data) {
+        return navigateTo('/');
+    }
+
+    await getAllClassroom();
+
+}
+
 </script>
 
 <template>
@@ -75,11 +88,8 @@ const getAllClassroom = async () => {
                             >
                                 <img src="~/assets/images/dot.png" alt="dot"
                                 class="absolute cursor-pointer h-[40px]" 
-                                 />
-                            <ChevronDownIcon
-                                class="-mr-1 ml-2 h-5 w-5 text-violet-200 hover:text-violet-100"
-                                aria-hidden="true"
-                            />
+                                />
+
                             </MenuButton>
                         </div>
 
@@ -96,7 +106,7 @@ const getAllClassroom = async () => {
                             >
                             <div class="px-1 py-1">
                                 <MenuItem v-slot="{ active }">
-                                <button
+                                <NuxtLink :to="'editclassroom/' + item.id"
                                     :class="[
                                     active ? 'bg-[#7071E8] text-white' : 'text-gray-900',
                                     'group flex w-full items-center rounded-md px-2 py-2 text-sm',
@@ -105,7 +115,7 @@ const getAllClassroom = async () => {
                                     
                                     <Icon name="ion:edit" class="mr-3  text-sm" />
                                     Edit
-                                </button>
+                                </NuxtLink>
                                 </MenuItem>
                             </div>
                             
@@ -116,6 +126,7 @@ const getAllClassroom = async () => {
                                     active ? 'bg-[#7071E8] text-white' : 'text-gray-900',
                                     'group flex w-full items-center rounded-md px-2 py-2 text-sm',
                                     ]"
+                                    @click="onClickDeleteClassroom (item.id)"
                                 >
                                     <Icon name="ion:ios-trash" class="mr-3  text-sm" />
                                     Delete
