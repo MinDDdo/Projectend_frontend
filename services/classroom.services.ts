@@ -100,7 +100,11 @@ export const getClassroomById = async (classroomId: string): Promise<Response<Cl
     }
 }
 
-export const updateClassroomById = async (classroomId:string, data: ClassroomUpdateDto) => {
+export const updateClassroomById = async (
+    classroomId:string, 
+    data: ClassroomUpdateDto
+):Promise<Response<null> | null> => {
+    
     try{
         const authStore = useStore.authStore();
 
@@ -119,7 +123,10 @@ export const updateClassroomById = async (classroomId:string, data: ClassroomUpd
                 'Authorization': 'Bearer ' + authStore.access_token
             },
             data: {
-                name: data.name
+                name: data.name,
+                subject_code: data.subject_code,
+                grade: data.grade,
+                image: data.image
             }
         })
         return response.data;
