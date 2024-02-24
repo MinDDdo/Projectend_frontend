@@ -102,7 +102,10 @@ export const getAllStudent = async (classroomId: string) => {
     }
 }
 
-export const getStudentById = async (classroomId: string ,studentId: string) => {
+export const getStudentById = async (
+    classroomId: string ,
+    studentId: string
+): Promise<Response<StudentResponse> | null> => {
     try {
         const authStore = useStore.authStore();
 
@@ -114,7 +117,7 @@ export const getStudentById = async (classroomId: string ,studentId: string) => 
 
         const apiUrl = useRuntimeConfig().public.apiUrl;
 
-        const response = await axios({
+        const response = await axios<Response<StudentResponse>>({
             method: 'get',
             url: apiUrl + "student/"+ classroomId +"/getById-student/" + studentId,
             headers: {
