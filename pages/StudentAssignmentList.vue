@@ -15,34 +15,40 @@
                 <h1 class="text-[30px] text-center"><b>ภาษาไทย</b></h1>
                 <div class="flex justify-center relative">
                     <div class="  ">
-                   
-                        <img src="~/assets/images/Kid (24).png" alt="Kid (24)" width="190" height="190" class="rounded-full"  />
-                
+                        <img src="~/assets/images/Kid (24).png" 
+                        alt="Kid (24)" 
+                        width="190" 
+                        height="190" 
+                        class="rounded-full"  
+                        />
                     </div>
 
                     <div class="absolute bottom-2 right-2">
-                
-                        <img src="~/assets/images/logoeditprofile.png" alt="logoeditprofile" width="40" height="40" class="rounded-full"  />
-                
+                        <img src="~/assets/images/logoeditprofile.png" 
+                        alt="logoeditprofile" 
+                        width="40" 
+                        height="40" 
+                        class="rounded-full"  
+                        />
                      </div>
                 </div>
+                
                 <div class="" >
                     <div class="flex gap-x-5">
-
                         <h1 class="text-[24px] "> <b>สมศรี</b> </h1>
-
-                    
                         <h1 class="text-[24px] "> <b>สุขใจ</b> </h1>
-                
                     </div>
                 </div>
+                
                 <button type="submit" class="p-3 px-20  text-white font-bold bg-[#636363] rounded-md ">
                             
                     <div class="flex  gap-x-1">
-                           
-                        <img src="~/assets/images/logofolder.png" alt="logofolderr" width="24" height="24"  />
+                        <img src="~/assets/images/logofolder.png" 
+                        alt="logofolderr" 
+                        width="24" 
+                        height="24"  
+                        />
                         <p> ดูสถานะงาน  </p>       
-                        
                     </div>                  
                 
                 </button>
@@ -56,6 +62,7 @@
                 </button>
             </div>
         </div>
+        
         <div class=" flex justify-center ">
             <div class = "grid  grid-cols-2 gap-x-28  gap-y-12 " >
                 <div class = " flex justify-between px-7 pt-9 bg-white min-w-[425px] max-w-[425px] min-h-[150px] max-h-[150px] rounded-[20px]  " >

@@ -44,7 +44,7 @@ const onSubmitCreateclassroom = async () => {
                     <div class=" flex  bg-white 
                                 w-[600px] 
                                 h-[570px] rounded-[20px]  ">
-                                 <div class=" flex flex-col gap-y-5 items-center 
+                                <div class=" flex flex-col gap-y-5 items-center 
                                  w-[600px] 
                                  h-[570px] rounded-[20px]">
                 
