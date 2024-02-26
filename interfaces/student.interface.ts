@@ -14,6 +14,7 @@ export interface RandomGroupDto {
 }
 
 export interface StudentResponse {
+    id: string;
     classroom_id: string;
     no: number;
     firstname: string;

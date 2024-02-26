@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { ClassroomResponse } from '~/interfaces/classroom.interface';
+import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 
 const teacherStore = useStore.teacherStore();
 
@@ -21,6 +22,19 @@ const getAllClassroom = async () => {
 
     classroomList.value = data.result.data;
 }
+
+const onClickDeleteClassroom = async (classroomId: string) => {
+    
+    const data = await useApi.classroomService.deleteClassroomById(classroomId);
+    
+    if (!data) {
+        return navigateTo('/');
+    }
+
+    await getAllClassroom();
+
+}
+
 </script>
 
 <template>
@@ -62,10 +76,66 @@ const getAllClassroom = async () => {
                 v-for="item of classroomList"
                 class="bg-[#FFFFFF]  p-2 rounded-[15px] h-[300px] relative flex flex-col"
             >
-                <div class="flex justify-end">
-                    <img src="~/assets/images/dot.png" alt="dot"
-                    class="absolute cursor-pointer" 
-                    />
+                <div class="absolute right-1">
+                    
+                    <Menu as="div" class="relative inline-block text-left">
+                        <div>
+                            <MenuButton
+                            class="h-fit inline-flex w-full justify-center 
+                            rounded-md  px-4 py-2 text-sm font-medium 
+                            text-white  focus:outline-none 
+                            focus-visible:ring-2 focus-visible:ring-white/75"
+                            >
+                                <img src="~/assets/images/dot.png" alt="dot"
+                                class="absolute cursor-pointer h-[40px]" 
+                                />
+
+                            </MenuButton>
+                        </div>
+
+                        <transition
+                            enter-active-class="transition duration-100 ease-out"
+                            enter-from-class="transform scale-95 opacity-0"
+                            enter-to-class="transform scale-100 opacity-100"
+                            leave-active-class="transition duration-75 ease-in"
+                            leave-from-class="transform scale-100 opacity-100"
+                            leave-to-class="transform scale-95 opacity-0"
+                        >
+                            <MenuItems
+                            class="absolute right-0 mt-2 w-[120px] origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none"
+                            >
+                            <div class="px-1 py-1">
+                                <MenuItem v-slot="{ active }">
+                                <NuxtLink :to="'editclassroom/' + item.id"
+                                    :class="[
+                                    active ? 'bg-[#7071E8] text-white' : 'text-gray-900',
+                                    'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                                    ]"
+                                >
+                                    
+                                    <Icon name="ion:edit" class="mr-3  text-sm" />
+                                    Edit
+                                </NuxtLink>
+                                </MenuItem>
+                            </div>
+                            
+                            <div class="px-1 py-1">
+                                <MenuItem v-slot="{ active }">
+                                <button
+                                    :class="[
+                                    active ? 'bg-[#7071E8] text-white' : 'text-gray-900',
+                                    'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                                    ]"
+                                    @click="onClickDeleteClassroom (item.id)"
+                                >
+                                    <Icon name="ion:ios-trash" class="mr-3  text-sm" />
+                                    Delete
+                                </button>
+                                </MenuItem>
+                            </div>
+                            </MenuItems>
+                        </transition>
+                        </Menu>
                 </div>
 
                 <div class="flex justify-center mt-1">

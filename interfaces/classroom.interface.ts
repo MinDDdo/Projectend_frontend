@@ -8,6 +8,9 @@ export interface ClassroomCreateDto {
 
 export interface ClassroomUpdateDto {
     name: string;
+    subject_code: string;
+    grade: string;
+    image: string;
 }
 
 export interface ClassroomResponse {
