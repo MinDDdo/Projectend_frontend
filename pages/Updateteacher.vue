@@ -1,54 +1,51 @@
 <script setup lang="ts">
-
-import type { TeacherResponse } from '@/interfaces/teacher.interface'
 import dayjs from 'dayjs';
 
-const teacher = ref<TeacherResponse | null>(null);
+const teacherStore = useStore.teacherStore();
 
-const firstname = ref<string>('');
-const lastname = ref<string>('');
-const dob = ref<string>('');
-const gender = ref<string>('');
-const lineContact = ref<string>('');
-const phoneContact = ref<string>('');
+const updateForm = reactive({
+    firstname: '',
+    lastname: '',
+    dob: '',
+    gender: '',
+    lineContact: '',
+    phoneContact: ''
+})
 
 onMounted(async () => {
     await getTeacherById();
 })
 
 const getTeacherById = async () => {
-    const data = await useApi.teacherService.getTeacherById('65c0f97b48f2c8d8846a2251')
+    const data = await useApi.teacherService.getTeacherById(teacherStore.id);
 
     if (!data) {
-            return navigateTo('/');
-        }
+        return navigateTo('/');
+    }
 
-        firstname.value = data.result.data.firstname;
-        lastname.value = data.result.data.lastname;
-        dob.value = dayjs(data.result.data.dob).format('YYYY-MM-DD HH:mm:ss');
-        gender.value = data.result.data.gender;
-        lineContact.value = data.result.data.line_contact;
-        phoneContact.value = data.result.data.phone_contact;
-        console.log(data.result.data)
-        
+    updateForm.firstname = data.result.data.firstname;
+    updateForm.lastname = data.result.data.lastname;
+    updateForm.dob = dayjs(data.result.data.dob).format('YYYY-MM-DD HH:mm:ss');
+    updateForm.gender = data.result.data.gender;
+    updateForm.lineContact = data.result.data.line_contact;
+    updateForm.phoneContact = data.result.data.phone_contact;
 }
 
 const updateTeacher = async () => {
-    const data = await useApi.teacherService.update('65c0f97b48f2c8d8846a2251', {
-        firstname: firstname.value,
-        lastname: lastname.value,
-        dob: dob.value,
-        gender: gender.value,
-        line_contact: lineContact.value,
-        phone_contact: phoneContact.value
-
+    const data = await useApi.teacherService.update(teacherStore.id, {
+        firstname: updateForm.firstname,
+        lastname: updateForm.lastname,
+        dob: updateForm.dob,
+        gender: updateForm.gender,
+        line_contact: updateForm.lineContact,
+        phone_contact: updateForm.phoneContact
     })
 
     if (!data) {
-            return navigateTo('/');
-        }
+        return navigateTo('/');
+    }
 
-        navigateTo('/classroomlist')
+    navigateTo('/classroomlist')
 }
 
 </script>
@@ -78,11 +75,10 @@ const updateTeacher = async () => {
 
                 <div class="flex justify-center mt-20">
                     <p class="mt-1 pr-5">ชื่อจริง</p>
-                    
                         <input 
                             type="text"
                             placeholder="ชื่อ"
-                            v-model="firstname"
+                            v-model="updateForm.firstname"
                             class="pt-1 bg-[#DCF2F1] rounded-[10px] w-[300px] h-[35px] pl-5"
                         />
                     
@@ -94,7 +90,7 @@ const updateTeacher = async () => {
                         <input 
                             type="text"
                             placeholder="นามสกุล"
-                            v-model="lastname"
+                            v-model="updateForm.lastname"
                             class="pt-1 bg-[#DCF2F1] rounded-[10px] w-[300px] h-[35px] pl-5"
                         />
                     
@@ -106,7 +102,7 @@ const updateTeacher = async () => {
                         <input 
                             type="input"
                             placeholder="วว/ดด/ปป"
-                            v-model="dob"
+                            v-model="updateForm.dob"
                             class="pt-1 bg-[#DCF2F1] rounded-[10px] w-[300px] h-[35px] pl-5"
                         />
                     
@@ -129,7 +125,7 @@ const updateTeacher = async () => {
                         <input 
                             type="text"
                             placeholder="เบอร์"
-                            v-model="phoneContact"
+                            v-model="updateForm.phoneContact"
                             class="pt-1 bg-[#DCF2F1] rounded-[10px] w-[300px] h-[35px] pl-5"
                         />
                     
@@ -141,16 +137,19 @@ const updateTeacher = async () => {
                         <input 
                             type="text"
                             placeholder="ไอดีไลน์"
-                            v-model="lineContact"
+                            v-model="updateForm.lineContact"
                             class="pt-1 bg-[#DCF2F1] rounded-[10px] w-[300px] h-[35px] pl-5"
                         />
                     
                 </div>
 
                 <div class="flex justify-center mt-7 gap-x-10">
-                    <button class="p-1 bg-[#E5E5E5] w-[160px] h-[35px] rounded-[10px] font-bold">
+                    <NuxtLink 
+                        to="/classroomlist" 
+                        class="p-1 bg-[#E5E5E5] w-[160px] h-[35px] rounded-[10px] font-bold"
+                    >
                         ยกเลิก
-                    </button>
+                    </NuxtLink>
 
                     <button type="submit" class="p-1 bg-[#676B7D] w-[160px] h-[35px] rounded-[10px] text-white font-bold">
                         บันทึก

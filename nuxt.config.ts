@@ -12,7 +12,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@pinia-plugin-persistedstate/nuxt',
     'nuxt-headlessui',
-    'nuxt-icon'
+    'nuxt-icon',
   ],
 
   runtimeConfig: {

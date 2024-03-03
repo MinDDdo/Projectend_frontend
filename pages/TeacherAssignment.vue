@@ -1,6 +1,7 @@
 <script setup lang="ts">
 
 </script>
+
 <template>
     <div class="h-screen bg-[#EEF5FF] ">
         <div class="flex justify-between px-10  ">
