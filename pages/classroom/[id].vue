@@ -6,8 +6,22 @@ import type { StudentResponse } from '~/interfaces/student.interface';
 import Classroomlist from '../Classroomlist.vue';
 import type { ClassroomResponse } from '~/interfaces/classroom.interface';
 
+import {
+  TransitionRoot,
+  TransitionChild,
+  Dialog,
+  DialogPanel,
+  DialogTitle,
+} from '@headlessui/vue'
+
 const studentList = ref<StudentResponse[]>([]);
 const classroom = ref<ClassroomResponse | null>(null);
+
+const isOpen = ref<boolean>(false);
+
+const classroomName = ref<string>('');
+const grade = ref<string>('');
+const subjectCode = ref<string>('');
 
 onMounted(async () => {
     await getAllStudent();
@@ -36,16 +50,41 @@ const getClassroomById = async () => {
     classroom.value = data.result.data;
 }
 
+const closeModal =  () => {
+    isOpen.value = false;
+}
+
+const onClickEditButton = async () => {
+    isOpen.value = true;
+
+    classroomName.value = classroom.value?.name || '';
+    grade.value = classroom.value?.grade || '';
+    subjectCode.value = classroom.value?.subject_code || '';
+}
+
+const onSubmitUpdateclassroom = async () => {
+    const data = await useApi.classroomService.updateClassroomById(route.params?.id + '', {
+        name: classroomName.value,
+        subject_code: subjectCode.value,
+        grade: grade.value,
+        image: "aaaa"
+    })
+
+    if (!data) {
+        return navigateTo('/');
+    }
+    isOpen.value = false;
+    
+    await getAllStudent();
+    await getClassroomById();
+}
+
 
 </script>
 
 <template>
     <div class="min-h-screen bg-[#EEF5FF] ">
-        <div class="flex justify-between px-10 ">
-            <div class="mt-3">
-                <img src="~/assets/images/menu.png" alt="menu" />
-            </div>
-            
+        <div class="flex justify-end px-10 ">
             <div class="bg-white flex gap-x-5 items-center mt-3 p-1 rounded-[10px] w-[190px] ">
                 <img src="~/assets/images/T1.png" alt="T1"/>
                 <p>ใจดี มีชัย</p>
@@ -60,7 +99,7 @@ const getClassroomById = async () => {
 
         <div class="flex justify-center mt-5">
             <div class="bg-[#FFFFFF] p-4 w-[600px] h-[190px] rounded-[15px]">
-                <div class="flex justify-end">
+                <div @click="onClickEditButton" class="flex justify-end">
                     <p class="pr-2">แก้ไข</p>
                     <img src="~/assets/images/setting.png" alt="setting"/>
                 </div>
@@ -84,6 +123,48 @@ const getClassroomById = async () => {
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="flex justify-center gap-x-5 mt-10">
+            <div class="bg-[#DCF2F1] p-5 w-[150px] rounded-[20px] flex flex-col items-center">
+                <img src="~/assets/images/home1.png" 
+                alt="home1"
+                class="w-[45px] "
+                />
+                <p class="text-center pt-1">หน้าหลัก</p>
+            </div>
+
+            <div class="bg-[#DCF2F1] p-5 w-[150px] rounded-[20px] flex flex-col items-center">
+                <img src="~/assets/images/classroombox.png" 
+                alt="classroombox"
+                class="w-[45px] "
+                />
+                <p class="text-center pt-1">ห้องเรียน</p>
+            </div>
+
+            <div class="bg-[#DCF2F1] p-5 w-[150px] rounded-[20px] flex flex-col items-center">
+                <img src="~/assets/images/assignment1.png" 
+                alt="assgnment1"
+                class="w-[40px] "
+                />
+                <p class="text-center pt-1">งานที่มอบหมาย</p>
+            </div>
+
+            <div class="bg-[#DCF2F1] p-5 w-[150px] rounded-[20px] flex flex-col items-center">
+                <img src="~/assets/images/hand1.png" 
+                alt="hsnd1"
+                class="w-[45px] "
+                />
+                <p class="text-center pt-1">การเข้าเรียน</p>
+            </div>
+
+            <div class="bg-[#DCF2F1] p-5 w-[150px] rounded-[20px] flex flex-col items-center">
+                <img src="~/assets/images/createassign.png" 
+                alt="createassign"
+                class="w-[45px] "
+                />
+                <p class="text-center pt-1">สร้างเรียน</p>
             </div>
         </div>
 
@@ -130,6 +211,8 @@ const getClassroomById = async () => {
                     </div>
                 </div>
             </div>
+
+           
         </div>
 
         <div class="flex justify-center">
@@ -148,11 +231,90 @@ const getClassroomById = async () => {
                 />
     
                 <p class="bg-[#FFF8E3] p-2 rounded-full min-w-[100px] text-center text-lg font-bold">เลขที่ {{ item.no }}</p>
-                <p class=" text-lg font-bold mt-7 mb-10">{{ item.firstname }}{{ item.lastname }} </p>
+                <p class=" text-lg font-bold mt-7 mb-10 flex gap-x-3">
+                    <p>{{ item.firstname }}</p>
+                    <p>{{ item.lastname }} </p>
+                </p>
             </div>
         </div>
-
     </div>
+
+    <TransitionRoot appear :show="isOpen" as="template">
+    <Dialog as="div" @close="closeModal" class="relative z-10">
+      <TransitionChild
+        as="template"
+        enter="duration-300 ease-out"
+        enter-from="opacity-0"
+        enter-to="opacity-100"
+        leave="duration-200 ease-in"
+        leave-from="opacity-100"
+        leave-to="opacity-0"
+      >
+        <div class="fixed inset-0 bg-black/25" />
+      </TransitionChild>
+
+      <div class="fixed inset-0 overflow-y-auto">
+        <div
+          class="flex min-h-full items-center justify-center p-4 text-center"
+        >
+          <TransitionChild
+            as="template"
+            enter="duration-300 ease-out"
+            enter-from="opacity-0 scale-95"
+            enter-to="opacity-100 scale-100"
+            leave="duration-200 ease-in"
+            leave-from="opacity-100 scale-100"
+            leave-to="opacity-0 scale-95"
+          >
+            <DialogPanel
+              class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
+            >
+            
+            <form 
+                    @submit.prevent="onSubmitUpdateclassroom"
+                    class="flex flex-col mt-8 gap-y-7 w-[400px]">
+                    
+                    <input 
+                        type="text" 
+                        placeholder="ชื่อชั้นเรียน" 
+                        v-model="classroomName"
+                        class="p-2 px-5 rounded-xl  bg-[#DCF2F1]
+                                h-[50px] text-[18px]" 
+                    />
+
+                    <input 
+                        type="text" 
+                        placeholder="ชั้นเรียน" 
+                        v-model="grade"
+                        class="p-2 px-5 rounded-xl  bg-[#DCF2F1]
+                            h-[50px] text-[18px]" 
+                    />
+                    <input 
+                        type="text" 
+                        placeholder="รหัสวิชา" 
+                        v-model="subjectCode"
+                        class="p-2 px-5 rounded-xl  bg-[#DCF2F1]
+                                h-[50px] text-[18px]" 
+                    />
+                    <div class="flex justify-between h-[50px]  ">
+                        <button @click="isOpen = false"
+                            type="submit" 
+                            class="p-1 font-bold bg-[#E5E5E5] rounded-xl w-[190px]">
+                            ยกเลิก
+                        </button>
+                        <button 
+                            type="submit" 
+                            class="p-1 text-white font-bold bg-[#676B7D] rounded-xl w-[190px]">
+                            แก้ไข
+                        </button>
+                    </div>
+                </form>
+            </DialogPanel>
+          </TransitionChild>
+        </div>
+      </div>
+    </Dialog>
+  </TransitionRoot>
 </template>
 
 <style scoped>

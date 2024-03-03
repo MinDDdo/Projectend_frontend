@@ -1,13 +1,21 @@
-<script setup lang="ts">
+<script lang="ts" setup>
+
+import type { ClassroomResponse } from '~/interfaces/classroom.interface';
+
+const route = useRoute();
 
 const classroomName = ref<string>('');
 const grade = ref<string>('');
 const subjectCode = ref<string>('');
 
-const onSubmitCreateclassroom = async () => {
-    const data = await useApi.classroomService.createClassroom({ 
+onMounted(async () => {
+    await getClassroomById();
+
+})
+
+const onSubmitUpdateclassroom = async () => {
+    const data = await useApi.classroomService.updateClassroomById(route.params?.id + '', {
         name: classroomName.value,
-        owner: "65c0f97b48f2c8d8846a2251",
         subject_code: subjectCode.value,
         grade: grade.value,
         image: "aaaa"
@@ -16,17 +24,28 @@ const onSubmitCreateclassroom = async () => {
     if (!data) {
         return navigateTo('/');
     }
-    
-    classroomName.value = ""
-    grade.value = ""
-    subjectCode.value = ""
 
     navigateTo('/classroomlist')
 }
 
+
+const getClassroomById = async () => {
+
+    const data = await useApi.classroomService.getClassroomById(route.params?.id + '')
+
+    if (!data) {
+        return navigateTo('/');
+    } 
+    
+    classroomName.value = data.result.data.name;
+    grade.value = data.result.data.grade;
+    subjectCode.value = data.result.data.subject_code;
+}
+
 </script>
+
 <template>
-    <div class="h-screen bg-[#EEF5FF] ">
+<div class="h-screen bg-[#EEF5FF] ">
         <div class="flex justify-between px-10 ">
             <div class="mt-5">
                 <img src="~/assets/images/menu.png" alt="menu" />
@@ -44,7 +63,7 @@ const onSubmitCreateclassroom = async () => {
                     <div class=" flex  bg-white 
                                 w-[600px] 
                                 h-[570px] rounded-[20px]  ">
-                                <div class=" flex flex-col gap-y-5 items-center 
+                                 <div class=" flex flex-col gap-y-5 items-center 
                                  w-[600px] 
                                  h-[570px] rounded-[20px]">
                 
@@ -63,7 +82,7 @@ const onSubmitCreateclassroom = async () => {
                 </div>
                 
                 <form 
-                    @submit.prevent="onSubmitCreateclassroom"
+                    @submit.prevent="onSubmitUpdateclassroom"
                     class="flex flex-col mt-8 gap-y-7 w-[500px]">
                     
                     <input 
@@ -105,17 +124,17 @@ const onSubmitCreateclassroom = async () => {
                                     
             </div>
                 <div class="absolute  -top-9
-                    bg-[#7071E8] text-white p-2
-                    min-w-[300px] max-w-[300px] 
+                    bg-[#7071E8] text-white p-1
+                    min-w-[300px] max-w-[350px] 
                     min-h-[65px] max-h-[65px] rounded-[20px] 
                     text-[26px] px-20
                 ">
-                    <p>สร้างชั้นเรียน</p>
+                    <p>แก้ไขชั้นเรียน</p>
                 </div>
             </div>
             
         </div>
     </div>
 </div>
-    
+
 </template>
