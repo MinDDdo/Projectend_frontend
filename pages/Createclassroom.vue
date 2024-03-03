@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const storeTeacher = useStore.teacherStore();
 
 const classroomName = ref<string>('');
 const grade = ref<string>('');
@@ -7,7 +8,7 @@ const subjectCode = ref<string>('');
 const onSubmitCreateclassroom = async () => {
     const data = await useApi.classroomService.createClassroom({ 
         name: classroomName.value,
-        owner: "65c0f97b48f2c8d8846a2251",
+        owner: storeTeacher.id,
         subject_code: subjectCode.value,
         grade: grade.value,
         image: "aaaa"
@@ -88,12 +89,14 @@ const onSubmitCreateclassroom = async () => {
                         class="p-2 px-5 rounded-xl  bg-[#DCF2F1]
                                 h-[50px] text-[18px]" 
                     />
-                    <div class="flex justify-between h-[50px]  ">
-                        <button 
-                            type="submit" 
-                            class="p-2 font-bold bg-[#E5E5E5] rounded-xl w-[210px]">
+                    <div class="flex justify-between">
+                        <NuxtLink 
+                            to="/classroomlist"
+                            class="p-2 font-bold bg-[#E5E5E5] rounded-xl w-[210px] text-center"
+                        >
                             ยกเลิก
-                        </button>
+                        </NuxtLink>
+
                         <button 
                             type="submit" 
                             class="p-2 text-white font-bold bg-[#676B7D] rounded-xl w-[210px]">

@@ -1,13 +1,20 @@
 import { defineStore } from 'pinia'
 
 interface Teacher {
-    id: string;
+  id: string;
 }
 
 export const teacherStore = defineStore('teacher', {
   state: (): Teacher => {
     return {
-        id: '',
+      id: '',
     }
   },
+
+  persist: [
+    {
+      paths: ['id'],
+      storage: localStorage,
+    },
+  ],
 })

@@ -5,16 +5,15 @@ import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 const teacherStore = useStore.teacherStore();
 
 const classroomList = ref<ClassroomResponse[]>([]);
+const classroomIdSelected = ref<string>('');
+const showModalConfirm = ref<boolean>(false);
 
 onMounted(async () => {
     await getAllClassroom();
 })
 
 const getAllClassroom = async () => {
-    // const data = await useApi.classroomService.getAllClassroom(teacherStore.id);
-
-    // test teacher id
-    const data = await useApi.classroomService.getAllClassroom('65c0f97b48f2c8d8846a2251');
+    const data = await useApi.classroomService.getAllClassroom(teacherStore.id);
 
     if (!data) {
         return navigateTo('/');
@@ -24,17 +23,21 @@ const getAllClassroom = async () => {
 }
 
 const onClickDeleteClassroom = async (classroomId: string) => {
-    
-    const data = await useApi.classroomService.deleteClassroomById(classroomId);
-    
+    classroomIdSelected.value = classroomId;
+    showModalConfirm.value = true;
+}
+
+
+const onConfirmDelete = async () => {
+    const data = await useApi.classroomService.deleteClassroomById(classroomIdSelected.value);
+    showModalConfirm.value = false;
+
     if (!data) {
         return navigateTo('/');
     }
 
     await getAllClassroom();
-
 }
-
 </script>
 
 <template>
@@ -156,5 +159,8 @@ const onClickDeleteClassroom = async (classroomId: string) => {
             </div>
 
         </div>
+
     </div>
+
+    <Modal v-model:show="showModalConfirm" @on-confirm="onConfirmDelete" />
 </template>
