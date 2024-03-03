@@ -11,8 +11,8 @@
         </div>
 
         <div class="mt- flex justify-center ">
-            <div class=" flex flex-col gap-y-5 items-center min-w-[550px] max-w-[550px] min-h-[500px] max-h-[500px]">
-                <h1 class="text-[30px] text-center"><b>ภาษาไทย</b></h1>
+            <div class=" flex flex-col gap-y-4 items-center w-[500px] h-[410px]">
+                <h1 class="text-[28px] text-center"><b>ภาษาไทย</b></h1>
                 <div class="flex justify-center relative">
                     <div class="  ">
                         <img src="~/assets/images/Kid (24).png" 
@@ -53,10 +53,10 @@
                 
                 </button>
                 
-                <button type="submit" class="p-2 px-12 text-white font-bold bg-[#676B7D] rounded-md ">
+                <button type="submit" class="p-2 px-[20px] text-white font-bold bg-[#676B7D] rounded-md ">
                     <div class="flex  gap-x-1">
                     
-                        <img src="~/assets/images/logocalendar.png" alt="logocalendar" width="24" height="24"  />
+                        <img src="~/assets/images/logocalendar.png" alt="logocalendar" width="20" height="20"  />
                         <p>การเข้าเรียน   </p>    
                     </div>                
                 </button>
@@ -64,27 +64,27 @@
         </div>
         
         <div class=" flex justify-center ">
-            <div class = "grid  grid-cols-2 gap-x-28  gap-y-12 " >
-                <div class = " flex justify-between px-7 pt-9 bg-white min-w-[425px] max-w-[425px] min-h-[150px] max-h-[150px] rounded-[20px]  " >
-                    <div class="flex-col  ">
-                        <p class=" flex font-bold text-[24px]  ">ชื่องาน A</p>
+            <div class = "grid  grid-cols-2 gap-x-[60px]  gap-y-12 " >
+                <div class = " flex justify-between px-7 pt-10 bg-white w-[405px] h-[140px] rounded-[20px]  " >
+                    <div class="flex-col space-y-3  ">
+                        <p class=" flex font-bold text-[20px]  ">ชื่องาน A</p>
                         <div class="flex gap-x-5" >
-                            <p class=" flex text-[20px] ">กำหนดส่ง</p>
+                            <p class=" flex text-[18px] ">กำหนดส่ง</p>
                         
-                            <p class="  flex text-[#D04848] text-[20px] "> 30 ธ.ค. 2566</p>
+                            <p class="  flex text-[#D04848] text-[18px] "> 30 ธ.ค. 2566</p>
                         </div>
                     </div>
                     <div class="bg-[#CC3636] text-white text-center min-w-[85px] max-w-[80px] min-h-[75px] max-h-[75px] rounded-[20px] ">
                         <p class="text-[18px]  pt-5"> ยังไม่ส่ง</p>
                     </div>
                 </div>
-                <div class = " flex justify-between px-7 pt-9 bg-white min-w-[425px] max-w-[425px] min-h-[150px] max-h-[150px] rounded-[20px]  " >
-                    <div class="flex-col  ">
-                        <p class=" flex font-bold text-[24px]  ">ชื่องาน B</p>
+                <div class = " flex justify-between px-7 pt-10 bg-white w-[405px] h-[140px] rounded-[20px]  " >
+                    <div class="flex-col space-y-3 ">
+                        <p class=" flex font-bold text-[20px]  ">ชื่องาน B</p>
                         <div class="flex gap-x-5" >
-                            <p class=" flex text-[20px] ">กำหนดส่ง</p>
+                            <p class=" flex text-[18px] ">กำหนดส่ง</p>
                         
-                            <p class="  flex text-[#D04848] text-[20px] "> 5 ธ.ค. 2567</p>
+                            <p class="  flex text-[#D04848] text-[18px] "> 5 ธ.ค. 2567</p>
                         </div>
                     </div>
                     <div class="bg-[#5D9C59] text-white text-center min-w-[85px] max-w-[80px] min-h-[75px] max-h-[75px] rounded-[20px] ">
