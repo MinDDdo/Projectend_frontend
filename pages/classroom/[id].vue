@@ -84,11 +84,7 @@ const onSubmitUpdateclassroom = async () => {
 
 <template>
     <div class="min-h-screen bg-[#EEF5FF] ">
-        <div class="flex justify-between px-10 ">
-            <div class="mt-3">
-                <img src="~/assets/images/menu.png" alt="menu" />
-            </div>
-            
+        <div class="flex justify-end px-10 ">
             <div class="bg-white flex gap-x-5 items-center mt-3 p-1 rounded-[10px] w-[190px] ">
                 <img src="~/assets/images/T1.png" alt="T1"/>
                 <p>ใจดี มีชัย</p>
@@ -127,6 +123,48 @@ const onSubmitUpdateclassroom = async () => {
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="flex justify-center gap-x-5 mt-10">
+            <div class="bg-[#DCF2F1] p-5 w-[150px] rounded-[20px] flex flex-col items-center">
+                <img src="~/assets/images/home1.png" 
+                alt="home1"
+                class="w-[45px] "
+                />
+                <p class="text-center pt-1">หน้าหลัก</p>
+            </div>
+
+            <div class="bg-[#DCF2F1] p-5 w-[150px] rounded-[20px] flex flex-col items-center">
+                <img src="~/assets/images/classroombox.png" 
+                alt="classroombox"
+                class="w-[45px] "
+                />
+                <p class="text-center pt-1">ห้องเรียน</p>
+            </div>
+
+            <div class="bg-[#DCF2F1] p-5 w-[150px] rounded-[20px] flex flex-col items-center">
+                <img src="~/assets/images/assignment1.png" 
+                alt="assgnment1"
+                class="w-[40px] "
+                />
+                <p class="text-center pt-1">งานที่มอบหมาย</p>
+            </div>
+
+            <div class="bg-[#DCF2F1] p-5 w-[150px] rounded-[20px] flex flex-col items-center">
+                <img src="~/assets/images/hand1.png" 
+                alt="hsnd1"
+                class="w-[45px] "
+                />
+                <p class="text-center pt-1">การเข้าเรียน</p>
+            </div>
+
+            <div class="bg-[#DCF2F1] p-5 w-[150px] rounded-[20px] flex flex-col items-center">
+                <img src="~/assets/images/createassign.png" 
+                alt="createassign"
+                class="w-[45px] "
+                />
+                <p class="text-center pt-1">สร้างเรียน</p>
             </div>
         </div>
 
@@ -173,6 +211,8 @@ const onSubmitUpdateclassroom = async () => {
                     </div>
                 </div>
             </div>
+
+           
         </div>
 
         <div class="flex justify-center">
@@ -191,7 +231,10 @@ const onSubmitUpdateclassroom = async () => {
                 />
     
                 <p class="bg-[#FFF8E3] p-2 rounded-full min-w-[100px] text-center text-lg font-bold">เลขที่ {{ item.no }}</p>
-                <p class=" text-lg font-bold mt-7 mb-10">{{ item.firstname }}{{ item.lastname }} </p>
+                <p class=" text-lg font-bold mt-7 mb-10 flex gap-x-3">
+                    <p>{{ item.firstname }}</p>
+                    <p>{{ item.lastname }} </p>
+                </p>
             </div>
         </div>
     </div>
@@ -226,9 +269,10 @@ const onSubmitUpdateclassroom = async () => {
             <DialogPanel
               class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
             >
+            
             <form 
                     @submit.prevent="onSubmitUpdateclassroom"
-                    class="flex flex-col mt-8 gap-y-7 w-[500px]">
+                    class="flex flex-col mt-8 gap-y-7 w-[400px]">
                     
                     <input 
                         type="text" 
@@ -255,12 +299,12 @@ const onSubmitUpdateclassroom = async () => {
                     <div class="flex justify-between h-[50px]  ">
                         <button @click="isOpen = false"
                             type="submit" 
-                            class="p-2 font-bold bg-[#E5E5E5] rounded-xl w-[210px]">
+                            class="p-1 font-bold bg-[#E5E5E5] rounded-xl w-[190px]">
                             ยกเลิก
                         </button>
                         <button 
                             type="submit" 
-                            class="p-2 text-white font-bold bg-[#676B7D] rounded-xl w-[210px]">
+                            class="p-1 text-white font-bold bg-[#676B7D] rounded-xl w-[190px]">
                             แก้ไข
                         </button>
                     </div>
