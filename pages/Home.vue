@@ -1,5 +1,35 @@
 <script setup lang="ts">
+import { jwtDecode } from 'jwt-decode';
 
+const authStudent = useStore.authStudentStore();
+const studentStore = useStore.studentStore();
+
+const joinClassroomForm = reactive({
+    classroomCode: '',
+    no: ''
+})
+
+const onJoinClassroom = async () => {
+    const data = await useApi.studentService.joinClassroom(
+        joinClassroomForm.classroomCode,
+        joinClassroomForm.no
+    )
+
+    if (!data) {
+        authStudent.$reset();
+        return navigateTo('/home');
+    }
+
+    authStudent.access_token = data.result.data.access_token;
+    authStudent.refresh_token = data.result.data.refresh_token;
+
+    const decode: { student_id: string, classroom_id: string } = jwtDecode(authStudent.access_token);
+
+    studentStore.id = decode.student_id;
+    studentStore.classroomId = decode.student_id;
+
+    navigateTo('/studentclassroom');
+}
 </script>
 
 <template>
@@ -28,26 +58,40 @@
                     </div>
 
                     <div class="flex justify-center flex-col mt-10 ml-4">
-                        <div class="flex gap-2 items-center ">
+                        <form @submit.prevent="onJoinClassroom" class="flex gap-2 items-center">
                             <p class="mr-3 font-bold">สำหรับนักเรียน</p>
+
                             <input
                                 type="text"
                                 placeholder="รหัสห้องเรียน"
-                                class="p-1 px-1   bg-[#FFFFFF] text-center w-[150px]" 
+                                class="p-1 px-1   bg-[#FFFFFF] text-center w-[150px]"
+                                v-model="joinClassroomForm.classroomCode" 
     
                             />
+
                             <input
                                 type="text"
                                 placeholder="เลขที่"
-                                class="p-1 px-1   bg-[#FFFFFF] text-center w-[100px]" 
+                                class="p-1 px-1   bg-[#FFFFFF] text-center w-[100px]"
+                                v-model="joinClassroomForm.no" 
     
                             />
-                            <button type="submit" class="p-1 bg-[#676B7D] text-white rounded-[4px] w-[100px] ml-2">เข้าร่วม</button>
-                        </div>
+
+                            <button type="submit" class="p-1 bg-[#676B7D] text-white rounded-[4px] w-[100px] ml-2">
+                                เข้าร่วม
+                            </button>
+                        </form>
 
                         <div class="flex mt-5 items-center">
                             <p class="mr-7 font-bold">สำหรับคุณครู</p>
-                            <button type="submit" class="p-1 bg-[#676B7D] text-white rounded-[4px] w-[140px] ml-2">จัดการชั้นเรียน</button>
+                            
+                            <NuxtLink
+                                to="/login" 
+                                type="submit" 
+                                class="p-1 bg-[#676B7D] text-white rounded-[4px] w-[140px] ml-2 text-center"
+                            >
+                                จัดการชั้นเรียน
+                            </NuxtLink>
                         </div>
                     </div>
                 </div>
