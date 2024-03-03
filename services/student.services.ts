@@ -2,6 +2,7 @@ import axios, { AxiosError } from "axios";
 import { type StudentCreateDto, type RandomGroupDto, type StudentUpdateDto, type StudentResponse } from "~/interfaces/student.interface";
 import { checkToken } from "./auth"; 
 import type { Response } from "~/interfaces/response.interface";
+import type { LoginResponse } from '~/interfaces/authen.interface';
 
 
 export const createStudent = async (classroomId: string, data: StudentCreateDto) => {
@@ -196,13 +197,38 @@ export const randomGroup = async (classroomId: string, data: RandomGroupDto) => 
     }
 }
 
+export const joinClassroom = async (classroomCode: string, no: string): Promise<Response<LoginResponse> | null> => {
+    try {
+        const apiUrl = useRuntimeConfig().public.apiUrl;
+
+        const response = await axios<Response<LoginResponse>>({
+            method: 'post',
+            url: apiUrl + "auth/join-classroom",
+            data: {
+                classroom_code: classroomCode,
+                no: no
+            }
+        })
+    
+        return response.data;
+    } catch (error) {
+        if (error instanceof AxiosError) {
+            return error.response?.data;
+        }
+
+        console.log(error);
+        return null;
+    }
+}
+
 const studentService = {
     createStudent,
     updateStudent,
     getAllStudent, 
     getStudentById,
     deleteStudentById,
-    randomGroup
+    randomGroup,
+    joinClassroom,
 }
 
 export default studentService;

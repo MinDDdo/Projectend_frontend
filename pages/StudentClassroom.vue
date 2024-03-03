@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import type { StudentResponse } from '~/interfaces/student.interface';
 
+const studentStore = useStore.studentStore();
+
 onMounted(async () => {
     await getStudentById();
 })
@@ -9,12 +11,12 @@ const student = ref<StudentResponse | null>(null);
 
 const getStudentById = async () => {
     const data = await useApi.studentService.getStudentById(
-        '65c7aaf2889566d65f6a3451',
-        '65da00509d7993180f4cc1ba'
+        studentStore.classroomId,
+        studentStore.id
     );
 
     if (!data) {
-        return navigateTo('/');
+        return navigateTo('/home');
     }
 
     student.value = data.result.data;
