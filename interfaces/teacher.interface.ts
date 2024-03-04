@@ -26,3 +26,12 @@ export interface TeacherResponse {
     image: string;
 }
 
+export interface SignupResponse {
+    firstname: string;
+    lastname: string;
+    dob: string;
+    gender: string;
+    email: string;
+    password: string; 
+}
+

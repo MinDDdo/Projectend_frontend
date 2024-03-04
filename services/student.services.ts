@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { type StudentCreateDto, type RandomGroupDto, type StudentUpdateDto, type StudentResponse } from "~/interfaces/student.interface";
-import { checkToken } from "./auth"; 
+import { checkStudentToken, checkToken } from "./auth"; 
 import type { Response } from "~/interfaces/response.interface";
 import type { LoginResponse } from '~/interfaces/authen.interface';
 
@@ -108,9 +108,9 @@ export const getStudentById = async (
     studentId: string
 ): Promise<Response<StudentResponse> | null> => {
     try {
-        const authStore = useStore.authStore();
+        const authStudentStore = useStore.authStudentStore();
 
-        if (!await checkToken()) {
+        if (!await checkStudentToken()) {
             console.log('Unauthorize');
 
             return null;
@@ -122,7 +122,7 @@ export const getStudentById = async (
             method: 'get',
             url: apiUrl + "student/"+ classroomId +"/getById-student/" + studentId,
             headers: {
-                'Authorization': 'Bearer ' + authStore.access_token
+                'Authorization': 'Bearer ' + authStudentStore.access_token
             }
         })
         return response.data;

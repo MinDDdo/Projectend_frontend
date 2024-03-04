@@ -64,17 +64,17 @@ const updateTeacher = async () => {
         </div>
 
         <div class="flex justify-center relative mt-5">
-            <form 
-                @submit.prevent="updateTeacher"
-                class="p-2 bg-[#FFFFFF] w-[530px] h-[530px] rounded-[30px] ">
-                <div class="absolute left-1/2 transform -translate-x-1/2 -top-[60px]">
+            <div class="absolute left-1/2 transform -translate-x-1/2 -top-[60px]">
                     <img src="~/assets/images/T2.png" alt="T2"
                     class="w-[130px]"
                     />
-                </div>
-
-                <div class="flex justify-center mt-20">
-                    <p class="mt-1 pr-5">ชื่อจริง</p>
+            </div>
+            <form 
+                @submit.prevent="updateTeacher"
+                class="p-2 bg-[#FFFFFF] w-[530px] h-[530px] rounded-[30px] ">
+                
+                <div class="flex justify-center mt-20 gap-x-[20px]">
+                    <p class="w-[70px] self-center leading-none">ชื่อจริง</p>
                         <input 
                             type="text"
                             placeholder="ชื่อ"
@@ -84,8 +84,8 @@ const updateTeacher = async () => {
                     
                 </div>
 
-                <div class="flex justify-center mt-7">
-                    <p class="mt-1 pr-3">นามสกุล</p>
+                <div class="flex justify-center mt-7 gap-x-5">
+                    <p class="w-[70px] self-center leading-none">นามสกุล</p>
                     
                         <input 
                             type="text"
@@ -96,8 +96,8 @@ const updateTeacher = async () => {
                     
                 </div>
 
-                <div class="flex justify-center mt-7">
-                    <p class="mt-1 pr-6">วันเกิด</p>
+                <div class="flex justify-center mt-7 gap-x-5">
+                    <p class="w-[70px] self-center leading-none">วันเกิด</p>
                     
                         <input 
                             type="input"
@@ -106,21 +106,27 @@ const updateTeacher = async () => {
                             class="pt-1 bg-[#DCF2F1] rounded-[10px] w-[300px] h-[35px] pl-5"
                         />
                     
-                </div>
-                <div class="flex justify-center mt-7">
-                    <p class="mt-1 pr-6">วันเกิด</p>
-                    
-                        <input 
-                            type=""
-                            placeholder="วว/ดด/ปป"
-                            
-                            class="pt-1 bg-[#DCF2F1] rounded-[10px] w-[300px] h-[35px] pl-5"
-                        />
+                </div> 
+                <div class="flex justify-center mt-7 gap-x-[55px] pl-2">
+                   <P class=" w-[70px] self-center leading-none">เพศ</P>
+                   <div class="flex justify-center gap-x-2 pr-10">
+                       <input type="radio" id="" name="gendermail" >
+    
+                            <label for="age1">ชาย</label><br>
+    
+                        <input type="radio" id="" name="genderfemail" >
+    
+                            <label for="age1">หญิง</label><br>
+    
+                        <input type="radio" id="" name="genderLGBT">
+    
+                             <label for="age1">LGBTQ+</label><br>
+                   </div>
                     
                 </div>
 
-                <div class="flex justify-center mt-7">
-                    <p class="mt-1 pr-6">เบอร์</p>
+                <div class="flex justify-center mt-7 gap-x-5">
+                    <p class="w-[70px] self-center leading-none">เบอร์</p>
                     
                         <input 
                             type="text"
@@ -131,8 +137,8 @@ const updateTeacher = async () => {
                     
                 </div>
 
-                <div class="flex justify-center mt-7">
-                    <p class="mt-1 pr-5">ไอดีไลน์</p>
+                <div class="flex justify-center mt-7 gap-x-5">
+                    <p class="w-[70px] self-center leading-none">ไอดีไลน์</p>
                     
                         <input 
                             type="text"
@@ -146,7 +152,7 @@ const updateTeacher = async () => {
                 <div class="flex justify-center mt-7 gap-x-10">
                     <NuxtLink 
                         to="/classroomlist" 
-                        class="p-1 bg-[#E5E5E5] w-[160px] h-[35px] rounded-[10px] font-bold"
+                        class="p-1 bg-[#E5E5E5] w-[160px] h-[35px] rounded-[10px] font-bold text-center"
                     >
                         ยกเลิก
                     </NuxtLink>
