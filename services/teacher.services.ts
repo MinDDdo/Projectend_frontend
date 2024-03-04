@@ -1,14 +1,17 @@
 import axios, { AxiosError } from 'axios';
-import type { TeacherSigupDto, TeacherUpdateDto, TeacherResponse } from '~/interfaces/teacher.interface';
+import type { TeacherSigupDto, TeacherUpdateDto, TeacherResponse, SignupResponse } from '~/interfaces/teacher.interface';
 import { checkToken } from "./auth"; 
 import type { Response } from "~/interfaces/response.interface";
 
 
-export const signup = async (data: TeacherSigupDto) => {
+export const signup = async (data: TeacherSigupDto): Promise<Response<SignupResponse> | null >=> {
     try {
+
+        const authStore = useStore.authStore();
+
         const apiUrl = useRuntimeConfig().public.apiUrl;
 
-        const response = await axios({
+        const response = await axios<Response<SignupResponse>>({
             method: 'post',
             url: apiUrl + "teacher/signup",
             data: {
@@ -27,7 +30,7 @@ export const signup = async (data: TeacherSigupDto) => {
             return error.response?.data;
         }
 
-        return 'Something went wrong';
+        return null;
     } 
 }
 
