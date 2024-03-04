@@ -74,7 +74,7 @@ const updateTeacher = async () => {
                 class="p-2 bg-[#FFFFFF] w-[530px] h-[530px] rounded-[30px] ">
                 
                 <div class="flex justify-center mt-20 gap-x-[20px]">
-                    <p class="">ชื่อจริง</p>
+                    <p class="w-[70px] self-center leading-none">ชื่อจริง</p>
                         <input 
                             type="text"
                             placeholder="ชื่อ"
@@ -84,8 +84,8 @@ const updateTeacher = async () => {
                     
                 </div>
 
-                <div class="flex justify-center mt-7 gap-x-[9px]">
-                    <p class="">นามสกุล</p>
+                <div class="flex justify-center mt-7 gap-x-5">
+                    <p class="w-[70px] self-center leading-none">นามสกุล</p>
                     
                         <input 
                             type="text"
@@ -96,8 +96,8 @@ const updateTeacher = async () => {
                     
                 </div>
 
-                <div class="flex justify-center mt-7 gap-x-[20px]">
-                    <p class="">วันเกิด</p>
+                <div class="flex justify-center mt-7 gap-x-5">
+                    <p class="w-[70px] self-center leading-none">วันเกิด</p>
                     
                         <input 
                             type="input"
@@ -107,24 +107,26 @@ const updateTeacher = async () => {
                         />
                     
                 </div> 
-                <div class="flex justify-center mt-7 gap-x-[15px]">
-                   <P class="mr-[45px]">เพศ</P>
-                   <input type="radio" id="" name="gendermail" >
-
-                        <label for="age1">ชาย</label><br>
-
-                    <input type="radio" id="" name="genderfemail" >
-
-                        <label for="age1">หญิง</label><br>
-
-                    <input type="radio" id="" name="genderLGBT">
-
-                         <label for="age1">LGBTQ+</label><br>
+                <div class="flex justify-center mt-7 gap-x-[55px] pl-2">
+                   <P class=" w-[70px] self-center leading-none">เพศ</P>
+                   <div class="flex justify-center gap-x-2 pr-10">
+                       <input type="radio" id="" name="gendermail" >
+    
+                            <label for="age1">ชาย</label><br>
+    
+                        <input type="radio" id="" name="genderfemail" >
+    
+                            <label for="age1">หญิง</label><br>
+    
+                        <input type="radio" id="" name="genderLGBT">
+    
+                             <label for="age1">LGBTQ+</label><br>
+                   </div>
                     
                 </div>
 
-                <div class="flex justify-center mt-7 gap-x-[32px]">
-                    <p class="">เบอร์</p>
+                <div class="flex justify-center mt-7 gap-x-5">
+                    <p class="w-[70px] self-center leading-none">เบอร์</p>
                     
                         <input 
                             type="text"
@@ -135,8 +137,8 @@ const updateTeacher = async () => {
                     
                 </div>
 
-                <div class="flex justify-center mt-7 gap-x-[10px]">
-                    <p class="">ไอดีไลน์</p>
+                <div class="flex justify-center mt-7 gap-x-5">
+                    <p class="w-[70px] self-center leading-none">ไอดีไลน์</p>
                     
                         <input 
                             type="text"
