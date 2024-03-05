@@ -169,7 +169,7 @@ const onSubmitUpdateclassroom = async () => {
             </NuxtLink>
 
             <div class="flex justify-center ml-3">
-                <NuxtLink to="/teachercheckassignment" class="bg-[#C7AFDC] p-2 w-[170px] rounded-[20px]">
+                <NuxtLink to="/teachercheckattendance" class="bg-[#C7AFDC] p-2 w-[170px] rounded-[20px]">
                     <div class="flex justify-center items-center">
                         <p class=" text-white mt-1 ml-2">เช็คชื่อ</p>
                         <img src="~/assets/images/hand.png" alt="hand" class=" mt-1 ml-1 w-[30px]" />
