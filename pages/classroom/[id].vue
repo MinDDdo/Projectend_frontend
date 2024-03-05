@@ -127,87 +127,80 @@ const onSubmitUpdateclassroom = async () => {
         </div>
 
         <div class="flex justify-center gap-x-5 mt-10">
-            <div class="bg-[#DCF2F1] p-5 w-[150px] rounded-[20px] flex flex-col items-center">
+            <NuxtLink to="/home" class="bg-[#DCF2F1] p-5 w-[150px] rounded-[20px] flex flex-col items-center">
                 <img src="~/assets/images/home1.png" 
                 alt="home1"
                 class="w-[45px] "
                 />
                 <p class="text-center pt-1">หน้าหลัก</p>
-            </div>
+            </NuxtLink>
 
-            <div class="bg-[#DCF2F1] p-5 w-[150px] rounded-[20px] flex flex-col items-center">
-                <img src="~/assets/images/classroombox.png" 
-                alt="classroombox"
-                class="w-[45px] "
-                />
-                <p class="text-center pt-1">ห้องเรียน</p>
-            </div>
-
-            <div class="bg-[#DCF2F1] p-5 w-[150px] rounded-[20px] flex flex-col items-center">
+            <NuxtLink to="/assignment"  class="bg-[#DCF2F1] p-5 w-[150px] rounded-[20px] flex flex-col items-center">
                 <img src="~/assets/images/assignment1.png" 
                 alt="assgnment1"
                 class="w-[40px] "
                 />
                 <p class="text-center pt-1">งานที่มอบหมาย</p>
-            </div>
+            </NuxtLink>
 
-            <div class="bg-[#DCF2F1] p-5 w-[150px] rounded-[20px] flex flex-col items-center">
+            <NuxtLink to="/attendance" class="bg-[#DCF2F1] p-5 w-[150px] rounded-[20px] flex flex-col items-center">
                 <img src="~/assets/images/hand1.png" 
                 alt="hsnd1"
                 class="w-[45px] "
                 />
                 <p class="text-center pt-1">การเข้าเรียน</p>
-            </div>
+            </NuxtLink>
 
-            <div class="bg-[#DCF2F1] p-5 w-[150px] rounded-[20px] flex flex-col items-center">
+            <NuxtLink to="/teacherassignwork" class="bg-[#DCF2F1] p-5 w-[150px] rounded-[20px] flex flex-col items-center">
                 <img src="~/assets/images/createassign.png" 
                 alt="createassign"
                 class="w-[45px] "
                 />
-                <p class="text-center pt-1">สร้างเรียน</p>
-            </div>
+                <p class="text-center pt-1">สร้างงาน</p>
+            </NuxtLink>
         </div>
 
         <div class="flex justify-center mt-5">
-            <div class="bg-[#BE96C6] p-2 w-[170px] rounded-[20px]">
+            <NuxtLink to="/studentlist" class="bg-[#BE96C6] p-2 w-[170px] rounded-[20px]">
                 <div class="flex justify-center items-center">
-                    <p class=" text-white">รายชื่อ</p>
-                    <img src="~/assets/images/person.png" alt="person" class="ml-1" />
+                    <p class=" text-white mt-1">รายชื่อ</p>
+                    <img src="~/assets/images/person.png" alt="person" class="ml-1 w-[35px]" />
                 </div>
-            </div>
+            </NuxtLink>
 
             <div class="flex justify-center ml-3">
-                <div class="bg-[#C7AFDC] p-2 w-[170px] rounded-[20px]">
+                <NuxtLink to="/teachercheckassignment" class="bg-[#C7AFDC] p-2 w-[170px] rounded-[20px]">
                     <div class="flex justify-center items-center">
-                        <p class=" text-white mt-1">เช็คชื่อ</p>
-                        <img src="~/assets/images/hand.png" alt="hand" class=" mt-1 ml-1" />
+                        <p class=" text-white mt-1 ml-2">เช็คชื่อ</p>
+                        <img src="~/assets/images/hand.png" alt="hand" class=" mt-1 ml-1 w-[30px]" />
                     </div>
-                </div>
+                </NuxtLink>
             </div>
 
-            <div class="flex justify-center ml-3">
-                <div class="bg-[#B598CD] p-2 w-[170px] rounded-[20px]">
-                    <div class="flex justify-center items-center">
-                        <p class="text-white mt-2">เช็คชื่อด้วย</p>
-                        <img src="~/assets/images/qr.png" alt="qr" class="mt-1"/>
-                    </div>
-                </div>
-            </div>
-
+            
             <div class="flex justify-center ml-3">
                 <div class="bg-[#B78DC9] p-2 w-[170px] rounded-[20px]">
                     <div class="flex justify-center items-center">
                         <p class="text-white mt-1">สุ่มชื่อ</p>
-                        <img src="~/assets/images/random.png" alt="random" class="mt-1 ml-1"/>
+                        <img src="~/assets/images/random.png" alt="random" class="mt-1 ml-1 w-[30px]"/>
                     </div>
                 </div>
             </div>
 
             <div class="flex justify-center ml-3">
+                <div class="bg-[#C897BC] p-2 w-[170px] rounded-[20px]">
+                    <div class="flex justify-center items-center">
+                        <p class="text-white mt-2">จัดกลุ่ม</p>
+                        <img src="~/assets/images/group.png" alt="group" class="mt-1 w-[45px] pl-1"/>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex justify-center ml-3">
                 <div class="bg-[#9181A9] p-2 w-[170px] rounded-[20px]">
                     <div class="flex justify-center items-center">
-                        <p class="text-white mt-2">จับเวลา</p>
-                        <img src="~/assets/images/time.png" alt="time" class="mt-1 ml-1"/>
+                        <p class="text-white mt-1">จับเวลา</p>
+                        <img src="~/assets/images/time.png" alt="time" class="mt-1 ml-1 w-[30px]"/>
                     </div>
                 </div>
             </div>

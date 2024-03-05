@@ -20,6 +20,7 @@ export interface AssigntmentCheckStatus {
     classroom_id: string; 
 }
 
+
 export interface AssigntmentStudentResponse {
     assign_id: string;
     classroom_id: string;
@@ -27,5 +28,6 @@ export interface AssigntmentStudentResponse {
     assign_detail: string;
     handin_detail: string;
     
+
 
 }
