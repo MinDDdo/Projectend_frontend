@@ -1,6 +1,7 @@
 import axios, { AxiosError } from "axios";
-import type { AssignmentCheckDto, AssignmentCreateDto, AssignmentUpdateDto, AssigntmentCheckStatus } from "~/interfaces/assignment.interface";
+import type { AssignmentCheckDto, AssignmentCreateDto, AssignmentResponse, AssignmentUpdateDto, AssigntmentCheckStatus } from "~/interfaces/assignment.interface";
 import { checkToken } from "./auth"; 
+import type { Response } from "~/interfaces/response.interface";
 
 export const createAssignment = async (classroomId: string, data: AssignmentCreateDto ) => {
     try {
@@ -36,7 +37,7 @@ export const createAssignment = async (classroomId: string, data: AssignmentCrea
     }
 }
 
-export const getAllAssignment = async (classroomId: string) => {
+export const getAllAssignment = async (classroomId: string): Promise<Response<AssignmentResponse[]> | null> => {
     try {
         const authStore = useStore.authStore();
 
@@ -48,15 +49,15 @@ export const getAllAssignment = async (classroomId: string) => {
 
         const apiUrl = useRuntimeConfig().public.apiUrl;
 
-        const response = await axios({
+        const response = await axios<Response<AssignmentResponse[]>>({
             method: 'get',
             url: apiUrl + "assignment/"+ classroomId +"/getAll-assignment",
             headers: {
                 'Authorization': 'Bearer ' + authStore.access_token
             }
         })
-        return response.data;
 
+        return response.data;
     }catch (error){
         if (error instanceof AxiosError){
             return error.response?.data;

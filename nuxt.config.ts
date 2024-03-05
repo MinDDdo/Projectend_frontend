@@ -4,7 +4,8 @@ export default defineNuxtConfig({
   ssr: false,
 
   css: [
-    '~/assets/css/main.css'
+    '~/assets/css/main.css',
+    '@vuepic/vue-datepicker/dist/main.css'
   ],
 
   modules: [

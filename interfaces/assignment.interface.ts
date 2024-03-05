@@ -27,7 +27,14 @@ export interface AssigntmentStudentResponse {
     assign_name: string;
     assign_detail: string;
     handin_detail: string;
-    
+}
 
-
+export interface AssignmentResponse {
+    assign_create:  string;
+    assign_detail:  string;
+    assign_due: string;
+    assign_name:    string;
+    classroom_id:   string;
+    id: string;
+    // student: Array [OPTIONAL]
 }

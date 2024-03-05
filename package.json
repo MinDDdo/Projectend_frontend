@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@pinia/nuxt": "^0.5.1",
+    "@vuepic/vue-datepicker": "^8.2.0",
     "axios": "^1.6.7",
     "dayjs": "^1.11.10",
     "jwt-decode": "^4.0.0",

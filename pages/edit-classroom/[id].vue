@@ -25,7 +25,7 @@ const onSubmitUpdateclassroom = async () => {
         return navigateTo('/');
     }
 
-    navigateTo('/classroomlist')
+    navigateTo('/teacher/classroom')
 }
 
 
