@@ -1,18 +1,17 @@
+<!-- หน้า Teacher Classroom -->
+
 <script setup lang="ts">
+import type { StudentResponse } from '~/interfaces/student.interface';
+import type { ClassroomResponse } from '~/interfaces/classroom.interface';
+import {
+    TransitionRoot,
+    TransitionChild,
+    Dialog,
+    DialogPanel,
+    DialogTitle,
+} from '@headlessui/vue';
 
 const route = useRoute();
-
-import type { StudentResponse } from '~/interfaces/student.interface';
-import Classroomlist from '../Classroomlist.vue';
-import type { ClassroomResponse } from '~/interfaces/classroom.interface';
-
-import {
-  TransitionRoot,
-  TransitionChild,
-  Dialog,
-  DialogPanel,
-  DialogTitle,
-} from '@headlessui/vue'
 
 const studentList = ref<StudentResponse[]>([]);
 const classroom = ref<ClassroomResponse | null>(null);
@@ -33,7 +32,7 @@ const getAllStudent = async () => {
     const data = await useApi.studentService.getAllStudent(route.params?.id + '');
 
     if (!data) {
-            return navigateTo('/');
+            return navigateTo('/home');
         }
     
         studentList.value = data.result.data;
@@ -44,7 +43,7 @@ const getClassroomById = async () => {
     const data = await useApi.classroomService.getClassroomById(route.params?.id + '')
 
     if (!data) {
-        return navigateTo('/');
+        return navigateTo('/home');
     }
 
     classroom.value = data.result.data;
@@ -71,7 +70,7 @@ const onSubmitUpdateclassroom = async () => {
     })
 
     if (!data) {
-        return navigateTo('/');
+        return navigateTo('/home');
     }
     isOpen.value = false;
     
@@ -127,7 +126,10 @@ const onSubmitUpdateclassroom = async () => {
         </div>
 
         <div class="flex justify-center gap-x-5 mt-10">
-            <NuxtLink to="/home" class="bg-[#DCF2F1] p-5 w-[150px] rounded-[20px] flex flex-col items-center">
+            <NuxtLink 
+                to="/home" 
+                class="bg-[#DCF2F1] p-5 w-[150px] rounded-[20px] flex flex-col items-center"
+            >
                 <img src="~/assets/images/home1.png" 
                 alt="home1"
                 class="w-[45px] "
@@ -135,11 +137,16 @@ const onSubmitUpdateclassroom = async () => {
                 <p class="text-center pt-1">หน้าหลัก</p>
             </NuxtLink>
 
-            <NuxtLink :to="`/assignment/${classroom?.id}`"  class="bg-[#DCF2F1] p-5 w-[150px] rounded-[20px] flex flex-col items-center">
-                <img src="~/assets/images/assignment1.png" 
-                alt="assgnment1"
-                class="w-[40px] "
+            <NuxtLink 
+                :to="`/teacher/assignment/${classroom?.id}`"  
+                class="bg-[#DCF2F1] p-5 w-[150px] rounded-[20px] flex flex-col items-center"
+            >
+                <img 
+                    src="~/assets/images/assignment1.png" 
+                    alt="assgnment1"
+                    class="w-[40px] "
                 />
+                
                 <p class="text-center pt-1">งานที่มอบหมาย</p>
             </NuxtLink>
 

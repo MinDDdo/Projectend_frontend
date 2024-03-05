@@ -22,7 +22,7 @@ const onSubmitLogin = async () => {
 
     teacherStore.id = decode.id;
 
-    await navigateTo('/classroomlist');
+    await navigateTo('/teacher/classroom');
 }
 </script>
 

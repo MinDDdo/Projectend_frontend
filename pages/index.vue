@@ -1,6 +1,6 @@
 <script setup lang="ts">
     onMounted(() => {
-        navigateTo('/login');
+        navigateTo('/home');
     })
 </script>
 
