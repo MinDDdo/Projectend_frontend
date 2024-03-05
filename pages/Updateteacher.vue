@@ -178,36 +178,14 @@ const updateTeacher = async () => {
        
     >
         <div class="overflow-y-scroll h-[450px] w-[700px] mt-[80px] mx-[100px] grid grid-cols-5 gap-1" >
-            <img src="~/assets/images/T_1.png" alt="menu" class=" rounded-lg"  />
-            <img src="~/assets/images/T_2.png" alt="menu" class=" rounded-lg"  />
-            <img src="~/assets/images/T_3.png" alt="menu" class=" rounded-lg"  />
-            <img src="~/assets/images/T_4.png" alt="menu" class=" rounded-lg"  />
-            <img src="~/assets/images/T_5.png" alt="menu" class=" rounded-lg"  />
-            <img src="~/assets/images/T_6.png" alt="menu" class=" rounded-lg"  />
-            <img src="~/assets/images/T_7.png" alt="menu" class=" rounded-lg"  />
-            <img src="~/assets/images/T_8.png" alt="menu" class=" rounded-lg"  />
-            <img src="~/assets/images/T_9.png" alt="menu" class=" rounded-lg"  />
-            <img src="~/assets/images/T_10.png" alt="menu" class=" rounded-lg"  />
-            <img src="~/assets/images/T_11.png" alt="menu" class=" rounded-lg"  />
-            <img src="~/assets/images/T_12.png" alt="menu" class=" rounded-lg"  />
-            <img src="~/assets/images/T_13.png" alt="menu" class=" rounded-lg"  />
-            <img src="~/assets/images/T_14.png" alt="menu" class=" rounded-lg"  />
-            <img src="~/assets/images/T_15.png" alt="menu" class=" rounded-lg"  />
-            <img src="~/assets/images/T_16.png" alt="menu" class=" rounded-lg"  />
-            <img src="~/assets/images/T_17.png" alt="menu" class=" rounded-lg"  />
-            <img src="~/assets/images/T_18.png" alt="menu" class=" rounded-lg"  />
-            <img src="~/assets/images/T_19.png" alt="menu" class=" rounded-lg"  />
-            <img src="~/assets/images/T_20.png" alt="menu" class=" rounded-lg"  />
-            <img src="~/assets/images/T_21.png" alt="menu" class=" rounded-lg"  />
-            <img src="~/assets/images/T_22.png" alt="menu" class=" rounded-lg"  />
-            <img src="~/assets/images/T_23.png" alt="menu" class=" rounded-lg"  />
-            <img src="~/assets/images/T_24.png" alt="menu" class=" rounded-lg"  />
-            <img src="~/assets/images/T_25.png" alt="menu" class=" rounded-lg"  />
-            <img src="~/assets/images/T_25.png" alt="menu" class=" rounded-lg"  />
-            <img src="~/assets/images/T_27.png" alt="menu" class=" rounded-lg"  />
-            <img src="~/assets/images/T_28.png" alt="menu" class=" rounded-lg"  />
-            <img src="~/assets/images/T_29.png" alt="menu" class=" rounded-lg"  />
-            <img src="~/assets/images/T_30.png" alt="menu" class=" rounded-lg"  /> 
+            <img src="~/assets/images/avatarTeacher/T_1.png" alt="T_1" class=" rounded-lg"  />
+            <img src="~/assets/images/avatarTeacher/T_2.png" alt="T_2" class=" rounded-lg"  />
+            <img src="~/assets/images/avatarTeacher/T_3.png" alt="T_3" class=" rounded-lg"  />
+            <img src="~/assets/images/avatarTeacher/T_4.png" alt="T_4" class=" rounded-lg"  />
+            <img src="~/assets/images/avatarTeacher/T_5.png" alt="T_5" class=" rounded-lg"  />
+            <img src="~/assets/images/avatarTeacher/T_6.png" alt="T_6" class=" rounded-lg"  />
+            <img src="~/assets/images/avatarTeacher/T_7.png" alt="T_7" class=" rounded-lg"  />
+           
         </div>
         <div class=" grid justify-items-center pt-5" >
             <button type="submit" class="p-2 bg-[#676B7D] w-[150px] h-[50px] rounded-[10px] text-white font-bold">

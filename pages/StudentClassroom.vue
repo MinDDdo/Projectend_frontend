@@ -114,6 +114,34 @@ const studentLogout = async () => {
                 </NuxtLink>
             </div>
         </div>
+        pages/Updateteacher.vue
+    </div>
+    <div 
+        class="fixed bg-gray-400 bg-opacity-50 h-screen w-full z-[99999] top-0 right-0 left-0" 
+       
+    >
+    </div>
 
+    <div 
+        class="fixed bg-white rounded-[20px]  min-w-[900px] min-h-[700px] z-[999999] 
+        top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 " 
+       
+    >
+        <div class="overflow-y-scroll h-[450px] w-[700px] mt-[80px] mx-[100px] grid grid-cols-5 gap-1" >
+            <img src="~/assets/images/avatarstudent/S_1.png" alt="S_1" class=" rounded-lg"  />
+            <img src="~/assets/images/avatarstudent/S_2.png" alt="S_2" class=" rounded-lg"  />
+            <img src="~/assets/images/avatarstudent/S_3.png" alt="S_3" class=" rounded-lg"  />
+            <img src="~/assets/images/avatarstudent/S_4.png" alt="S_4" class=" rounded-lg"  />
+            <img src="~/assets/images/avatarstudent/S_5.png" alt="S_5" class=" rounded-lg"  />
+            <img src="~/assets/images/avatarstudent/S_6.png" alt="S_6" class=" rounded-lg"  />
+            
+           
+        </div>
+        <div class=" grid justify-items-center pt-5" >
+            <button type="submit" class="p-2 bg-[#676B7D] w-[150px] h-[50px] rounded-[10px] text-white font-bold">
+                        บันทึก
+            </button>
+        </div>
+      
     </div>
 </template>
