@@ -19,3 +19,7 @@ export interface AssigntmentCheckStatus {
     no: Number;
     classroom_id: string; 
 }
+
+export interface AssignmentResponse {
+    
+}
