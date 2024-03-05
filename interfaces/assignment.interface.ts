@@ -11,15 +11,23 @@ export interface AssignmentUpdateDto {
 }
 
 export interface AssignmentCheckDto {
-    no: Number;
+    no: number;
     checked: Boolean;
 }
 
 export interface AssigntmentCheckStatus {
-    no: Number;
+    no: number;
     classroom_id: string; 
 }
 
-export interface AssignmentResponse {
+
+export interface AssigntmentStudentResponse {
+    assign_id: string;
+    classroom_id: string;
+    assign_name: string;
+    assign_detail: string;
+    handin_detail: string;
     
+
+
 }

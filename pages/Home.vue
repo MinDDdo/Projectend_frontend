@@ -26,7 +26,7 @@ const onJoinClassroom = async () => {
     const decode: { student_id: string, classroom_id: string } = jwtDecode(authStudent.access_token);
 
     studentStore.id = decode.student_id;
-    studentStore.classroomId = decode.student_id;
+    studentStore.classroomId = decode.classroom_id;
 
     navigateTo('/studentclassroom');
 }
