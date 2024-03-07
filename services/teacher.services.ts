@@ -34,7 +34,7 @@ export const signup = async (data: TeacherSigupDto): Promise<Response<SignupResp
     } 
 }
 
-export const update = async (teacherId: string ,data: TeacherUpdateDto) => {
+export const update = async (teacherId: string ,data: TeacherUpdateDto):Promise<Response<TeacherResponse> | null> => {
     try {
         const authStore = useStore.authStore();
 
@@ -45,7 +45,7 @@ export const update = async (teacherId: string ,data: TeacherUpdateDto) => {
         }
         const apiUrl = useRuntimeConfig().public.apiUrl;
 
-        const response = await axios({
+        const response = await axios<Response<TeacherResponse>>({
             method: 'put',
             url: apiUrl + "teacher/update/" + teacherId,
             data: {
@@ -67,7 +67,7 @@ export const update = async (teacherId: string ,data: TeacherUpdateDto) => {
             return error.response?.data;
         }
 
-        return 'Something went wrong';
+        return null;
     } 
 }
 

@@ -84,10 +84,10 @@ const onSubmitUpdateclassroom = async () => {
 <template>
     <div class="min-h-screen bg-[#EEF5FF] ">
         <div class="flex justify-end px-10 ">
-            <div class="bg-white flex gap-x-5 items-center mt-3 p-1 rounded-[10px] w-[190px] ">
+            <NuxtLink to="profileteacher"  class="bg-white flex gap-x-5 items-center mt-3 p-1 rounded-[10px] w-[190px] ">
                 <img src="~/assets/images/T1.png" alt="T1"/>
                 <p>ใจดี มีชัย</p>
-            </div>
+            </NuxtLink>
         </div>
 
         <div class="flex justify-center relative">
@@ -128,7 +128,7 @@ const onSubmitUpdateclassroom = async () => {
         <div class="flex justify-center gap-x-5 mt-10">
             <NuxtLink 
                 to="/home" 
-                class="bg-[#DCF2F1] p-5 w-[150px] rounded-[20px] flex flex-col items-center"
+                class="bg-[#DCFAFB] p-5 w-[150px] rounded-[20px] flex flex-col items-center shadow-md"
             >
                 <img src="~/assets/images/home1.png" 
                 alt="home1"
@@ -139,7 +139,7 @@ const onSubmitUpdateclassroom = async () => {
 
             <NuxtLink 
                 :to="`/teacher/assignment/${classroom?.id}`"  
-                class="bg-[#DCF2F1] p-5 w-[150px] rounded-[20px] flex flex-col items-center"
+                class="bg-[#DCFAFB] p-5 w-[150px] rounded-[20px] flex flex-col items-center shadow-md"
             >
                 <img 
                     src="~/assets/images/assignment1.png" 
@@ -150,7 +150,7 @@ const onSubmitUpdateclassroom = async () => {
                 <p class="text-center pt-1">งานที่มอบหมาย</p>
             </NuxtLink>
 
-            <NuxtLink to="/attendance" class="bg-[#DCF2F1] p-5 w-[150px] rounded-[20px] flex flex-col items-center">
+            <NuxtLink to="/attendance" class="bg-[#DCFAFB] p-5 w-[150px] rounded-[20px] flex flex-col items-center shadow-md">
                 <img src="~/assets/images/hand1.png" 
                 alt="hsnd1"
                 class="w-[45px] "
@@ -162,7 +162,7 @@ const onSubmitUpdateclassroom = async () => {
         </div>
 
         <div class="flex justify-center mt-5">
-            <NuxtLink to="/studentlist" class="bg-[#BE96C6] p-2 w-[170px] rounded-[20px]">
+            <NuxtLink to="/studentlist" class="bg-[#BE96C6] p-2 w-[170px] rounded-[20px] shadow-md">
                 <div class="flex justify-center items-center">
                     <p class=" text-white mt-1">รายชื่อ</p>
                     <img src="~/assets/images/person.png" alt="person" class="ml-1 w-[35px]" />
@@ -170,7 +170,7 @@ const onSubmitUpdateclassroom = async () => {
             </NuxtLink>
 
             <div class="flex justify-center ml-3">
-                <NuxtLink to="/teachercheckassignment" class="bg-[#C7AFDC] p-2 w-[170px] rounded-[20px]">
+                <NuxtLink to="/teachercheckassignment" class="bg-[#C7AFDC] p-2 w-[170px] rounded-[20px] shadow-md">
                     <div class="flex justify-center items-center">
                         <p class=" text-white mt-1 ml-2">เช็คชื่อ</p>
                         <img src="~/assets/images/hand.png" alt="hand" class=" mt-1 ml-1 w-[30px]" />
@@ -180,7 +180,7 @@ const onSubmitUpdateclassroom = async () => {
 
             
             <div class="flex justify-center ml-3">
-                <div class="bg-[#B78DC9] p-2 w-[170px] rounded-[20px]">
+                <div class="bg-[#B78DC9] p-2 w-[170px] rounded-[20px] shadow-md">
                     <div class="flex justify-center items-center">
                         <p class="text-white mt-1">สุ่มชื่อ</p>
                         <img src="~/assets/images/random.png" alt="random" class="mt-1 ml-1 w-[30px]"/>
@@ -189,7 +189,7 @@ const onSubmitUpdateclassroom = async () => {
             </div>
 
             <div class="flex justify-center ml-3">
-                <div class="bg-[#C897BC] p-2 w-[170px] rounded-[20px]">
+                <div class="bg-[#C897BC] p-2 w-[170px] rounded-[20px] shadow-md">
                     <div class="flex justify-center items-center">
                         <p class="text-white mt-2">จัดกลุ่ม</p>
                         <img src="~/assets/images/group.png" alt="group" class="mt-1 w-[45px] pl-1"/>
@@ -198,7 +198,7 @@ const onSubmitUpdateclassroom = async () => {
             </div>
             
             <div class="flex justify-center ml-3">
-                <div class="bg-[#9181A9] p-2 w-[170px] rounded-[20px]">
+                <div class="bg-[#9181A9] p-2 w-[170px] rounded-[20px] shadow-md">
                     <div class="flex justify-center items-center">
                         <p class="text-white mt-1">จับเวลา</p>
                         <img src="~/assets/images/time.png" alt="time" class="mt-1 ml-1 w-[30px]"/>

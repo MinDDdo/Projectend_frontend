@@ -85,10 +85,10 @@ const onSubmitUpdateclassroom = async () => {
 <template>
     <div class="min-h-screen bg-[#EEF5FF] ">
         <div class="flex justify-end px-10 ">
-            <div class="bg-white flex gap-x-5 items-center mt-3 p-1 rounded-[10px] w-[190px] ">
+            <NuxtLink  to="/profileteacher" class="bg-white flex gap-x-5 items-center mt-3 p-1 rounded-[10px] w-[190px] ">
                 <img src="~/assets/images/T1.png" alt="T1"/>
                 <p>ใจดี มีชัย</p>
-            </div>
+            </NuxtLink>
         </div>
 
         <div class="flex justify-center relative">

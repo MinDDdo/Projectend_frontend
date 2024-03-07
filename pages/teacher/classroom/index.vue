@@ -49,10 +49,10 @@ const onConfirmDelete = async () => {
                 <img src="~/assets/images/menu.png" alt="menu" />
             </div>
             
-            <div class="bg-white flex gap-x-5 items-center mt-3 p-1 rounded-[10px] w-[190px] ">
+            <NuxtLink to="/profileteacher"  class="bg-white flex gap-x-5 items-center mt-3 p-1 rounded-[10px] w-[190px] ">
                 <img src="~/assets/images/T1.png" alt="T1"/>
                 <p>ใจดี มีชัย</p>
-            </div>
+            </NuxtLink>
         </div>
 
         <div class="flex  flex-col mt-8">
