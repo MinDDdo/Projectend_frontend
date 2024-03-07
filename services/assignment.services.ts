@@ -3,19 +3,16 @@ import type { AssignmentCheckDto, AssignmentCreateDto, AssignmentResponse, Assig
 import { checkToken } from "./auth"; 
 import type { Response } from "~/interfaces/response.interface";
 
-export const createAssignment = async (classroomId: string, data: AssignmentCreateDto ) => {
+export const createAssignment = async (classroomId: string, data: AssignmentCreateDto)
+    :Promise<Response<AssignmentCreateDto> | null> => {
     try {
         const authStore = useStore.authStore();
 
-        if (!await checkToken()) {
-            console.log('Unauthorize');
-
-            return null;
-        }
+        
 
         const apiUrl = useRuntimeConfig().public.apiUrl;
 
-        const response = await axios({
+        const response = await axios<Response<AssignmentCreateDto>>({
             method: 'post',
             url: apiUrl + "assignment/create-attendance",
             headers: {

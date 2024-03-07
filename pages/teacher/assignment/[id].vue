@@ -1,7 +1,7 @@
 <!-- หน้า Teacher Assignment -->
 
 <script lang="ts" setup>
-import type { AssignmentResponse } from '~/interfaces/assignment.interface';
+import type { AssignmentResponse,AssignmentCreateDto } from '~/interfaces/assignment.interface';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import dayjs from 'dayjs';
 import 'dayjs/locale/th';
@@ -15,6 +15,8 @@ const assignmentForm = reactive({
     topic: '',
     detail: ''
 });
+
+
 
 const showCreateAssignment = ref<boolean>(false);
 
@@ -48,9 +50,16 @@ const onCloseCreateAssignment = () => {
 const onSubmitCreateAssignment = async () => {
     // close Modal
     showCreateAssignment.value = false;
+    
+    const data = await useApi.assignmentService.createAssignment(route.params?.id + '', {
+        assign_name: assignmentForm.topic,
+        assign_detail: assignmentForm.detail,
+        assign_due: dayjs(dueDateSelected.value).format('YYYY-MM-DD HH:mm:ss')
+    })
 
-    // ไบ้: ต้องแปลง Date เป็น YYYY-MM-DD HH:mm:ss โดยใช้ dayjs
-    // keyword search: How to format date with dayjs
+    if (!data) {
+        return navigateTo('/');
+    }
 
     // Clear form
     assignmentForm.topic = '';
