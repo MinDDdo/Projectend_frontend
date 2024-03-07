@@ -23,14 +23,14 @@
                         </form>
                         <div class="flex mx-[70px] mt-[20px] gap-x-[15px] ">
                         
-                            <button type="submit" class="p-2 px-[30px] text-[#475A7D] font-bold 
+                            <button type="button" class="p-2 px-[30px] text-[#475A7D] font-bold 
                                                         border-2 border-[#475A7D] rounded-xl w-[170px] flex gap-x-[10px] "
                                                         >กำหนดส่ง 
                                                         <img src="~/assets/images/calendar.png"
                                                          alt="calendar"  width="20" height="2"/> 
                             </button>
 
-                            <button type="submit" class=" flex p-2 px-[55px] text-white font-bold 
+                            <button type="button" class=" flex p-2 px-[55px] text-white font-bold 
                                                             bg-[#676B7D] rounded-xl w-[150px]"
                                                          >สร้าง</button>
                         </div>
