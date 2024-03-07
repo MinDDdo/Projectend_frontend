@@ -86,11 +86,11 @@ const onSubmitCreateAssignment = async () => {
             </div>
         </div>
 
-        <div class="mt-5 px-80 relative min-h-[50px]">
+        <div class="mt-5 px-[420px] relative min-h-[50px]">
             <button 
                 type="button" 
                 class="
-                bg-[#FFFFFF] rounded-[15px] p-2 w-[200px] flex item-center absolute transform
+                bg-[#FFFFFF] rounded-[15px] p-2 w-[160px] flex item-center absolute transform
                 transition-transform duration-100 hover:-translate-y-1 hover:shadow-sm
                 "
                 @click="showCreateAssignment = true"
@@ -100,7 +100,7 @@ const onSubmitCreateAssignment = async () => {
                     alt="task"
                     class="pl-4 "
                 />
-                <p class="text-center mt-1 text-lg pl-1">มอบหมายงาน</p>
+                <p class="text-center mt-1 text-lg pl-1">สร้างงาน</p>
             </button>
         </div>
 
