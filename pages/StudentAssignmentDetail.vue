@@ -1,66 +1,4 @@
-<script lang="ts" setup>
-import type { StudentResponse } from '~/interfaces/student.interface';
-import type {ClassroomResponse } from '~/interfaces/classroom.interface';
-import type { AssigntmentStudentResponse} from '~/interfaces/assignment.interface';
-
-const studentStore = useStore.studentStore();
-
-
-onMounted(async () => {
-    await getStudentById();
-    await getClassroomById();
-    await getAssignmentByStudentId();
-    
-})
-
-const student = ref<StudentResponse | null>(null);
-const classroom = ref<ClassroomResponse | null>(null);
-const assignment = ref<AssigntmentStudentResponse[]> ([]);
-
-const getStudentById = async () => {
-    const data = await useApi.studentService.getStudentById(
-        studentStore.classroomId,
-        studentStore.id
-    );
-
-    if (!data) {
-        return navigateTo('/home');
-    }
-
-    student.value = data.result.data;
-}
-const getClassroomById = async () => {
-    const data = await useApi.classroomService.getClassroomById(
-        studentStore.classroomId
-    );
-    
-    if(!data) {
-        return navigateTo('/home');
-    }
-    
-    classroom.value = data.result.data;
-}
-
-const studentLogout = async () => {
-    studentStore.$reset()
-
-
-    navigateTo('/home');
-}
-const getAssignmentByStudentId = async () => {
-    const data = await useApi.assignmentService.studentCheckStatusAssignment(
-        {
-            no: student.value?.no || 0,
-            classroom_id: classroom.value?.id || ""
-        }
-        
-    )
-    if(!data) {
-        return navigateTo('/home');
-    }
-    assignment.value = data.result.data;
-    
-}
+<script >
 </script>
 
 <template>
@@ -72,13 +10,10 @@ const getAssignmentByStudentId = async () => {
             
         </div>
 
-        <div 
-        v-for=" item of assignment "
-        class="mt-1 flex justify-center ">
+        <div class="mt-1 flex justify-center ">
             <div class=" flex flex-col gap-y-24 items-center min-w-[550px] max-w-[550px] min-h-[560px] max-h-[560px]">
-                <h1 class="text-[28px] text-center">{{item.assign_name}}</h1>
+                <h1 class="text-[28px] text-center"><b>แบบฝึกหัดคัดไทย</b></h1>
                 <div class="flex justify-center relative">
-                    
                     <div class=" flex   bg-white w-[530px] h-[450px] rounded-[20px]  ">
                         
                             <ul class="w-[325px]  h-[250px] 
@@ -117,20 +52,22 @@ const getAssignmentByStudentId = async () => {
                             </diV>
                                 </li>
                                 <li>
-                            <diV class="flex justify-between">
-                             <div class="flex gap-5 ">   
-                                <p class="text-[20px]">รายละเอียดงาน</p>
-                             </div>
+                                    <diV class="flex justify-between">
+                            <div class="flex gap-5 ">
+                                
+
+                                <div class="flex  ">
+                                        <p class="text-[20px]">รายละเอียดงาน</p>
+                            
+                                </div>
+                            </div>
                                 
                             </diV>
                                 </li>
-                         <div class="  border border-[#818181] 
+                         <div class="border border-[#818181] 
                                     w-[450px] 
                                     h-[200px] 
-                                    rounded-[20px] ">
-                               <p class="break-all pt-2 px-3 ">
-                                {{item.assign_detail}}
-                               </p>
+                                    rounded-[20px]">
                             
                          </div>
 
