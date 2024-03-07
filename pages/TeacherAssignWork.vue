@@ -10,6 +10,7 @@
             </div>
         </div>
 
+
         <div class="flex justify-center">
             <div class="">
                 <div class="bg-white w-[800px] h-[500px] rounded-[20px]">
@@ -21,6 +22,7 @@
                         />
                     </form>
                 </div>
+
 
             </div>
         </div>

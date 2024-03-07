@@ -136,7 +136,8 @@ const getAssignmentByStudentId = async () => {
         <div class=" flex justify-center mt-[30px]">
             <div class = "grid  grid-cols-2 gap-x-[60px]  gap-y-12 " >
 
-                <div 
+                <NuxtLink
+                    to="/StudentAssignmentDetail"
                     v-for=" item of assignment "
                     class = " flex justify-between px-7 pt-10 bg-white w-[405px] h-[140px] rounded-[20px]  " >
                     <div class="flex-col space-y-3  ">
@@ -150,7 +151,7 @@ const getAssignmentByStudentId = async () => {
                     <div class="bg-[#CC3636] text-white text-center min-w-[85px] max-w-[80px] min-h-[75px] max-h-[75px] rounded-[20px] ">
                         <p class="text-[18px]  pt-5"> ยังไม่ส่ง</p>
                     </div>
-                </div>
+                </NuxtLink>
 
                 
                 
