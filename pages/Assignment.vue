@@ -19,14 +19,14 @@
             </div>
         </div>
 
-        <div class="mt-5 px-80">
-            <div class="bg-[#FFFFFF] rounded-[15px] p-2 w-[200px] flex item-center ">
+        <div class="mt-5 px-[420px]">
+            <div class="bg-[#FFFFFF] rounded-[15px] p-2 w-[160px] flex item-center ">
                 <img 
                     src="~/assets/images/task.png" 
                     alt="task"
                     class="pl-4 "
                 />
-                <p class="text-center mt-1 text-lg pl-1">มอบหมายงาน</p>
+                <p class="text-center mt-1 text-lg pl-1">สร้างงาน</p>
             </div>
         </div>
 
