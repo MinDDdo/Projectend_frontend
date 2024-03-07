@@ -158,13 +158,7 @@ const onSubmitUpdateclassroom = async () => {
                 <p class="text-center pt-1">การเข้าเรียน</p>
             </NuxtLink>
 
-            <NuxtLink to="/teacherassignwork" class="bg-[#DCF2F1] p-5 w-[150px] rounded-[20px] flex flex-col items-center">
-                <img src="~/assets/images/createassign.png" 
-                alt="createassign"
-                class="w-[45px] "
-                />
-                <p class="text-center pt-1">สร้างงาน</p>
-            </NuxtLink>
+
         </div>
 
         <div class="flex justify-center mt-5">
