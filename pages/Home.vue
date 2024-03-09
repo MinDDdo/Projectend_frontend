@@ -36,13 +36,24 @@ const onJoinClassroom = async () => {
     <div class="h-screen bg-[#EEF5FF]">
         <div class="flex justify-between items-center px-10 pt-4">
                 <div class="">
-                    <img src="~/assets/images/logo.png" alt="logo" />
+                    <img 
+                        src="~/assets/images/logo.png" 
+                        alt="logo" 
+                        draggable="false"
+                    />
                 </div>
                 <div class="flex gap-x-6 items-center ">
                     <p>เกี่ยวกับเรา</p>
                     <div class="flex  gap-x-1">
                         <p>เข้าสู่ระบบ</p>
-                        <img src="~/assets/images/logologin.png" alt="logologin"  width="25" height="25"/>
+                        <img 
+                            src="~/assets/images/logologin.png" 
+                            alt="logologin"  
+                            width="25" 
+                            height="25"
+                            draggable="false"
+                            class="select-none"
+                        />
                     </div>
                 </div>
         </div>
@@ -50,10 +61,22 @@ const onJoinClassroom = async () => {
 
         <div class=" ">
             <div class="flex justify-center mt-20 items-center gap-10">
-                <img src="~/assets/images/main.png" alt="main"/>
+                <img 
+                    src="~/assets/images/main.png" 
+                    alt="main"
+                    draggable="false"
+                    class="select-none"
+                />
+
                 <div class="">
                     <div class="flex flex-col">
-                        <img src="~/assets/images/inclass.png" alt="inclass" class=" h-auto w-[450px] self-center"/>
+                        <img 
+                            src="~/assets/images/inclass.png" 
+                            alt="inclass" 
+                            class="h-auto w-[450px] self-center select-none"
+                            draggable="false"
+                        />
+
                         <p class="text-center text-4xl mt-3 text-[#36506C]">Classroom management system</p>
                     </div>
 
@@ -66,7 +89,7 @@ const onJoinClassroom = async () => {
                                 placeholder="รหัสห้องเรียน"
                                 class="p-1 px-1   bg-[#FFFFFF] text-center w-[150px]"
                                 v-model="joinClassroomForm.classroomCode" 
-    
+
                             />
 
                             <input
@@ -74,7 +97,7 @@ const onJoinClassroom = async () => {
                                 placeholder="เลขที่"
                                 class="p-1 px-1   bg-[#FFFFFF] text-center w-[100px]"
                                 v-model="joinClassroomForm.no" 
-    
+
                             />
 
                             <button type="submit" class="p-1 bg-[#676B7D] text-white rounded-[4px] w-[100px] ml-2">
@@ -88,7 +111,8 @@ const onJoinClassroom = async () => {
                             <NuxtLink
                                 to="/login" 
                                 type="submit" 
-                                class="p-1 bg-[#676B7D] text-white rounded-[4px] w-[140px] ml-2 text-center"
+                                class="p-1 bg-[#676B7D] text-white rounded-[4px] 
+                                w-[140px] ml-2 text-center select-none"
                             >
                                 จัดการชั้นเรียน
                             </NuxtLink>
@@ -97,10 +121,5 @@ const onJoinClassroom = async () => {
                 </div>
             </div>
         </div> 
-
     </div>
 </template>
-
-<style scoped>
-
-</style>
