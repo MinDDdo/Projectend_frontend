@@ -1,92 +1,92 @@
 export const studentAvatar = [
     {
-        path: "~/assets/images/avatarstudent/S_1.png"
+        name: "S_1"
     },
     {
-        path: "~/assets/images/avatarstudent/S_2.png"
+        name: "S_2"
     },
     {
-        path: "~/assets/images/avatarstudent/S_3.png"
+        name: "S_3"
     },
     {
-        path: "~/assets/images/avatarstudent/S_4.png"
+        name: "S_4"
     },
     {
-        path: "~/assets/images/avatarstudent/S_5.png"
+        name: "S_5"
     },
     {
-        path: "~/assets/images/avatarstudent/S_6.png"
+        name: "S_6"
     },
     {
-        path: "~/assets/images/avatarstudent/S_7.png"
+        name: "S_7"
     },
     {
-        path: "~/assets/images/avatarstudent/S_8.png"
+        name: "S_8"
     },
     {
-        path: "~/assets/images/avatarstudent/S_9.png"
+        name: "S_9"
     },
     {
-        path: "~/assets/images/avatarstudent/S_10.png"
+        name: "S_10"
     },
     {
-        path: "~/assets/images/avatarstudent/S_11.png"
+        name: "S_11"
     },
     {
-        path: "~/assets/images/avatarstudent/S_12.png"
+        name: "S_12"
     },
     {
-        path: "~/assets/images/avatarstudent/S_13.png"
+        name: "S_13"
     },
     {
-        path: "~/assets/images/avatarstudent/S_14.png"
+        name: "S_14"
     },
     {
-        path: "~/assets/images/avatarstudent/S_15.png"
+        name: "S_15"
     },
     {
-        path: "~/assets/images/avatarstudent/S_16.png"
+        name: "S_16"
     },
     {
-        path: "~/assets/images/avatarstudent/S_17.png"
+        name: "S_17"
     },
     {
-        path: "~/assets/images/avatarstudent/S_18.png"
+        name: "S_18"
     },
     {
-        path: "~/assets/images/avatarstudent/S_19.png"
+        name: "S_19"
     },
     {
-        path: "~/assets/images/avatarstudent/S_20.png"
+        name: "S_20"
     },
     {
-        path: "~/assets/images/avatarstudent/S_21.png"
+        name: "S_21"
     },
     {
-        path: "~/assets/images/avatarstudent/S_22.png"
+        name: "S_22"
     },
     {
-        path: "~/assets/images/avatarstudent/S_23.png"
+        name: "S_23"
     },
     {
-        path: "~/assets/images/avatarstudent/S_24.png"
+        name: "S_24"
     },
     {
-        path: "~/assets/images/avatarstudent/S_25.png"
+        name: "S_25"
     },
     {
-        path: "~/assets/images/avatarstudent/S_26.png"
+        name: "S_26"
     },
     {
-        path: "~/assets/images/avatarstudent/S_27.png"
+        name: "S_27"
     },
     {
-        path: "~/assets/images/avatarstudent/S_28.png"
+        name: "S_28"
     },
     {
-        path: "~/assets/images/avatarstudent/S_29.png"
+        name: "S_29"
     },
     {
-        path: "~/assets/images/avatarstudent/S_30.png"
+        name: "S_30"
     }
 ]

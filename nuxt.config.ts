@@ -14,6 +14,7 @@ export default defineNuxtConfig({
     '@pinia-plugin-persistedstate/nuxt',
     'nuxt-headlessui',
     'nuxt-icon',
+    "@nuxt/image"
   ],
 
   runtimeConfig: {

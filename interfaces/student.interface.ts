@@ -5,8 +5,9 @@ export interface StudentCreateDto {
 }
 
 export interface StudentUpdateDto {
-    firstname: string;
-    lastname: string;
+    firstname?: string;
+    lastname?: string;
+    image?: string;
 }
 
 export interface RandomGroupDto {
@@ -21,4 +22,11 @@ export interface StudentResponse {
     lastname: string;
     refresh_token: string;
     image: string;
+}
+
+export interface StudentAttendanceResponse {
+    absent: number;
+    late: number;
+    leave: number;
+    present: number;
 }

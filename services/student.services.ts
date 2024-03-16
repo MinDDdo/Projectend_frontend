@@ -3,6 +3,10 @@ import { type StudentCreateDto, type RandomGroupDto, type StudentUpdateDto, type
 import { checkStudentToken, checkToken } from "./auth"; 
 import type { Response } from "~/interfaces/response.interface";
 import type { LoginResponse } from '~/interfaces/authen.interface';
+import type { ClassroomResponse } from "~/interfaces/classroom.interface";
+import type { AssignmentCheckDto, AssigntmentCheckStatus } from "~/interfaces/assignment.interface";
+import type { AttendanceStudentCheckDto } from "~/interfaces/attendance.interface";
+import type { StudentAttendanceResponse } from "~/interfaces/student.interface";
 
 
 export const createStudent = async (classroomId: string, data: StudentCreateDto) => {
@@ -41,9 +45,9 @@ export const createStudent = async (classroomId: string, data: StudentCreateDto)
 
 export const updateStudent = async (studentId: string, data: StudentUpdateDto) => {
     try {
-        const authStore = useStore.authStore();
+        const authStudentStore = useStore.authStudentStore();
 
-        if (!await checkToken()) {
+        if (!await checkStudentToken()) {
             console.log('Unauthorize');
 
             return null;
@@ -55,11 +59,12 @@ export const updateStudent = async (studentId: string, data: StudentUpdateDto) =
             method: 'put',
             url: apiUrl + "student/update-student/" + studentId,
             headers: {
-                'Authorization': 'Bearer ' + authStore.access_token
+                'Authorization': 'Bearer ' + authStudentStore.access_token
             },
             data: {
                 firstname: data.firstname,
-                lastname: data.lastname
+                lastname: data.lastname,
+                image: data.image
             }
         })
         return response.data;
@@ -221,6 +226,104 @@ export const joinClassroom = async (classroomCode: string, no: string): Promise<
     }
 }
 
+export const getClassroomById = async (classroomId: string): Promise<Response<ClassroomResponse> | null> => {
+    try {
+        const authStudentStore = useStore.authStudentStore();
+
+        if (!await checkStudentToken()) {
+            console.log('Unauthorize');
+
+            return null;
+        }
+
+        const apiUrl = useRuntimeConfig().public.apiUrl;
+        
+        const response = await axios<Response<ClassroomResponse>>({
+            method: 'get',
+            url: apiUrl + "classroom/getById/" + classroomId,
+            headers: {
+                'Authorization': 'Bearer ' + authStudentStore.access_token 
+            }
+        })
+        return response.data;
+
+    }catch(error) {
+        if (error instanceof AxiosError){
+            return error.response?.data;
+        }
+        return null;
+    }
+}
+
+export const studentCheckStatusAssignment = async (data: AssigntmentCheckStatus) => {
+    try {
+        const authStudentStore = useStore.authStudentStore();
+
+        if (!await checkStudentToken()) {
+            console.log('Unauthorize');
+
+            return null;
+        }
+
+        const apiUrl = useRuntimeConfig().public.apiUrl; 
+
+        const response = await axios({
+            method: 'post',
+            url: apiUrl + "assignment/check-handin",
+            headers: {
+                'Authorization': 'Bearer ' + authStudentStore.access_token
+            },
+            data: {
+                no: data.no,
+                classroom_id: data.classroom_id
+            }
+        })
+        return response.data;
+    }catch (error){
+        if (error instanceof AxiosError){
+            return error.response?.data
+        }
+        return null;
+    }
+}
+
+export const studentCheckStatusAttendance = async (data: AttendanceStudentCheckDto): Promise<Response<StudentAttendanceResponse> | null> => {
+    try {
+        console.log(data)
+        const authStudentStore = useStore.authStudentStore();
+
+        if (!await checkStudentToken()) {
+            console.log('Unauthorize');
+
+            return null;
+        }
+
+        const apiUrl = useRuntimeConfig().public.apiUrl; 
+
+
+        const response = await axios<Response<StudentAttendanceResponse>>({
+            method: 'post',
+            url: apiUrl + "attendance/check-attendance",
+            headers: {
+                'Authorization': 'Bearer ' + authStudentStore.access_token,
+            },
+            data: {
+                no: data.no,
+                classroom_id: data.classroom_id
+            }
+        })
+
+        console.log("This is attendance student", response.data.result.data)
+
+        return response.data;
+    }catch (error){
+        if (error instanceof AxiosError){
+            return error.response?.data
+        }
+        return null;
+    }
+}
+
 const studentService = {
     createStudent,
     updateStudent,
@@ -229,6 +332,9 @@ const studentService = {
     deleteStudentById,
     randomGroup,
     joinClassroom,
+    getClassroomById,
+    studentCheckStatusAssignment,
+    studentCheckStatusAttendance
 }
 
 export default studentService;
