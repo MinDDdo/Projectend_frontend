@@ -5,8 +5,8 @@ const authStudent = useStore.authStudentStore();
 const studentStore = useStore.studentStore();
 
 const joinClassroomForm = reactive({
-    classroomCode: '',
-    no: ''
+    classroomCode: 'd915e2',
+    no: '1'
 })
 
 const onJoinClassroom = async () => {
@@ -28,7 +28,7 @@ const onJoinClassroom = async () => {
     studentStore.id = decode.student_id;
     studentStore.classroomId = decode.classroom_id;
 
-    navigateTo('/studentclassroom');
+    navigateTo('/student/assignment');
 }
 </script>
 
@@ -42,9 +42,10 @@ const onJoinClassroom = async () => {
                         draggable="false"
                     />
                 </div>
+                
                 <div class="flex gap-x-6 items-center ">
-                    <p>เกี่ยวกับเรา</p>
-                    <div class="flex  gap-x-1">
+                    <p class="hover:bg-gray-200 rounded-md p-2 duration-100 cursor-pointer">เกี่ยวกับเรา</p>
+                    <NuxtLink to="/login" class="flex  gap-x-1 hover:bg-gray-200 rounded-md p-2 duration-100">
                         <p>เข้าสู่ระบบ</p>
                         <img 
                             src="~/assets/images/logologin.png" 
@@ -54,7 +55,7 @@ const onJoinClassroom = async () => {
                             draggable="false"
                             class="select-none"
                         />
-                    </div>
+                    </NuxtLink>
                 </div>
         </div>
 

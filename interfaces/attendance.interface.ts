@@ -11,3 +11,8 @@ export interface AttendanceUpdateDto {
 export interface AttendanceExportDto {
     classroom_id: string;
 }
+
+export interface AttendanceStudentCheckDto {
+    no: number;
+    classroom_id: string;
+}

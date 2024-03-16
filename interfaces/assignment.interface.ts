@@ -26,7 +26,14 @@ export interface AssigntmentStudentResponse {
     classroom_id: string;
     assign_name: string;
     assign_detail: string;
-    handin_detail: string;
+    handin_detail: {
+        no: number;
+        firstname: string;
+        lastname: string;
+        handin: boolean;
+    };
+    assign_create: string;
+    assign_due: string;
 }
 
 export interface AssignmentResponse {
