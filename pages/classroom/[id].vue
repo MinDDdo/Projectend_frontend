@@ -1,7 +1,7 @@
 <script setup lang="ts">
-
 const route = useRoute();
 
+import { filename } from 'pathe/utils';
 import type { StudentResponse } from '~/interfaces/student.interface';
 import Classroomlist from '../Classroomlist.vue';
 import type { ClassroomResponse } from '~/interfaces/classroom.interface';
@@ -79,14 +79,16 @@ const onSubmitUpdateclassroom = async () => {
     await getClassroomById();
 }
 
-
+const glob: Record<string, any> = import.meta.glob('~/assets/images/avatarSubject/*.png', { eager: true });
+const images = Object.fromEntries(
+    Object.entries(glob).map(([key, value]) => [filename(key), value.default])
+);
 </script>
 
 <template>
-    <div class="min-h-screen bg-[#EEF5FF] ">
+    <!-- <div class="min-h-screen bg-[#EEF5FF] ">
         <div class="flex justify-end px-10 ">
             <NuxtLink  to="/profileteacher" class="bg-white flex gap-x-5 items-center mt-3 p-1 rounded-[10px] w-[190px] ">
-                <img src="~/assets/images/T1.png" alt="T1"/>
                 <p>ใจดี มีชัย</p>
             </NuxtLink>
         </div>
@@ -307,7 +309,7 @@ const onSubmitUpdateclassroom = async () => {
         </div>
       </div>
     </Dialog>
-  </TransitionRoot>
+  </TransitionRoot> -->
 </template>
 
 <style scoped>

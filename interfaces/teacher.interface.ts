@@ -14,6 +14,7 @@ export interface TeacherUpdateDto {
     gender?: string;    
     line_contact?: string; 
     phone_contact?: string;
+    image?: string;
 }
 
 export interface TeacherResponse {

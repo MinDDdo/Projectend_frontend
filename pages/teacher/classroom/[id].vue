@@ -85,7 +85,7 @@ const onSubmitUpdateclassroom = async () => {
     <div class="min-h-screen bg-[#EEF5FF] ">
         <div class="flex justify-end px-10 ">
             <NuxtLink to="profileteacher"  class="bg-white flex gap-x-5 items-center mt-3 p-1 rounded-[10px] w-[190px] ">
-                <img src="~/assets/images/T1.png" alt="T1"/>
+                <!-- <img src="~/assets/images/T1.png" alt="T1"/> -->
                 <p>ใจดี มีชัย</p>
             </NuxtLink>
         </div>
@@ -130,10 +130,10 @@ const onSubmitUpdateclassroom = async () => {
                 to="/home" 
                 class="bg-[#DCFAFB] p-5 w-[150px] rounded-[20px] flex flex-col items-center shadow-md"
             >
-                <img src="~/assets/images/home1.png" 
+                <!-- <img src="~/assets/images/home1.png" 
                 alt="home1"
                 class="w-[45px] "
-                />
+                /> -->
                 <p class="text-center pt-1">หน้าหลัก</p>
             </NuxtLink>
 
@@ -141,20 +141,20 @@ const onSubmitUpdateclassroom = async () => {
                 :to="`/teacher/assignment/${classroom?.id}`"  
                 class="bg-[#DCFAFB] p-5 w-[150px] rounded-[20px] flex flex-col items-center shadow-md"
             >
-                <img 
+                <!-- <img 
                     src="~/assets/images/assignment1.png" 
                     alt="assgnment1"
                     class="w-[40px] "
-                />
+                /> -->
                 
                 <p class="text-center pt-1">งานที่มอบหมาย</p>
             </NuxtLink>
 
             <NuxtLink to="/attendance" class="bg-[#DCFAFB] p-5 w-[150px] rounded-[20px] flex flex-col items-center shadow-md">
-                <img src="~/assets/images/hand1.png" 
+                <!-- <img src="~/assets/images/hand1.png" 
                 alt="hsnd1"
                 class="w-[45px] "
-                />
+                /> -->
                 <p class="text-center pt-1">การเข้าเรียน</p>
             </NuxtLink>
 

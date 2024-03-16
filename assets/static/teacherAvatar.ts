@@ -1,92 +1,92 @@
 export const teacherAvatar = [
     {
-        path: "~/assets/images/avatarTeacher/T_1.png"
+        name: "T_1"
     },
     {
-        path: "~/assets/images/avatarTeacher/T_2.png"
+        name: "T_2"
     },
     {
-        path: "~/assets/images/avatarTeacher/T_3.png"
+        name: "T_3"
     },
     {
-        path: "~/assets/images/avatarTeacher/T_4.png"
+        name: "T_4"
     },
     {
-        path: "~/assets/images/avatarTeacher/T_5.png"
+        name: "T_5"
     },
     {
-        path: "~/assets/images/avatarTeacher/T_6.png"
+        name: "T_6"
     },
     {
-        path: "~/assets/images/avatarTeacher/T_7.png"
+        name: "T_7"
     },
     {
-        path: "~/assets/images/avatarTeacher/T_8.png"
+        name: "T_8"
     },
     {
-        path: "~/assets/images/avatarTeacher/T_9.png"
+        name: "T_9"
     },
     {
-        path: "~/assets/images/avatarTeacher/T_10.png"
+        name: "T_10"
     },
     {
-        path: "~/assets/images/avatarTeacher/T_11.png"
+        name: "T_11"
     },
     {
-        path: "~/assets/images/avatarTeacher/T_12.png"
+        name: "T_12"
     },
     {
-        path: "~/assets/images/avatarTeacher/T_13.png"
+        name: "T_13"
     },
     {
-        path: "~/assets/images/avatarTeacher/T_14.png"
+        name: "T_14"
     },
     {
-        path: "~/assets/images/avatarTeacher/T_15.png"
+        name: "T_15"
     },
     {
-        path: "~/assets/images/avatarTeacher/T_16.png"
+        name: "T_16"
     },
     {
-        path: "~/assets/images/avatarTeacher/T_17.png"
+        name: "T_17"
     },
     {
-        path: "~/assets/images/avatarTeacher/T_18.png"
+        name: "T_18"
     },
     {
-        path: "~/assets/images/avatarTeacher/T_19.png"
+        name: "T_19"
     },
     {
-        path: "~/assets/images/avatarTeacher/T_20.png"
+        name: "T_20"
     },
     {
-        path: "~/assets/images/avatarTeacher/T_21.png"
+        name: "T_21"
     },
     {
-        path: "~/assets/images/avatarTeacher/T_22.png"
+        name: "T_22"
     },
     {
-        path: "~/assets/images/avatarTeacher/T_23.png"
+        name: "T_23"
     },
     {
-        path: "~/assets/images/avatarTeacher/T_24.png"
+        name: "T_24"
     },
     {
-        path: "~/assets/images/avatarTeacher/T_25.png"
+        name: "T_25"
     },
     {
-        path: "~/assets/images/avatarTeacher/T_26.png"
+        name: "T_26"
     },
     {
-        path: "~/assets/images/avatarTeacher/T_27.png"
+        name: "T_27"
     },
     {
-        path: "~/assets/images/avatarTeacher/T_28.png"
+        name: "T_28"
     },
     {
-        path: "~/assets/images/avatarTeacher/T_29.png"
+        name: "T_29"
     },
     {
-        path: "~/assets/images/avatarTeacher/T_30.png"
+        name: "T_30"
     }
 ]

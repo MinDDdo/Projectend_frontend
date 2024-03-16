@@ -1,27 +1,51 @@
-<!-- หน้า Classroom List -->
-
 <script setup lang="ts">
 import type { ClassroomResponse } from '~/interfaces/classroom.interface';
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
+import type { TeacherResponse } from '~/interfaces/teacher.interface';
+import { filename } from 'pathe/utils';
+
 
 const teacherStore = useStore.teacherStore();
 
 const classroomList = ref<ClassroomResponse[]>([]);
 const classroomIdSelected = ref<string>('');
 const showModalConfirm = ref<boolean>(false);
+const teacher = ref<TeacherResponse | null>(null);
+const loadingPage = ref<boolean>(false);
+
+const glob: Record<string, any> = import.meta.glob('~/assets/images/avatarSubject/*.png', { eager: true });
+const images = Object.fromEntries(
+    Object.entries(glob).map(([key, value]) => [filename(key), value.default])
+);
+
 
 onMounted(async () => {
+    loadingPage.value = true;
+
     await getAllClassroom();
+    await getTeacherById();
+
+    setTimeout(() => { loadingPage.value = false }, 300)
 })
 
 const getAllClassroom = async () => {
     const data = await useApi.classroomService.getAllClassroom(teacherStore.id);
 
     if (!data) {
-        return navigateTo('/');
+        return navigateTo('/home');
     }
 
     classroomList.value = data.result.data;
+}
+
+const getTeacherById = async () => {
+    const data = await useApi.teacherService.getTeacherById(teacherStore.id);
+
+    if (!data) {
+        return navigateTo('/home');
+    }
+
+    teacher.value = data.result.data;
 }
 
 const onClickDeleteClassroom = async (classroomId: string) => {
@@ -35,24 +59,35 @@ const onConfirmDelete = async () => {
     showModalConfirm.value = false;
 
     if (!data) {
-        return navigateTo('/');
+        return navigateTo('/home');
     }
 
     await getAllClassroom();
+}
+
+const onLogout = () => {
+    teacherStore.$reset()
+
+    navigateTo("/home");
 }
 </script>
 
 <template>
     <div class="min-h-screen bg-[#EEF5FF]">
-        <div class="flex justify-between px-10 ">
-            <div class="mt-5">
-                <img src="~/assets/images/menu.png" alt="menu" />
+        
+        <div class="flex justify-between items-center px-10 pt-5">
+            <div class="p-3 hover:bg-gray-200 duration-100 rounded-md cursor-pointer">
+                <Icon 
+                    @click="onLogout"
+                    name="ion:arrow-back-outline" 
+                    class="text-2xl" 
+                />
             </div>
-            
-            <NuxtLink to="/profileteacher"  class="bg-white flex gap-x-5 items-center mt-3 p-1 rounded-[10px] w-[190px] ">
-                <img src="~/assets/images/T1.png" alt="T1"/>
-                <p>ใจดี มีชัย</p>
-            </NuxtLink>
+
+            <TeacherCard 
+                :image="teacher?.image || ''" 
+                :name="`${teacher?.firstname} ${teacher?.lastname}`" 
+            />
         </div>
 
         <div class="flex  flex-col mt-8">
@@ -81,8 +116,9 @@ const onConfirmDelete = async () => {
                 v-for="item of classroomList"
                 class="bg-[#FFFFFF]  p-2 rounded-[15px] h-[300px] relative flex flex-col"
             >
+
+
                 <div class="absolute right-1">
-                    
                     <Menu as="div" class="relative inline-block text-left">
                         <div>
                             <MenuButton
@@ -143,11 +179,18 @@ const onConfirmDelete = async () => {
                         </Menu>
                 </div>
 
-                <div class="flex justify-center mt-1">
-                    <img src="~/assets/images/subject1.png" alt="subject1"/>
+                <div class="flex justify-center mt-2">
+                    <img
+                        :src="images[`${item.image}`]" 
+                        draggable="false"
+                        alt="classroom image"
+                        width="100"
+                        height="100"
+                        class="!rounded-full !object-cover border-2"  
+                    />
                 </div>
 
-                <p class="text-center text-2xl font-bold text-[#C82586]">{{ item.name }}</p>
+                <p class="mt-3 text-center text-2xl font-bold text-[#C82586]">{{ item.name }}</p>
                 <p class="text-center text-lg mt-2">{{ item.grade }}</p>
 
                 <button 
@@ -165,4 +208,5 @@ const onConfirmDelete = async () => {
     </div>
 
     <Modal v-model:show="showModalConfirm" @on-confirm="onConfirmDelete" />
+    <Loading v-if="loadingPage" />
 </template>

@@ -40,13 +40,13 @@ const getTeacherById = async () => {
                 class=" flex flex-col gap-y-5 items-center min-w-[550px] max-w-[550px] min-h-[560px] max-h-[560px]"> 
                 <div class="flex justify-center relative">
                     <div>
-                        <img 
+                        <!-- <img 
                         src="~/assets/images/T2.png" 
                         alt="T2" 
                         width="150" 
                         height="150" 
                         class="rounded-full"
-                        />
+                        /> -->
                     </div>
                     
                     <div class="absolute bottom-2 right-2">
@@ -64,7 +64,7 @@ const getTeacherById = async () => {
                 <div class="p-10 bg-white w-[350px] h-[240px] rounded-[30px] ">
                     <div class="flex justify-center  ">
                         <p class="w-[90px]  font-bold text-lg pl-4 self-end leading-none">วันเกิด</p>
-                        <p class="w-[150px] pl-4 self-end leading-none">{{ formatDate(teacher?.dob) }}</p>
+                        <p class="w-[150px] pl-4 self-end leading-none">{{ formatDate(teacher?.dob || "") }}</p>
                     </div>
         
                     <div class="flex justify-center pt-7">

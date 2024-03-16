@@ -54,7 +54,8 @@ export const update = async (teacherId: string ,data: TeacherUpdateDto):Promise<
                 dob: data.dob, 
                 gender: data.gender, 
                 line_contact: data.line_contact, 
-                phone_contact: data.phone_contact
+                phone_contact: data.phone_contact,
+                image: data.image
             },
             headers: {
                 'Authorization': 'Bearer ' + authStore.access_token 

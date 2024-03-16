@@ -41,7 +41,7 @@ const onConfirmDelete = async () => {
 </script>
 
 <template>
-    <div class="min-h-screen bg-[#EEF5FF]">
+    <!-- <div class="min-h-screen bg-[#EEF5FF]">
         <div class="flex justify-between px-10 ">
             <div class="mt-5">
                 <img src="~/assets/images/menu.png" alt="menu" />
@@ -162,5 +162,5 @@ const onConfirmDelete = async () => {
 
     </div>
 
-    <Modal v-model:show="showModalConfirm" @on-confirm="onConfirmDelete" />
+    <Modal v-model:show="showModalConfirm" @on-confirm="onConfirmDelete" /> -->
 </template>

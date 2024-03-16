@@ -34,7 +34,7 @@ const onSubmitCreateclassroom = async () => {
             </div>
             
             <div class="bg-white flex gap-x-5 items-center mt-3 p-1 rounded-[10px] w-[190px] ">
-                <img src="~/assets/images/T1.png" alt="T1"/>
+                <!-- <img src="~/assets/images/T1.png" alt="T1"/> -->
                 <p>ใจดี มีชัย</p>
             </div>
         </div>
