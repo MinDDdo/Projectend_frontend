@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { AssignmentResponse,AssignmentCreateDto } from '~/interfaces/assignment.interface';
+import type { AssignmentResponse, AssignmentHandinStatus } from '~/interfaces/assignment.interface';
 import type { TeacherResponse } from '~/interfaces/teacher.interface';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import dayjs from 'dayjs';
@@ -11,8 +11,10 @@ const teacherStore = useStore.teacherStore();
 
 const teacher = ref<TeacherResponse | null>(null);
 const loadingPage = ref<boolean>(false);
+const loadingAssignment = ref<boolean>(false);
 const assignments = ref<AssignmentResponse[]>([]);
 const selectAssignment = ref<AssignmentResponse | null>(null);
+const checkStatus = ref<AssignmentHandinStatus[]>([]);
 
 const dueDateSelected = ref<string>('');
 const assignmentForm = reactive({
@@ -49,6 +51,8 @@ const getAssignmentAll = async () => {
     if (!data) {
         return navigateTo('/home');
     }
+
+    console.log(data.result.data);
 
     assignments.value = data.result.data;
 }
@@ -90,8 +94,54 @@ const onSubmitCreateAssignment = async () => {
 
 
 const onSelectAssignment = async (assign: AssignmentResponse) => {
+    loadingAssignment.value = true;
     selectAssignment.value = assign;
-    showDetailAssignment.value = true;
+
+    await getAssigmentById(assign.id);
+
+    setTimeout(() => {
+        loadingAssignment.value = false;
+        showDetailAssignment.value = true;
+    }, 200);
+}
+
+const getAssigmentById = async (id: string) => {
+    const data = await useApi.assignmentService.getAssignmentById(id);
+
+    if (!data) {
+        return navigateTo('/home');
+    }
+
+    checkStatus.value =  data.result.data.student;
+}
+
+const onCheckAssign = async (student: AssignmentHandinStatus) => {
+    checkStatus.value = checkStatus.value.map((item) => {
+        if (item.no === student.no) {
+            item.handin = !item.handin;
+
+            useApi.assignmentService.checkAssignment(
+                selectAssignment.value?.id || '',
+                {
+                    no: item.no,
+                    checked: item.handin
+                }
+            ).then(async (res) => {
+                const response = res as null;
+
+                if (!response) {
+                    return navigateTo('/home');
+                } 
+            })
+        }
+
+        return item;
+    })
+}
+
+const onCloseAssignmenDetail = () => {
+    checkStatus.value = [];
+    showDetailAssignment.value = false;
 }
 </script>
 
@@ -246,61 +296,92 @@ const onSelectAssignment = async (assign: AssignmentResponse) => {
 
     <div 
         v-if="showDetailAssignment"
-        @click="showDetailAssignment = false" 
+        @click="onCloseAssignmenDetail" 
         class="fixed w-full top-0 left-0 min-h-screen bg-gray-400/50"
     >
     </div>
 
     <div 
         v-if="showDetailAssignment"
-        class="lg:w-[800px] md:w-[600px] w-[400px] h-[500px] bg-white rounded-md fixed 
+        class="lg:w-[800px] md:w-[600px] w-[400px] bg-white rounded-md fixed 
         top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
         "
     >
         <div class="relative">
             <div 
-                class="bg-[#475A7D]  rounded-[15px] absolute w-[300px] h-[65px] 
-                flex items-center justify-center
+                class="bg-[#475A7D]  rounded-[15px] absolute h-[65px] px-4 
+                flex  items-center justify-center gap-x-2
                 absolute -top-[36px] left-1/2 transform -translate-x-1/2
                 "
             >
-                <p class="text-white text-2xl text-center">สถานะการส่งงาน</p>
+                <p class="text-white text-2xl text-center">สถานะการส่งงาน:</p>
+                <p class="text-white text-2xl center font-bold">{{ selectAssignment?.assign_name }}</p>
             </div>
         </div>
 
-        <div class="grid mt-10 p-5 mx-10 overflow-x-auto overflow-y-auto">
+        <div class="grid mt-10 mx-10 mb-10 overflow-x-auto overflow-y-auto h-[500px]">
             <table class="w-full">
-                <thead>
-                    <tr>
-                        <th class="min-w-[150px]">
+                <thead class="bg-white sticky -top-1">
+                    <tr class="">
+                        <th class="min-w-[120px] py-2">
                             <div class="w-full flex justify-center">
                                 <div class="w-[100px] bg-[#ABCED1] p-2 rounded-xl">เลขที่</div>
                             </div>
                         </th>
 
                         <th class="min-w-[200px] max-w-[200px]" colspan="2">
-                            <div class="w-full">
-                                <div class="w-[150px] bg-[#ABCED1] p-2 rounded-xl">รายชื่อ</div>
+                            <div class="w-full flex justify-center">
+                                <div class="w-[200px] bg-[#ABCED1] p-2 rounded-xl">รายชื่อ</div>
                             </div>
                         </th>
 
-                        <th class="w-[200px]">
+                        <th class="w-[120px]">
                             <div class="w-full">
                                 <div class="p-2 rounded-xl">สถานะ</div>
                             </div>
                         </th>
 
-                        <th class=""></th>
+                        <th class="w-[100px]"></th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <tr class="">
-                        <td class="py-5 text-center font-bold">1</td>
-                        <td class="py-5">2</td>
-                        <td class="py-5">3</td>
-                        <td class="py-5">4</td>
-                        <td class="py-5">5</td>
+                    <tr v-for="item, idx of checkStatus" class="">
+                        <td class="py-2 text-center font-bold">{{ idx + 1 }}</td>
+
+                        <td class="py-2">{{ item.firstname }}</td>
+
+                        <td class="py-2">{{ item.lastname }}</td>
+
+                        <td class="py-2">
+                            <div class="flex justify-center">
+                                <div class="rounded-xl p-2 w-[100px] text-center" 
+                                    :class="{
+                                        'bg-[#6EA66A]': item.handin,
+                                        'bg-[#CC3636]': !item.handin
+                                    }"
+                                >
+                                    <p class="text-white">
+                                        {{ item.handin ? 'ตรวจแล้ว' : 'ยังไม่ส่ง' }}
+                                    </p>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td class="py-2">
+                            <div class="flex justify-center">
+                                <div 
+                                    @click="onCheckAssign(item)"
+                                    class="border-2 rounded-md h-[30px] w-[30px] cursor-pointer flex items-center justify-center"
+                                    :class="{
+                                        'border-transparent bg-[#6EA66A]': item.handin,
+                                        'border-black': !item.handin
+                                    }"
+                                >
+                                    <Icon name="ion:checkmark" class="text-white text-2xl" />
+                                </div>
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -308,4 +389,5 @@ const onSelectAssignment = async (assign: AssignmentResponse) => {
     </div>
 
     <Loading v-if="loadingPage" />
+    <LoadingTransparent v-if="loadingAssignment" />
 </template>

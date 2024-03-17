@@ -257,13 +257,15 @@ const onSubmitUpdateclassroom = async () => {
         <div class="grid grid-cols-4 justify-center mx-10 pb-24 mt-20 gap-8 ">
             <div 
                 v-for="item of studentList"
-                class="bg-[#FFFFFF] w-[280px] h-[230px] relative rounded-[20px] flex justify-end items-center flex-col mt-10">
+                class="bg-[#FFFFFF] w-[280px] h-[230px] relative rounded-[20px] flex justify-end items-center flex-col mt-10"
+            >
                 <img src="~/assets/images/avatarstudent/student1.png" 
                     alt="student1" 
                     class="absolute left-1/2 transform -translate-x-1/2 -top-[70px] w-[130px]"
                 />
     
                 <p class="bg-[#FFF8E3] p-2 rounded-full min-w-[100px] text-center text-lg font-bold">เลขที่ {{ item.no }}</p>
+
                 <p class=" text-lg font-bold mt-7 mb-10 flex gap-x-3">
                     <p>{{ item.firstname }}</p>
                     <p>{{ item.lastname }} </p>

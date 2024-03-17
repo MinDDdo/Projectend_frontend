@@ -60,7 +60,7 @@ export const getAllAssignment = async (classroomId: string): Promise<Response<As
     }
 }
 
-export const getAssignmentById = async (assignmentId: string) => {
+export const getAssignmentById = async (assignmentId: string): Promise<Response<AssignmentResponse> | null> => {
     try {
         const authStore = useStore.authStore();
 
@@ -72,7 +72,7 @@ export const getAssignmentById = async (assignmentId: string) => {
 
         const apiUrl = useRuntimeConfig().public.apiUrl;
 
-        const response = await axios({
+        const response = await axios<Response<AssignmentResponse>>({
             method: 'get',
             url: apiUrl + "assignment/getById-assignment/" + assignmentId,
             headers: {
@@ -152,7 +152,7 @@ export const deleteAssignmentById = async (assignmentId: string) => {
     }
 }
 
-export const checkAssignment = async (assignmentId: string, data: AssignmentCheckDto) => {
+export const checkAssignment = async (assignmentId: string, data: AssignmentCheckDto): Promise<Response<null> | null> => {
     try {
         const authStore = useStore.authStore();
 
@@ -223,7 +223,8 @@ const assignmentService = {
     getAssignmentById,
     updateAssignmentById,
     deleteAssignmentById,
-    studentCheckStatusAssignment
+    studentCheckStatusAssignment,
+    checkAssignment
 }
 
 export default assignmentService;

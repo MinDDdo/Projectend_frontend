@@ -43,5 +43,12 @@ export interface AssignmentResponse {
     assign_name:    string;
     classroom_id:   string;
     id: string;
-    // student: Array [OPTIONAL]
+    student: AssignmentHandinStatus[]
+}
+
+export interface AssignmentHandinStatus {
+    no: number,
+    firstname: string,
+    lastname: string,
+    handin: boolean
 }
