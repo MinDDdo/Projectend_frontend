@@ -1,0 +1,220 @@
+<script lang="ts" setup>
+import type { ClassroomResponse } from '~/interfaces/classroom.interface';
+import { filename } from 'pathe/utils';
+import type { TeacherResponse } from '~/interfaces/teacher.interface';
+import { subjectAvatar } from '~/assets/static/subjectAvatar';
+
+const route = useRoute();
+
+const teacherStore = useStore.teacherStore();
+const teacher = ref<TeacherResponse | null>(null);
+
+const classroom = ref<ClassroomResponse | null>(null);
+const classroomName = ref<string>('');
+const grade = ref<string>('');
+const subjectCode = ref<string>('');
+const selectAvatarClassroom = ref<string>('');
+const showModalChangeAvatar = ref<boolean>(false);
+const loadingPage = ref<boolean>(false);
+
+
+
+onMounted(async () => {
+    loadingPage.value = true;
+
+    await getClassroomById();
+    await getTeacherById();
+
+    selectAvatarClassroom.value = classroom.value?.image || "";
+
+    setTimeout(() => { loadingPage.value = false }, 200);
+})
+
+const glob: Record<string, any> = import.meta.glob('~/assets/images/avatarSubject/*.png', { eager: true });
+const images = Object.fromEntries(
+    Object.entries(glob).map(([key, value]) => [filename(key), value.default])
+);
+
+
+const onSubmitUpdateclassroom = async () => {
+    const data = await useApi.classroomService.updateClassroomById(route.params?.id + '', {
+        name: classroomName.value,
+        subject_code: subjectCode.value,
+        grade: grade.value,
+        image: selectAvatarClassroom.value
+    })
+
+    if (!data) {
+        return navigateTo('/home');
+    }
+
+    const router = useRouter();
+    router.back()
+}
+
+
+const getTeacherById = async () => {
+    const data = await useApi.teacherService.getTeacherById(teacherStore.id);
+
+    if (!data) {
+        return navigateTo('/home');
+    }
+
+    teacher.value = data.result.data;
+}
+
+
+const getClassroomById = async () => {
+
+    const data = await useApi.classroomService.getClassroomById(route.params?.id + '')
+
+    if (!data) {
+        return navigateTo('/home');
+    } 
+    
+    classroom.value = data.result.data;
+    classroomName.value = data.result.data.name;
+    grade.value = data.result.data.grade;
+    subjectCode.value = data.result.data.subject_code;
+}
+
+
+const onCloseSelectAvatarProfile = () => {
+    showModalChangeAvatar.value = false;
+    selectAvatarClassroom.value = classroom.value?.image || "";
+}
+</script>
+
+<template>
+    <div class="h-screen bg-[#EEF5FF] ">
+        <div class="flex justify-between px-10 items-center pt-5">
+            <div class="p-3 hover:bg-gray-200 duration-100 rounded-md cursor-pointer">
+                <Icon 
+                    @click="$router.back()"
+                    name="ion:arrow-back-outline" 
+                    class="text-2xl" 
+                />
+            </div>
+            
+            <teacher-card 
+                :image="teacher?.image || ''" 
+                :name="`${teacher?.firstname} ${teacher?.lastname}`" 
+            />
+        </div>
+
+
+        <div class="flex justify-center">
+            <form 
+                @submit.prevent="onSubmitUpdateclassroom"
+                class="flex flex-col lg:mt-8 mt-14 gap-y-7 w-[500px] bg-white rounded-2xl p-10 relative"
+            >
+                <div class="bg-[#7071E8] p-3 rounded-2xl w-[240px] absolute left-1/2 -top-[30px] transform -translate-x-1/2">
+                    <p class="text-xl text-white text-center">แก้ไขชั้นเรียน</p>
+                </div>
+
+                <div class="flex justify-center">
+                    <div class="relative">
+                        <img 
+                            v-if="classroom?.image !== ''"
+                            :src="images[`${selectAvatarClassroom}`]" 
+                            alt="Subject profile"
+                            draggable="false"
+                            class="w-[120px] h-auto rounded-full"
+                        />
+    
+                        <div class="absolute bottom-1 right-1  cursor-pointer">
+                            <img 
+                                @click="showModalChangeAvatar = true"
+                                src="~/assets/images/logoeditprofile.png" 
+                                alt="logoeditprofile" 
+                                width="30" 
+                                height="30" 
+                                draggable="false"
+                                class="rounded-full select-none"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <input 
+                    type="text" 
+                    placeholder="ชื่อชั้นเรียน" 
+                    v-model="classroomName"
+                    class="p-3 px-5 rounded-xl bg-[#DCF2F1] h-[50px] text-[18px]" 
+                />
+
+                <input 
+                    type="text" 
+                    placeholder="ชั้นเรียน" 
+                    v-model="grade"
+                    class="p-3 px-5 rounded-xl bg-[#DCF2F1] h-[50px] text-[18px]" 
+                />
+        
+                <input 
+                    type="text" 
+                    placeholder="รหัสวิชา" 
+                    v-model="subjectCode"
+                    class="p-3 px-5 rounded-xl bg-[#DCF2F1] h-[50px] text-[18px]" 
+                />
+
+                <div class="flex justify-between h-[40px] mt-5 gap-x-5">
+                    <button 
+                        @click="$router.back()"
+                        type="button" 
+                        class="p-2 bg-[#E5E5E5] rounded-xl w-[210px]"
+                    >
+                        ยกเลิก
+                    </button>
+
+                    <button 
+                        type="submit" 
+                        class="p-2 text-white bg-[#676B7D] rounded-xl w-[210px]"
+                    >
+                        แก้ไข
+                    </button>
+                </div>
+            </form>                
+        </div>
+    </div>
+
+
+    <div 
+        v-if="showModalChangeAvatar"
+        @click="onCloseSelectAvatarProfile"
+        class="fixed bg-gray-400 bg-opacity-50 h-screen w-full z-[99999] top-0 right-0 left-0" 
+    ></div>
+
+    <div 
+        v-if="showModalChangeAvatar"
+        class="fixed bg-white rounded-[20px]  min-w-[900px] min-h-[650px] z-[999999] 
+        top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 " 
+    >
+        <div class="overflow-y-scroll overflow-x-hidden min-h-[450px] min-w-[700px] 
+        max-h-[450px] max-w-[700px] mt-[80px] mx-[100px] grid grid-cols-5 gap-1" >
+            <img
+                v-for="item, idx of subjectAvatar"
+                :src="images[`${item.path}`]" 
+                :alt="idx + ''" 
+                draggable="false"
+                class="rounded-lg cursor-pointer transition-transform duration-100 border-2 "  
+                :class="{
+                    'border-[#475A7D] shadow-sm': item.path === selectAvatarClassroom,
+                    'border-transparent': item.path !== selectAvatarClassroom
+                }"
+                @click="selectAvatarClassroom = item.path"
+            />
+        </div>
+        
+        <div class=" grid justify-items-center pt-5" >
+            <button 
+                @click="showModalChangeAvatar = false"
+                type="submit" 
+                class="p-2 bg-[#676B7D] w-[150px] h-[50px] rounded-[10px] text-white font-bold"
+            >
+                บันทึก
+            </button>
+        </div>
+    </div>
+
+    <Loading v-if="loadingPage" />
+</template>

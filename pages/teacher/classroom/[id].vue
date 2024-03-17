@@ -3,6 +3,7 @@
 <script setup lang="ts">
 import type { StudentResponse } from '~/interfaces/student.interface';
 import type { ClassroomResponse } from '~/interfaces/classroom.interface';
+import type { TeacherResponse } from '~/interfaces/teacher.interface';
 import {
     TransitionRoot,
     TransitionChild,
@@ -13,8 +14,13 @@ import {
 
 const route = useRoute();
 
+const teacherStore = useStore.teacherStore();
+
 const studentList = ref<StudentResponse[]>([]);
 const classroom = ref<ClassroomResponse | null>(null);
+const teacher = ref<TeacherResponse | null>(null);
+const loadingPage = ref<boolean>(false);
+
 
 const isOpen = ref<boolean>(false);
 
@@ -23,8 +29,13 @@ const grade = ref<string>('');
 const subjectCode = ref<string>('');
 
 onMounted(async () => {
+    loadingPage.value = true;
+
     await getAllStudent();
     await getClassroomById();
+    await getTeacherById();
+
+    setTimeout(() => { loadingPage.value = false }, 200)
 })
 
 const getAllStudent = async () => {
@@ -49,6 +60,16 @@ const getClassroomById = async () => {
     classroom.value = data.result.data;
 }
 
+const getTeacherById = async () => {
+    const data = await useApi.teacherService.getTeacherById(teacherStore.id);
+
+    if (!data) {
+        return navigateTo('/home');
+    }
+
+    teacher.value = data.result.data;
+}
+
 const closeModal =  () => {
     isOpen.value = false;
 }
@@ -62,6 +83,8 @@ const onClickEditButton = async () => {
 }
 
 const onSubmitUpdateclassroom = async () => {
+    loadingPage.value = true;
+
     const data = await useApi.classroomService.updateClassroomById(route.params?.id + '', {
         name: classroomName.value,
         subject_code: subjectCode.value,
@@ -74,8 +97,11 @@ const onSubmitUpdateclassroom = async () => {
     }
     isOpen.value = false;
     
+    setTimeout(() => { loadingPage.value = false }, 200)
+
     await getAllStudent();
     await getClassroomById();
+
 }
 
 
@@ -83,11 +109,19 @@ const onSubmitUpdateclassroom = async () => {
 
 <template>
     <div class="min-h-screen bg-[#EEF5FF] ">
-        <div class="flex justify-end px-10 ">
-            <NuxtLink to="profileteacher"  class="bg-white flex gap-x-5 items-center mt-3 p-1 rounded-[10px] w-[190px] ">
-                <!-- <img src="~/assets/images/T1.png" alt="T1"/> -->
-                <p>ใจดี มีชัย</p>
-            </NuxtLink>
+        <div class="flex justify-between px-10 items-center pt-5">
+            <div class="p-3 hover:bg-gray-200 duration-100 rounded-md cursor-pointer">
+                <Icon 
+                    @click="$router.back()"
+                    name="ion:arrow-back-outline" 
+                    class="text-2xl" 
+                />
+            </div>
+            
+            <teacher-card 
+                :image="teacher?.image || ''" 
+                :name="`${teacher?.firstname} ${teacher?.lastname}`" 
+            />
         </div>
 
         <div class="flex justify-center relative">
@@ -98,9 +132,14 @@ const onSubmitUpdateclassroom = async () => {
 
         <div class="flex justify-center mt-5">
             <div class="bg-[#FFFFFF] p-4 w-[600px] h-[190px] rounded-[15px]">
-                <div @click="onClickEditButton" class="flex justify-end">
-                    <p class="pr-2">แก้ไข</p>
-                    <img src="~/assets/images/setting.png" alt="setting"/>
+                <div class="flex justify-end">
+                    <div 
+                        @click="onClickEditButton" 
+                        class="flex gap-x-2 hover:bg-gray-200 p-2 rounded-md duration w-[90px] justify-center cursor-pointer"
+                    >
+                        <p class="">แก้ไข</p>
+                        <img src="~/assets/images/setting.png" alt="setting"/>
+                    </div>
                 </div>
 
                 <div class="flex ">
@@ -292,10 +331,11 @@ const onSubmitUpdateclassroom = async () => {
                     />
                     <div class="flex justify-between h-[50px]  ">
                         <button @click="isOpen = false"
-                            type="submit" 
+                            type="button" 
                             class="p-1 font-bold bg-[#E5E5E5] rounded-xl w-[190px]">
                             ยกเลิก
                         </button>
+
                         <button 
                             type="submit" 
                             class="p-1 text-white font-bold bg-[#676B7D] rounded-xl w-[190px]">
@@ -309,6 +349,8 @@ const onSubmitUpdateclassroom = async () => {
       </div>
     </Dialog>
   </TransitionRoot>
+
+  <Loading v-if="loadingPage" />
 </template>
 
 <style scoped>

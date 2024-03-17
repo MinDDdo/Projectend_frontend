@@ -30,7 +30,7 @@ const formatDate = (date: string) => {
 }
 
 const getTeacherById = async () => {
-    const data = await useApi.teacherService.getTeacherById('65c0f97b48f2c8d8846a2251')
+    const data = await useApi.teacherService.getTeacherById(teacherStore.id);
 
     if (!data) {
         return navigateTo('/home');
@@ -38,7 +38,6 @@ const getTeacherById = async () => {
     console.log(data)
 
     teacher.value = data.result.data
-
 }
 
 const onOpenSelectAvatarProfile = () => {
@@ -103,7 +102,7 @@ const onSubmitChangeAvatar = async () => {
                             draggable="false"
                             class="rounded-full select-none"
                         />
-                     </div>
+                    </div>
                 </div>
                 <p class="text-[25px] text-center font-bold">{{teacher?.firstname}} {{teacher?.lastname}}</p>
         

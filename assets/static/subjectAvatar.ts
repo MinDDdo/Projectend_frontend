@@ -1,172 +1,172 @@
 export const subjectAvatar = [
     {
-        path: "~/assets/images/avatarSubject/Sj_1.png"
+        path: "Sj_1"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_2.png"
+        path: "Sj_2"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_3.png"
+        path: "Sj_3"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_4.png"
+        path: "Sj_4"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_5.png"
+        path: "Sj_5"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_6.png"
+        path: "Sj_6"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_7.png"
+        path: "Sj_7"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_8.png"
+        path: "Sj_8"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_9.png"
+        path: "Sj_9"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_10.png"
+        path: "Sj_10"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_11.png"
+        path: "Sj_11"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_12.png"
+        path: "Sj_12"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_13.png"
+        path: "Sj_13"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_14.png"
+        path: "Sj_14"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_15.png"
+        path: "Sj_15"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_16.png"
+        path: "Sj_16"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_17.png"
+        path: "Sj_17"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_18.png"
+        path: "Sj_18"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_19.png"
+        path: "Sj_19"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_20.png"
+        path: "Sj_20"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_21.png"
+        path: "Sj_21"
     },
     
     {
-        path: "~/assets/images/avatarSubject/Sj_22.png"
+        path: "Sj_22"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_23.png"
+        path: "Sj_23"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_24.png"
+        path: "Sj_24"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_25.png"
+        path: "Sj_25"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_26.png"
+        path: "Sj_26"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_27.png"
+        path: "Sj_27"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_28.png"
+        path: "Sj_28"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_29.png"
+        path: "Sj_29"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_30.png"
+        path: "Sj_30"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_31.png"
+        path: "Sj_31"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_32.png"
+        path: "Sj_32"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_33.png"
+        path: "Sj_33"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_34.png"
+        path: "Sj_34"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_35.png"
+        path: "Sj_35"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_36.png"
+        path: "Sj_36"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_37.png"
+        path: "Sj_37"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_38.png"
+        path: "Sj_38"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_39.png"
+        path: "Sj_39"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_40.png"
+        path: "Sj_40"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_41.png"
+        path: "Sj_41"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_42.png"
+        path: "Sj_42"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_43.png"
+        path: "Sj_43"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_44.png"
+        path: "Sj_44"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_45.png"
+        path: "Sj_45"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_46.png"
+        path: "Sj_46"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_47.png"
+        path: "Sj_47"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_48.png"
+        path: "Sj_48"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_49.png"
+        path: "Sj_49"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_50.png"
+        path: "Sj_50"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_51.png"
+        path: "Sj_51"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_52.png"
+        path: "Sj_52"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_53.png"
+        path: "Sj_53"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_54.png"
+        path: "Sj_54"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_55.png"
+        path: "Sj_55"
     },
     {
-        path: "~/assets/images/avatarSubject/Sj_56.png"
+        path: "Sj_56"
     }
     
 ]

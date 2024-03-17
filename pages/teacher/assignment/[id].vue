@@ -1,15 +1,19 @@
-<!-- หน้า Teacher Assignment -->
-
 <script lang="ts" setup>
 import type { AssignmentResponse,AssignmentCreateDto } from '~/interfaces/assignment.interface';
+import type { TeacherResponse } from '~/interfaces/teacher.interface';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import dayjs from 'dayjs';
 import 'dayjs/locale/th';
 
 const route = useRoute();
 
+const teacherStore = useStore.teacherStore();
 
+const teacher = ref<TeacherResponse | null>(null);
+const loadingPage = ref<boolean>(false);
 const assignments = ref<AssignmentResponse[]>([]);
+const selectAssignment = ref<AssignmentResponse | null>(null);
+
 const dueDateSelected = ref<string>('');
 const assignmentForm = reactive({
     topic: '',
@@ -17,12 +21,27 @@ const assignmentForm = reactive({
 });
 
 
-
 const showCreateAssignment = ref<boolean>(false);
+const showDetailAssignment = ref<boolean>(false);
 
 onMounted(async () => {
+    loadingPage.value = true;
+
+    await getTeacherById();
     await getAssignmentAll();
+
+    setTimeout(() => { loadingPage.value = false }, 200);
 })
+
+const getTeacherById = async () => {
+    const data = await useApi.teacherService.getTeacherById(teacherStore.id);
+
+    if (!data) {
+        return navigateTo('/home');
+    }
+
+    teacher.value = data.result.data;
+}
 
 const getAssignmentAll = async () => {
     const data = await useApi.assignmentService.getAllAssignment(route.params?.id.toString());
@@ -58,26 +77,39 @@ const onSubmitCreateAssignment = async () => {
     })
 
     if (!data) {
-        return navigateTo('/');
+        return navigateTo('/home');
     }
 
     // Clear form
     assignmentForm.topic = '';
     assignmentForm.detail = '';
+    dueDateSelected.value = '';
+
+    await getAssignmentAll();
 }
 
+
+const onSelectAssignment = async (assign: AssignmentResponse) => {
+    selectAssignment.value = assign;
+    showDetailAssignment.value = true;
+}
 </script>
 
 <template>
-    <div class="h-screen bg-[#EEF5FF] relative">
-        <div class="">
-            <div class="">
-                <img 
-                    src="~/assets/images/arrow.png"  
-                    alt="arrow"
-                    class="pt-3 pl-5 w-[75px]"
+    <div class="min-h-screen bg-[#EEF5FF] relative">
+        <div class="flex justify-between px-10 items-center pt-5">
+            <div class="p-3 hover:bg-gray-200 duration-100 rounded-md cursor-pointer">
+                <Icon 
+                    @click="$router.back()"
+                    name="ion:arrow-back-outline" 
+                    class="text-2xl" 
                 />
             </div>
+            
+            <teacher-card 
+                :image="teacher?.image || ''" 
+                :name="`${teacher?.firstname} ${teacher?.lastname}`" 
+            />
         </div>
 
         <div class="flex justify-center ">
@@ -86,14 +118,11 @@ const onSubmitCreateAssignment = async () => {
             </div>
         </div>
 
-        <div class="mt-5 px-[420px] relative min-h-[50px]">
+        <div class="flex flex-col justify-center mt-8 w-[700px] mx-auto">
             <button 
-                type="button" 
-                class="
-                bg-[#FFFFFF] rounded-[15px] p-2 w-[160px] flex item-center absolute transform
-                transition-transform duration-100 hover:-translate-y-1 hover:shadow-sm
-                "
                 @click="showCreateAssignment = true"
+                type="button" 
+                class="bg-[#FFFFFF] rounded-[15px] p-2 w-[160px] flex item-center mb-8"
             >
                 <img 
                     src="~/assets/images/task.png" 
@@ -102,13 +131,12 @@ const onSubmitCreateAssignment = async () => {
                 />
                 <p class="text-center mt-1 text-lg pl-1">สร้างงาน</p>
             </button>
-        </div>
 
-        <div class="flex justify-center mt-8">
-            <div class="" v-if="assignments.length !== 0">
+            <div class="flex flex-col gap-4 w-full mb-20" v-if="assignments.length !== 0">
                 <div 
                     v-for="item of assignments"
-                    class="bg-[#FFFFFF] w-[700px] h-[130px] p-5 rounded-[15px]"
+                    @click="onSelectAssignment(item)"
+                    class="bg-[#FFFFFF] hover:border-gray-200 border border-transparent  w-full h-[130px] p-5 rounded-[15px] cursor-pointer transform hover:shadow-md hover:-translate-y-2 transition-transform duration-75"
                 >
                     <div class="flex flex-col">
                         <div class="">
@@ -206,6 +234,7 @@ const onSubmitCreateAssignment = async () => {
                 />
 
                 <button 
+                    :disabled="assignmentForm.topic === '' || assignmentForm.detail === '' || dueDateSelected === ''"
                     type="submit" 
                     class="bg-[#676B7D] py-2 px-3 h-[36px] text-white rounded-md w-[160px] font-bold"
                 >
@@ -214,4 +243,69 @@ const onSubmitCreateAssignment = async () => {
             </div>
         </form>
     </div>
+
+    <div 
+        v-if="showDetailAssignment"
+        @click="showDetailAssignment = false" 
+        class="fixed w-full top-0 left-0 min-h-screen bg-gray-400/50"
+    >
+    </div>
+
+    <div 
+        v-if="showDetailAssignment"
+        class="lg:w-[800px] md:w-[600px] w-[400px] h-[500px] bg-white rounded-md fixed 
+        top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
+        "
+    >
+        <div class="relative">
+            <div 
+                class="bg-[#475A7D]  rounded-[15px] absolute w-[300px] h-[65px] 
+                flex items-center justify-center
+                absolute -top-[36px] left-1/2 transform -translate-x-1/2
+                "
+            >
+                <p class="text-white text-2xl text-center">สถานะการส่งงาน</p>
+            </div>
+        </div>
+
+        <div class="grid mt-10 p-5 mx-10 overflow-x-auto overflow-y-auto">
+            <table class="w-full">
+                <thead>
+                    <tr>
+                        <th class="min-w-[150px]">
+                            <div class="w-full flex justify-center">
+                                <div class="w-[100px] bg-[#ABCED1] p-2 rounded-xl">เลขที่</div>
+                            </div>
+                        </th>
+
+                        <th class="min-w-[200px] max-w-[200px]" colspan="2">
+                            <div class="w-full">
+                                <div class="w-[150px] bg-[#ABCED1] p-2 rounded-xl">รายชื่อ</div>
+                            </div>
+                        </th>
+
+                        <th class="w-[200px]">
+                            <div class="w-full">
+                                <div class="p-2 rounded-xl">สถานะ</div>
+                            </div>
+                        </th>
+
+                        <th class=""></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr class="">
+                        <td class="py-5 text-center font-bold">1</td>
+                        <td class="py-5">2</td>
+                        <td class="py-5">3</td>
+                        <td class="py-5">4</td>
+                        <td class="py-5">5</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <Loading v-if="loadingPage" />
 </template>

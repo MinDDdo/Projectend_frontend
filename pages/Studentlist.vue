@@ -5,7 +5,7 @@
 <template>
     <div class="min-h-screen bg-[#EEF5FF] relative">
         <div class="flex justify-between px-10 ">
-            <div class="mt-5">
+            <!-- <div class="mt-5">
                 <img src="~/assets/images/arrow.png"  alt="arrow"
                 class=" pl-3 w-[75px]"
                 />
@@ -16,7 +16,7 @@
                     <p>ใจดี มีชัย</p>
                 </div>
 
-            </div>
+            </div> -->
             
         </div>
         
@@ -75,7 +75,7 @@
             </div>
 
             <div class="flex flex-col gap-y-5 absolute right-[120px] top-1/2 transform -translate-y-1/2">
-                <div class="bg-[#D9E2E4] w-[180px] rounded-[15px] flex flex-col items-center p-3 h-[90px]">
+                <!-- <div class="bg-[#D9E2E4] w-[180px] rounded-[15px] flex flex-col items-center p-3 h-[90px]">
                     <img src="~/assets/images/person1.png" 
                     alt="person1"
                     class="w-[40px]"
@@ -89,7 +89,7 @@
                     class="w-[25px] pt-1"
                     />
                     <p class="font-bold pt-1">นำเข้าจาก Excel</p>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

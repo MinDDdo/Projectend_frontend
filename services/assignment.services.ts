@@ -7,14 +7,11 @@ export const createAssignment = async (classroomId: string, data: AssignmentCrea
     :Promise<Response<AssignmentCreateDto> | null> => {
     try {
         const authStore = useStore.authStore();
-
-        
-
         const apiUrl = useRuntimeConfig().public.apiUrl;
 
         const response = await axios<Response<AssignmentCreateDto>>({
             method: 'post',
-            url: apiUrl + "assignment/create-attendance",
+            url: apiUrl + `assignment/${classroomId}/create-assignment`,
             headers: {
                 'Authorization': 'Bearer ' + authStore.access_token
             },

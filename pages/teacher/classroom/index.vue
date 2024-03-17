@@ -25,7 +25,7 @@ onMounted(async () => {
     await getAllClassroom();
     await getTeacherById();
 
-    setTimeout(() => { loadingPage.value = false }, 300)
+    setTimeout(() => { loadingPage.value = false }, 200)
 })
 
 const getAllClassroom = async () => {
@@ -55,6 +55,8 @@ const onClickDeleteClassroom = async (classroomId: string) => {
 
 
 const onConfirmDelete = async () => {
+    loadingPage.value = true;
+    
     const data = await useApi.classroomService.deleteClassroomById(classroomIdSelected.value);
     showModalConfirm.value = false;
 
@@ -63,6 +65,8 @@ const onConfirmDelete = async () => {
     }
 
     await getAllClassroom();
+
+    setTimeout(() => { loadingPage.value = false }, 200)
 }
 
 const onLogout = () => {
@@ -104,17 +108,17 @@ const onLogout = () => {
         </div>
 
         <div class="flex justify-center mt-9">
-            <NuxtLink to="/createclassroom" class="bg-[#8EACCD] p-2 w-[250px] rounded-[15px] flex justify-center items-center">
+            <NuxtLink to="/teacher/classroom/create" class="bg-[#8EACCD] p-2 w-[250px] rounded-[15px] flex justify-center items-center">
                 <p class=" text-white text-xl">สร้างชั้นเรียน</p>
                 <img src="~/assets/images/add.png" :draggable="false" alt="add" class="ml-1 w-[20px] h-auto" />
             </NuxtLink>
         </div>
 
-        <div class="grid grid-cols-4 justify-center mx-10 pb-24 mt-20 gap-8">
+        <div class="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 justify-center mx-10 pb-24 mt-20 gap-8">
 
             <div 
                 v-for="item of classroomList"
-                class="bg-[#FFFFFF]  p-2 rounded-[15px] h-[300px] relative flex flex-col"
+                class="bg-[#FFFFFF]  p-2 rounded-[15px] lg:h-[300px] md:h-[280px] h-[280px] relative flex flex-col"
             >
 
 
@@ -147,7 +151,7 @@ const onLogout = () => {
                             >
                             <div class="px-1 py-1">
                                 <MenuItem v-slot="{ active }">
-                                <NuxtLink :to="'/edit-classroom/' + item.id"
+                                <NuxtLink :to="'/teacher/classroom/edit/' + item.id"
                                     :class="[
                                     active ? 'bg-[#7071E8] text-white' : 'text-gray-900',
                                     'group flex w-full items-center rounded-md px-2 py-2 text-sm',
@@ -179,14 +183,15 @@ const onLogout = () => {
                         </Menu>
                 </div>
 
-                <div class="flex justify-center mt-2">
+                <div class="flex justify-center mt-5">
                     <img
                         :src="images[`${item.image}`]" 
                         draggable="false"
                         alt="classroom image"
                         width="100"
                         height="100"
-                        class="!rounded-full !object-cover border-2"  
+                        class="!rounded-full !object-cover border-2 
+                        lg:w-[100px] lg:h-[100px] w-[90px] h-[90px] "  
                     />
                 </div>
 
@@ -197,7 +202,7 @@ const onLogout = () => {
                     type="button" 
                     class="flex justify-center cursor-pointer"
                 >
-                    <NuxtLink :to="'classroom/'+ item.id" class="bg-[#7071E8] p-2 w-[180px] rounded-[15px] mt-3">
+                    <NuxtLink :to="'/teacher/classroom/'+ item.id" class="bg-[#7071E8] p-2 w-[180px] rounded-[15px] mt-3">
                         <p class="text-center text-white text-lg ">เข้าชั้นเรียน</p>
                     </NuxtLink>
                 </button>
