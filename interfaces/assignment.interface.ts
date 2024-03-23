@@ -7,7 +7,7 @@ export interface AssignmentCreateDto {
 export interface AssignmentUpdateDto {
     assign_name: string;
     assign_detail: string;
-    assign_due: Date;
+    assign_due: string;
 }
 
 export interface AssignmentCheckDto {

@@ -89,7 +89,7 @@ export const getAssignmentById = async (assignmentId: string): Promise<Response<
     }
 }
 
-export const updateAssignmentById = async (assignmentId: string, data: AssignmentUpdateDto) => {
+export const updateAssignmentById = async (assignmentId: string, data: AssignmentUpdateDto): Promise<Response<null> | null> => {
     try {
         const authStore = useStore.authStore();
 
@@ -101,7 +101,7 @@ export const updateAssignmentById = async (assignmentId: string, data: Assignmen
 
         const apiUrl = useRuntimeConfig().public.apiUrl;
 
-        const response = await axios({
+        const response = await axios<Response<null>>({
             method: 'put',
             url: apiUrl + "assignment/update-assignment/" + assignmentId,
             headers: {
@@ -113,8 +113,8 @@ export const updateAssignmentById = async (assignmentId: string, data: Assignmen
                 assign_due: data.assign_due
             }
         })
-        return response.data;
 
+        return response.data;
     }catch (error){
         if (error instanceof AxiosError){
             return error.response?.data;
@@ -123,7 +123,7 @@ export const updateAssignmentById = async (assignmentId: string, data: Assignmen
     }
 }
 
-export const deleteAssignmentById = async (assignmentId: string) => {
+export const deleteAssignmentById = async (assignmentId: string): Promise<Response<null> | null> => {
     try {
         const authStore = useStore.authStore();
 
@@ -135,15 +135,15 @@ export const deleteAssignmentById = async (assignmentId: string) => {
 
         const apiUrl = useRuntimeConfig().public.apiUrl;
 
-        const response = await axios({
+        const response = await axios<Response<null>>({
             method: 'delete',
-            url: apiUrl + "assignmnet/delete-assignment/" + assignmentId,
+            url: apiUrl + "assignment/delete-assignment/" + assignmentId,
             headers: {
                 'Authorization': 'Bearer ' + authStore.access_token
             }
         })
-        return response.data;
 
+        return response.data;
     }catch (error){
         if (error instanceof AxiosError){
             return error.response?.data;

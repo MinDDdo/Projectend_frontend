@@ -1,6 +1,7 @@
 <script setup lang="ts">
 interface ModalProps {
     show: boolean;
+    title: string;
 }
 
 defineProps<ModalProps>();
@@ -32,7 +33,7 @@ const onConfirm = () => {
         @click="onClose"
         v-if="show"
     >
-        <div class="text-lg">ต้องการที่จะลบห้องเรียนนี้หรือไม่?</div>
+        <div class="text-lg">ต้องการที่จะลบ{{title}}นี้หรือไม่?</div>
 
         <div class="flex justify-center gap-x-5 items-center mt-8">
             <button

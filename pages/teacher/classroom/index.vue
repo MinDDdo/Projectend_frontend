@@ -212,6 +212,6 @@ const onLogout = () => {
 
     </div>
 
-    <Modal v-model:show="showModalConfirm" @on-confirm="onConfirmDelete" />
+    <Modal v-model:show="showModalConfirm" title="ห้องเรียน" @on-confirm="onConfirmDelete" />
     <Loading v-if="loadingPage" />
 </template>
