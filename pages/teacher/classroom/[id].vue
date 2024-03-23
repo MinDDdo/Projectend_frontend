@@ -1,9 +1,8 @@
-<!-- หน้า Teacher Classroom -->
-
 <script setup lang="ts">
 import type { StudentResponse } from '~/interfaces/student.interface';
 import type { ClassroomResponse } from '~/interfaces/classroom.interface';
 import type { TeacherResponse } from '~/interfaces/teacher.interface';
+import { filename } from 'pathe/utils';
 import {
     TransitionRoot,
     TransitionChild,
@@ -15,6 +14,12 @@ import {
 const route = useRoute();
 
 const teacherStore = useStore.teacherStore();
+
+const glob: Record<string, any> = import.meta.glob('~/assets/images/avatarstudent/*.png', { eager: true });
+const images = Object.fromEntries(
+    Object.entries(glob).map(([key, value]) => [filename(key), value.default])
+);
+
 
 const studentList = ref<StudentResponse[]>([]);
 const classroom = ref<ClassroomResponse | null>(null);
@@ -124,7 +129,7 @@ const onSubmitUpdateclassroom = async () => {
             />
         </div>
 
-        <div class="flex justify-center relative">
+        <div class="flex justify-center relative lg:mt-0 mt-10">
             <div class="bg-[#475A7D] p-3 w-[260px] mt-5 rounded-[15px] absolute left-1/2 transform -translate-x-1/2 -top-[30px]">
                 <p class="font-bold text-2xl text-white text-center">{{ classroom?.name}}</p>
             </div>
@@ -166,13 +171,13 @@ const onSubmitUpdateclassroom = async () => {
 
         <div class="flex justify-center gap-x-5 mt-10">
             <NuxtLink 
-                to="/home" 
+                to="/teacher/classroom" 
                 class="bg-[#DCFAFB] p-5 w-[150px] rounded-[20px] flex flex-col items-center shadow-md"
             >
-                <!-- <img src="~/assets/images/home1.png" 
-                alt="home1"
+                <img src="~/assets/images/home.png" 
+                alt="home"
                 class="w-[45px] "
-                /> -->
+                />
                 <p class="text-center pt-1">หน้าหลัก</p>
             </NuxtLink>
 
@@ -180,27 +185,27 @@ const onSubmitUpdateclassroom = async () => {
                 :to="`/teacher/assignment/${classroom?.id}`"  
                 class="bg-[#DCFAFB] p-5 w-[150px] rounded-[20px] flex flex-col items-center shadow-md"
             >
-                <!-- <img 
-                    src="~/assets/images/assignment1.png" 
-                    alt="assgnment1"
+                <img 
+                    src="~/assets/images/assignment.png" 
+                    alt="assgnment"
                     class="w-[40px] "
-                /> -->
+                />
                 
                 <p class="text-center pt-1">งานที่มอบหมาย</p>
             </NuxtLink>
 
-            <NuxtLink to="/attendance" class="bg-[#DCFAFB] p-5 w-[150px] rounded-[20px] flex flex-col items-center shadow-md">
-                <!-- <img src="~/assets/images/hand1.png" 
-                alt="hsnd1"
+            <NuxtLink :to="`/teacher/attendance/${classroom?.id}`" class="bg-[#DCFAFB] p-5 w-[150px] rounded-[20px] flex flex-col items-center shadow-md">
+                <img src="~/assets/images/hand.png" 
+                alt="hand"
                 class="w-[45px] "
-                /> -->
+                />
                 <p class="text-center pt-1">การเข้าเรียน</p>
             </NuxtLink>
 
 
         </div>
 
-        <div class="flex justify-center mt-5">
+        <div class="flex justify-center gap-4 lg:flex-nowrap flex-wrap mt-5">
             <NuxtLink to="/studentlist" class="bg-[#BE96C6] p-2 w-[170px] rounded-[20px] shadow-md">
                 <div class="flex justify-center items-center">
                     <p class=" text-white mt-1">รายชื่อ</p>
@@ -208,7 +213,7 @@ const onSubmitUpdateclassroom = async () => {
                 </div>
             </NuxtLink>
 
-            <div class="flex justify-center ml-3">
+            <div class="flex justify-center">
                 <NuxtLink to="/teachercheckassignment" class="bg-[#C7AFDC] p-2 w-[170px] rounded-[20px] shadow-md">
                     <div class="flex justify-center items-center">
                         <p class=" text-white mt-1 ml-2">เช็คชื่อ</p>
@@ -218,7 +223,7 @@ const onSubmitUpdateclassroom = async () => {
             </div>
 
             
-            <div class="flex justify-center ml-3">
+            <div class="flex justify-center">
                 <div class="bg-[#B78DC9] p-2 w-[170px] rounded-[20px] shadow-md">
                     <div class="flex justify-center items-center">
                         <p class="text-white mt-1">สุ่มชื่อ</p>
@@ -227,7 +232,7 @@ const onSubmitUpdateclassroom = async () => {
                 </div>
             </div>
 
-            <div class="flex justify-center ml-3">
+            <div class="flex justify-center">
                 <div class="bg-[#C897BC] p-2 w-[170px] rounded-[20px] shadow-md">
                     <div class="flex justify-center items-center">
                         <p class="text-white mt-2">จัดกลุ่ม</p>
@@ -236,7 +241,7 @@ const onSubmitUpdateclassroom = async () => {
                 </div>
             </div>
             
-            <div class="flex justify-center ml-3">
+            <div class="flex justify-center">
                 <div class="bg-[#9181A9] p-2 w-[170px] rounded-[20px] shadow-md">
                     <div class="flex justify-center items-center">
                         <p class="text-white mt-1">จับเวลา</p>
@@ -249,19 +254,20 @@ const onSubmitUpdateclassroom = async () => {
         </div>
 
         <div class="flex justify-center">
-            <div class="mt-5">
+            <div class="mt-14">
                 <p class="font-bold text-2xl">นักเรียน</p>
             </div>
         </div>
 
-        <div class="grid grid-cols-4 justify-center mx-10 pb-24 mt-20 gap-8 ">
+        <div class="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 justify-center  xl:w-[1280px] lg:w-[900px] md:w-[600px]  w-full mx-auto  pb-24 mt-20 lg:gap-x-8 md:gap-x-5 gap-x-2 gap-y-12 ">
             <div 
                 v-for="item of studentList"
-                class="bg-[#FFFFFF] w-[280px] h-[230px] relative rounded-[20px] flex justify-end items-center flex-col mt-10"
+                class="bg-[#FFFFFF] w-[280px] h-[230px] relative rounded-[20px] flex justify-end items-center flex-col mt-10 justify-self-center"
             >
-                <img src="~/assets/images/avatarstudent/student1.png" 
+                <img 
+                    :src="images[`${item.image}`]" 
                     alt="student1" 
-                    class="absolute left-1/2 transform -translate-x-1/2 -top-[70px] w-[130px]"
+                    class="absolute rounded-full left-1/2 transform -translate-x-1/2 -top-[70px] w-[130px]"
                 />
     
                 <p class="bg-[#FFF8E3] p-2 rounded-full min-w-[100px] text-center text-lg font-bold">เลขที่ {{ item.no }}</p>

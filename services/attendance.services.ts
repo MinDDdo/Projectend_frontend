@@ -1,6 +1,10 @@
 import axios, { AxiosError } from "axios";
-import type { AttendanceCreateDto, AttendanceExportDto, AttendanceUpdateDto } from "~/interfaces/attendance.interface";
+import type { AttendanceCreateDto, AttendanceExportDto, AttendanceUpdateDto, AttendanceResponse } from "~/interfaces/attendance.interface";
 import { checkToken } from "./auth"; 
+import type { Response } from "~/interfaces/response.interface";
+import { saveAs } from 'file-saver';
+
+
 
 export const createAttendance = async (data: AttendanceCreateDto) => {
     try {
@@ -97,7 +101,7 @@ export const deleteAttendance = async (attendanceId: string) => {
     }
 }
 
-export const getAllAttendance = async (classroomId: string) => {
+export const getAllAttendance = async (classroomId: string): Promise<Response<AttendanceResponse[]> | null> => {
     try {
         const authStore = useStore.authStore();
 
@@ -109,15 +113,15 @@ export const getAllAttendance = async (classroomId: string) => {
 
         const apiUrl = useRuntimeConfig().public.apiUrl; 
 
-        const response = await axios({
+        const response = await axios<Response<AttendanceResponse[]>>({
             method: 'get',
             url: apiUrl + "attendance/"+ classroomId +"/getAll-attendance",
             headers: {
                 'Authorization': 'Bearer ' + authStore.access_token
             }
         })
-        return response.data;
         
+        return response.data;
     }catch (error){
         if (error instanceof AxiosError){
             return error.response?.data;
@@ -155,7 +159,7 @@ export const getAttendanceById = async (attendanceId: string) => {
     }
 }
 
-export const exportAttendance = async (data: AttendanceExportDto) => {
+export const exportAttendance = async (classroom_id: string, startDate: string, endDate: string): Promise<any | null> => {
     try {
         const authStore = useStore.authStore();
 
@@ -168,15 +172,33 @@ export const exportAttendance = async (data: AttendanceExportDto) => {
         const apiUrl = useRuntimeConfig().public.apiUrl; 
          
         const response = await axios({
-            method: 'get',
+            method: 'post',
             url: apiUrl + "attendance/export-attendance-excel",
+            responseType: 'arraybuffer',
             headers: {
                 'Authorization': 'Bearer ' + authStore.access_token
             },
             data: {
-                classroom_id: data.classroom_id
+                classroom_id: classroom_id
+            },
+            params: {
+                start_date: startDate,
+                end_date: endDate
             }
         })
+
+        // console.log(response);
+
+        // const contentType = response.headers['content-type'];
+        // const contentDisposition = response.headers['content-disposition'];
+
+        // console.log(contentType, contentDisposition)
+      
+        // // Handle successful response
+        // // Save the file using file-saver
+        // const blob = new Blob([response.data], { type: contentType });
+        // saveAs(blob, contentDisposition.split('filename=')[1]);
+
         return response.data;
 
     }catch (error){
