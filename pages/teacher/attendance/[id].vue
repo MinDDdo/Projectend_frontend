@@ -5,6 +5,8 @@ import type { AttendanceResponse } from '~/interfaces/attendance.interface';
 import dayjs from 'dayjs';
 import 'dayjs/locale/th';
 import { saveAs } from 'file-saver';
+import _ from 'lodash';
+import type { NavigationFailure, RouteLocationRaw } from 'vue-router';
 
 const route = useRoute();
 
@@ -15,6 +17,7 @@ const classroom = ref<ClassroomResponse | null>(null);
 const loadingPage = ref<boolean>(false);
 const loadingExport = ref<boolean>(false);
 const attendances = ref<AttendanceResponse[]>([]);
+const studentAttendace = ref<number[][]>([]);
 
 
 onMounted(async () => {
@@ -23,19 +26,11 @@ onMounted(async () => {
     await getTeacherById();
     // await getClassroomById();
     await getAllAttendance();
+    await filterStudentAttendace();
 
     setTimeout(() => { loadingPage.value = false }, 200)
 })
 
-const getClassroomById = async () => {
-    const data = await useApi.classroomService.getClassroomById(route.params?.id + '')
-
-    if (!data) {
-        return navigateTo('/home');
-    }
-
-    classroom.value = data.result.data;
-}
 
 const getTeacherById = async () => {
     const data = await useApi.teacherService.getTeacherById(teacherStore.id);
@@ -55,7 +50,6 @@ const getAllAttendance = async () => {
     }
 
     attendances.value = data.result.data;
-    console.log(attendances.value);
 }
 
 const filterStudentStatus = (no: number, firstname: string, lastname: string) => {
@@ -92,17 +86,27 @@ const onDownloadExcelFile = async () => {
             dayjs().format("YYYY-MM-DD HH:mm:ss")
         );
 
-        console.log(data);
+        if (!data) {
+            return navigateTo('/home');
+        }
     
         const blob = new Blob([data]);
 
         saveAs(blob, "report.xlsx");
-        // if (!data) {
-        //     return navigateTo('/home');
-        // }
 
         setTimeout(() => { loadingExport.value = false }, 200);
     }
+}
+
+const filterStudentAttendace = async () => {
+    attendances.value[0].student.map(async(student, idx) => {
+        const data = await useApi.teacherService.studentCheckStatusAttendance({ 
+            no: student.no,
+            classroom_id: route.params?.id + ''
+        });
+
+        studentAttendace.value[idx] = Object.values(data?.result.data || {});
+    })
 }
 </script>
 
@@ -139,9 +143,17 @@ const onDownloadExcelFile = async () => {
 
                                 <th colspan="2" class="text-lg font-bold  min-w-[300px]">รายชื่อ</th>
 
-                                <th v-for="item of attendances" class="text-lg font-semibold min-w-[180px]">
+                                <th v-for="item of attendances" class="text-lg min-w-[180px] font-normal">
                                     {{ dayjs(item.date).locale('th').format('DD MMM YYYY') }}
                                 </th>
+
+                                <th class="text-lg min-w-[180px] font-normal">จำนวนมาเรียน</th>
+
+                                <th class="text-lg min-w-[180px] font-normal">จำนวนขาด</th>
+
+                                <th class="text-lg min-w-[180px] font-normal">จำนวนลา</th>
+
+                                <th class="text-lg min-w-[180px] font-normal">จำนวนสาย</th>
                             </tr>
                         </thead>
     
@@ -165,30 +177,15 @@ const onDownloadExcelFile = async () => {
                                 >
                                     {{ mapStatus(status) }}
                                 </td>
-                                <!-- <td class="text-center text-lg bg-[#D14A4A]">ขาด</td>
-                                <td class="text-center text-lg bg-[#F9DC38]">ลา</td> -->
 
+                                <td 
+                                    v-for="attendance of studentAttendace[idx]" 
+                                    class="text-center text-lg bg-[#F5F5F5]"
+                                >
+                                    {{ attendance }}
+                                </td>
                             </tr>
 
-                            <!-- <tr>
-                                <td class="text-center font-bold text-lg">2</td>
-                                <td class="text-center text-lg">สมศรี </td>
-                                <td class="text-center text-lg">สุขใจ</td>
-                                <td class="text-center text-lg bg-[#FEAD59]">สาย</td>
-                                <td class="text-center text-lg bg-[#D14A4A]">ขาด</td>
-                                <td class="text-center text-lg bg-[#D14A4A]">ขาด</td>
-
-                            </tr>
-
-                            <tr>
-                                <td class="text-center font-bold text-lg">3</td>
-                                <td class="text-center text-lg">สมศรี </td>
-                                <td class="text-center text-lg">สุขใจ</td>
-                                <td class="text-center text-lg bg-[#6EA66A]">มาเรียน</td>
-                                <td class="text-center text-lg bg-[#6EA66A]">มาเรียน</td>
-                                <td class="text-center text-lg bg-[#F9DC38]">ลา</td>
-
-                            </tr> -->
                         </tbody>
                     </table>
                 </div>

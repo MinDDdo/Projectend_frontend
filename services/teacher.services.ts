@@ -2,6 +2,8 @@ import axios, { AxiosError } from 'axios';
 import type { TeacherSigupDto, TeacherUpdateDto, TeacherResponse, SignupResponse } from '~/interfaces/teacher.interface';
 import { checkToken } from "./auth"; 
 import type { Response } from "~/interfaces/response.interface";
+import type {  AttendanceStudentCheckDto } from '~/interfaces/attendance.interface';
+import type { StudentAttendanceResponse } from '~/interfaces/student.interface'; 
 
 
 export const signup = async (data: TeacherSigupDto): Promise<Response<SignupResponse> | null >=> {
@@ -101,12 +103,48 @@ export const getTeacherById = async (teacherId: string):Promise<Response<Teacher
     } 
 }
 
+export const studentCheckStatusAttendance = async (data: AttendanceStudentCheckDto): Promise<Response<StudentAttendanceResponse> | null> => {
+    try {
+        const authStore = useStore.authStore();
+
+
+        if (!await checkToken()) {
+            console.log('Unauthorize');
+
+            return null;
+        }
+
+        const apiUrl = useRuntimeConfig().public.apiUrl; 
+
+
+        const response = await axios<Response<StudentAttendanceResponse>>({
+            method: 'post',
+            url: apiUrl + "attendance/check-attendance",
+            headers: {
+                'Authorization': 'Bearer ' + authStore.access_token,
+            },
+            data: {
+                no: data.no,
+                classroom_id: data.classroom_id
+            }
+        })
+
+        return response.data;
+    }catch (error){
+        if (error instanceof AxiosError){
+            return error.response?.data
+        }
+        return null;
+    }
+}
+
 
 
 const teacherService = {
     signup,
     update,
-    getTeacherById
+    getTeacherById,
+    studentCheckStatusAttendance
 }
 
 
