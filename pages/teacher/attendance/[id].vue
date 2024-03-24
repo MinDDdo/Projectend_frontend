@@ -99,11 +99,15 @@ const onDownloadExcelFile = async () => {
 }
 
 const filterStudentAttendace = async () => {
-    attendances.value[0].student.map(async(student, idx) => {
+    attendances.value[0]?.student.map(async(student, idx) => {
         const data = await useApi.teacherService.studentCheckStatusAttendance({ 
             no: student.no,
             classroom_id: route.params?.id + ''
         });
+
+        if (!data) {
+            return navigateTo('/home');
+        }
 
         studentAttendace.value[idx] = Object.values(data?.result.data || {});
     })

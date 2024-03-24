@@ -2,6 +2,7 @@ export interface StudentCreateDto {
     firstname: string;
     lastname: string;
     no: number;
+    image: string;
 }
 
 export interface StudentUpdateDto {

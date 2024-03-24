@@ -138,13 +138,48 @@ export const studentCheckStatusAttendance = async (data: AttendanceStudentCheckD
     }
 }
 
+export const uploadStudent = async (classroomId: string, file: File): Promise<Response<null> | null> => {
+    try {
+        const authStore = useStore.authStore();
+
+
+        if (!await checkToken()) {
+            console.log('Unauthorize');
+
+            return null;
+        }
+
+        const apiUrl = useRuntimeConfig().public.apiUrl; 
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+
+        const response = await axios<Response<null>>({
+            method: 'post',
+            url: apiUrl + `student/${classroomId}/upload-student`,
+            headers: {
+                'Authorization': 'Bearer ' + authStore.access_token,
+            },
+            data: formData
+        })
+
+        return response.data;
+    }catch (error){
+        if (error instanceof AxiosError){
+            return error.response?.data
+        }
+        return null;
+    }
+}
 
 
 const teacherService = {
     signup,
     update,
     getTeacherById,
-    studentCheckStatusAttendance
+    studentCheckStatusAttendance,
+    uploadStudent
 }
 
 

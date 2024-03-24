@@ -206,7 +206,7 @@ const onSubmitUpdateclassroom = async () => {
         </div>
 
         <div class="flex justify-center gap-4 lg:flex-nowrap flex-wrap mt-5">
-            <NuxtLink to="/studentlist" class="bg-[#BE96C6] p-2 w-[170px] rounded-[20px] shadow-md">
+            <NuxtLink :to="`/teacher/classroom/student/list-${classroom?.id}`" class="bg-[#BE96C6] p-2 w-[170px] rounded-[20px] shadow-md">
                 <div class="flex justify-center items-center">
                     <p class=" text-white mt-1">รายชื่อ</p>
                     <img src="~/assets/images/person.png" alt="person" class="ml-1 w-[35px]" />

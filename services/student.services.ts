@@ -9,7 +9,7 @@ import type { AttendanceStudentCheckDto } from "~/interfaces/attendance.interfac
 import type { StudentAttendanceResponse } from "~/interfaces/student.interface";
 
 
-export const createStudent = async (classroomId: string, data: StudentCreateDto) => {
+export const createStudent = async (classroomId: string, data: StudentCreateDto): Promise<Response<null> | null> => {
     try {
         const authStore = useStore.authStore();
 
@@ -21,7 +21,7 @@ export const createStudent = async (classroomId: string, data: StudentCreateDto)
 
         const apiUrl = useRuntimeConfig().public.apiUrl;
 
-        const response = await axios({
+        const response = await axios<Response<null>>({
             method: 'post',
             url: apiUrl + "student/"+ classroomId +"/create-student" ,
             headers: {
@@ -30,7 +30,8 @@ export const createStudent = async (classroomId: string, data: StudentCreateDto)
             data: {
                 firstname: data.firstname,
                 lastname: data.lastname,
-                no: data.no
+                no: data.no,
+                image: data.image
             }
         })
         return response.data
