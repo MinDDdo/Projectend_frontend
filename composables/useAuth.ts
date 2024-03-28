@@ -8,9 +8,6 @@ const createToken = async (name: string, token: string) => {
         id: string
     } =  jwtDecode(token);
 
-    console.log('Create', name, token);
-    console.log(new Date(), dayjs.unix(decode.exp).toDate());
-
     setTimeout(async () => {
         const cookie = await useCookie(name, {
             sameSite: 'strict'

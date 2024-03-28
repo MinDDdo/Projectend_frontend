@@ -3,7 +3,8 @@ import type { TeacherSigupDto, TeacherUpdateDto, TeacherResponse, SignupResponse
 import { checkToken } from "./auth"; 
 import type { Response } from "~/interfaces/response.interface";
 import type {  AttendanceStudentCheckDto } from '~/interfaces/attendance.interface';
-import type { StudentAttendanceResponse } from '~/interfaces/student.interface'; 
+import type { StudentAttendanceResponse, StudentGroupCreateDto, StudentGroupResponse } from '~/interfaces/student.interface'; 
+import type { StudentTeacherUpdateDto } from '~/interfaces/student.interface';
 
 
 export const signup = async (data: TeacherSigupDto): Promise<Response<SignupResponse> | null >=> {
@@ -41,8 +42,6 @@ export const update = async (teacherId: string ,data: TeacherUpdateDto):Promise<
         const authStore = useStore.authStore();
 
         if (!await checkToken()) {
-            console.log('Unauthorize');
-
             return null;
         }
         const apiUrl = useRuntimeConfig().public.apiUrl;
@@ -79,8 +78,6 @@ export const getTeacherById = async (teacherId: string):Promise<Response<Teacher
         const authStore = useStore.authStore();
 
         if (!await checkToken()) {
-            console.log('Unauthorize');
-
             return null;
         }
         const apiUrl = useRuntimeConfig().public.apiUrl;
@@ -109,8 +106,6 @@ export const studentCheckStatusAttendance = async (data: AttendanceStudentCheckD
 
 
         if (!await checkToken()) {
-            console.log('Unauthorize');
-
             return null;
         }
 
@@ -144,8 +139,6 @@ export const uploadStudent = async (classroomId: string, file: File): Promise<Re
 
 
         if (!await checkToken()) {
-            console.log('Unauthorize');
-
             return null;
         }
 
@@ -173,13 +166,171 @@ export const uploadStudent = async (classroomId: string, file: File): Promise<Re
     }
 }
 
+export const updateStudent = async (studentId: string, data: StudentTeacherUpdateDto) => {
+    try {
+        const authStore = useStore.authStore();
+
+
+        if (!await checkToken()) {
+            return null;
+        }
+
+        const apiUrl = useRuntimeConfig().public.apiUrl;
+
+        const response = await axios({
+            method: 'put',
+            url: apiUrl + "student/update-student/" + studentId,
+            headers: {
+                'Authorization': 'Bearer ' + authStore.access_token
+            },
+            data: {
+                firstname: data.firstname,
+                lastname: data.lastname
+            }
+        })
+        return response.data;
+
+    }catch (error) {
+        if (error instanceof AxiosError) {
+            return error.response?.data;
+        }
+
+        return null;
+    }
+}
+
+export const createStudentGroup = async (classroom_id: string, data: StudentGroupCreateDto): Promise<Response<null> | null> => {
+    try {
+        const authStore = useStore.authStore();
+
+
+        if (!await checkToken()) {
+            return null;
+        }
+
+        const apiUrl = useRuntimeConfig().public.apiUrl;
+
+        const response = await axios<Response<null>>({
+            method: 'post',
+            url: apiUrl + `student/${classroom_id}/create-group-student` ,
+            headers: {
+                'Authorization': 'Bearer ' + authStore.access_token
+            },
+            data: {
+                group_name: data.group_name,
+                group_size: data.group_size
+            }
+        })
+        
+        return response.data;
+    }catch (error) {
+        if (error instanceof AxiosError) {
+            return error.response?.data;
+        }
+
+        return null;
+    }
+}
+
+export const getAllStudentGroup = async (classroom_id: string): Promise<Response<StudentGroupResponse[]> | null> => {
+    try {
+        const authStore = useStore.authStore();
+
+
+        if (!await checkToken()) {
+            return null;
+        }
+
+        const apiUrl = useRuntimeConfig().public.apiUrl;
+
+        const response = await axios<Response<StudentGroupResponse[]>>({
+            method: 'get',
+            url: apiUrl + `student/${classroom_id}/group-student` ,
+            headers: {
+                'Authorization': 'Bearer ' + authStore.access_token
+            }
+        })
+
+        return response.data;
+    }catch (error) {
+        if (error instanceof AxiosError) {
+            return error.response?.data;
+        }
+
+        return null;
+    }
+}
+
+export const getStudentGroupById = async (classroom_id: string, group_id: string): Promise<Response<StudentGroupResponse> | null> => {
+    try {
+        const authStore = useStore.authStore();
+
+
+        if (!await checkToken()) {
+            return null;
+        }
+
+        const apiUrl = useRuntimeConfig().public.apiUrl;
+
+        const response = await axios<Response<StudentGroupResponse>>({
+            method: 'get',
+            url: apiUrl + `student/${classroom_id}/group-student/${group_id}` ,
+            headers: {
+                'Authorization': 'Bearer ' + authStore.access_token
+            }
+        })
+
+        return response.data;
+    }catch (error) {
+        if (error instanceof AxiosError) {
+            return error.response?.data;
+        }
+
+        return null;
+    }
+}
+
+export const deleteStudentGroupById = async (group_id: string): Promise<Response<null> | null> => {
+    try {
+        const authStore = useStore.authStore();
+
+
+        if (!await checkToken()) {
+            return null;
+        }
+
+        const apiUrl = useRuntimeConfig().public.apiUrl;
+
+        const response = await axios<Response<null>>({
+            method: 'delete',
+            url: apiUrl + `student/delete-group-student/${group_id}` ,
+            headers: {
+                'Authorization': 'Bearer ' + authStore.access_token
+            }
+        })
+
+        return response.data;
+    }catch (error) {
+        if (error instanceof AxiosError) {
+            return error.response?.data;
+        }
+
+        return null;
+    }
+}
+
 
 const teacherService = {
     signup,
     update,
     getTeacherById,
     studentCheckStatusAttendance,
-    uploadStudent
+    uploadStudent,
+    updateStudent,
+    createStudentGroup,
+    getAllStudentGroup,
+    getStudentGroupById,
+    deleteStudentGroupById
 }
 
 

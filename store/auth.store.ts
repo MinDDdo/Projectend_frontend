@@ -16,7 +16,7 @@ export const authStore = defineStore('auth', {
     persist: [
         {
             beforeRestore: (ctx) => {
-                // console.log(`about to restore '${ctx.store.$id}'`)
+
             }
         },
         {

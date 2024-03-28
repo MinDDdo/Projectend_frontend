@@ -36,8 +36,6 @@ export const getAllAssignment = async (classroomId: string): Promise<Response<As
         const authStore = useStore.authStore();
 
         if (!await checkToken()) {
-            console.log('Unauthorize');
-
             return null;
         }
 
@@ -65,8 +63,6 @@ export const getAssignmentById = async (assignmentId: string): Promise<Response<
         const authStore = useStore.authStore();
 
         if (!await checkToken()) {
-            console.log('Unauthorize');
-
             return null;
         }
 
@@ -94,8 +90,6 @@ export const updateAssignmentById = async (assignmentId: string, data: Assignmen
         const authStore = useStore.authStore();
 
         if (!await checkToken()) {
-            console.log('Unauthorize');
-
             return null;
         }
 
@@ -128,8 +122,6 @@ export const deleteAssignmentById = async (assignmentId: string): Promise<Respon
         const authStore = useStore.authStore();
 
         if (!await checkToken()) {
-            console.log('Unauthorize');
-
             return null;
         }
 
@@ -157,8 +149,6 @@ export const checkAssignment = async (assignmentId: string, data: AssignmentChec
         const authStore = useStore.authStore();
 
         if (!await checkToken()) {
-            console.log('Unauthorize');
-
             return null;
         }
 
@@ -190,8 +180,6 @@ export const studentCheckStatusAssignment = async (data: AssigntmentCheckStatus)
         const authStore = useStore.authStore();
 
         if (!await checkToken()) {
-            console.log('Unauthorize');
-
             return null;
         }
 

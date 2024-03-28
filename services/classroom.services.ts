@@ -8,8 +8,6 @@ export const createClassroom = async (data: ClassroomCreateDto) => {
         const authStore = useStore.authStore();
 
         if (!await checkToken()) {
-            console.log('Unauthorize');
-
             return null;
         }
 
@@ -44,8 +42,6 @@ export const getAllClassroom = async (teacherId: string): Promise<Response<Class
         const authStore = useStore.authStore();
 
         if (!await checkToken()) {
-            console.log('Unauthorize');
-
             return null;
         }
 
@@ -61,8 +57,6 @@ export const getAllClassroom = async (teacherId: string): Promise<Response<Class
 
         return response.data;
     }catch (error){
-        console.log(error);
-
         if (error instanceof AxiosError){
             return error.response?.data;
         }
@@ -76,8 +70,6 @@ export const getClassroomById = async (classroomId: string): Promise<Response<Cl
         const authStore = useStore.authStore();
 
         if (!await checkToken()) {
-            console.log('Unauthorize');
-
             return null;
         }
 
@@ -109,8 +101,6 @@ export const updateClassroomById = async (
         const authStore = useStore.authStore();
 
         if (!await checkToken()) {
-            console.log('Unauthorize');
-
             return null;
         }
 
@@ -144,8 +134,6 @@ export const deleteClassroomById = async (classroomId: string) => {
         const authStore = useStore.authStore();
 
         if (!await checkToken()) {
-            console.log('Unauthorize');
-
             return null;
         }
 

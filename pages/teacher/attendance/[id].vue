@@ -115,7 +115,7 @@ const filterStudentAttendace = async () => {
 </script>
 
 <template>
-    <div class="h-screen bg-[#EEF5FF]">
+    <div class="min-h-screen bg-[#EEF5FF]">
         <div class="flex justify-between items-center px-10 pt-5">
             <div class="p-3 hover:bg-gray-200 duration-100 rounded-md cursor-pointer">
                 <Icon 
@@ -131,7 +131,7 @@ const filterStudentAttendace = async () => {
             />
         </div>
 
-        <div class="flex justify-center relative lg:mt-0 mt-10">
+        <div class="flex justify-center relative lg:mt-10 mt-10">
             <div class="bg-[#475A7D]  rounded-[15px] w-[300px] h-[65px] absolute -top-[20px]">
                 <p class="text-center text-white text-bold text-2xl mt-4">การเข้าเรียน</p>
             </div>
@@ -190,6 +190,13 @@ const filterStudentAttendace = async () => {
                                 </td>
                             </tr>
 
+                            <tr v-if="attendances.length === 0">
+                                <td colspan="7" class="pl-4  pt-7 text-center">
+                                    <div class="text-center py-5 w-full text-gray-500 rounded-xl border">
+                                        ไม่มีข้อมูลการเข้าเรียน
+                                    </div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -197,7 +204,12 @@ const filterStudentAttendace = async () => {
         </div>
 
         <div class="flex justify-center mt-8">
-            <button class="bg-[#676B7D] w-[180px] h-[50px] flex rounded-[15px]" @click="onDownloadExcelFile">
+            <button 
+                v-if="attendances.length > 0"
+                :disabled="attendances.length === 0"
+                class="bg-[#676B7D] w-[180px] h-[50px] flex rounded-[15px]" 
+                @click="onDownloadExcelFile"
+            >
                 <p class="text-center pl-10 mt-3 text-white font-bold">ดาวน์โหลด</p>
                 <img src="~/assets/images/download.png" alt="download"
                 class="w-[30px] mt-2 "

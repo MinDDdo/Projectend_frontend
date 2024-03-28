@@ -16,7 +16,7 @@ export const authStudentStore = defineStore('auth-student', {
     persist: [
         {
             beforeRestore: (ctx) => {
-                // console.log(`about to restore '${ctx.store.$id}'`)
+
             }
         },
         {

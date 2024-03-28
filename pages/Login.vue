@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 import { jwtDecode } from 'jwt-decode';
 
-const email = ref<string>('test@test.com');
-const password = ref<string>('123456');
+const email = ref<string>('');
+const password = ref<string>('');
 
 const authStore = useStore.authStore();
 const teacherStore = useStore.teacherStore();
@@ -13,7 +15,15 @@ const onSubmitLogin = async () => {
     if (!data) {
         return console.error('Something went wrong');
     }
-    console.log(data);
+
+    if (data.detail.message === 'Invalid email or password') {
+        toast.error("อีเมลหรือรหัสผ่านไม่ถูกต้อง", {
+            transition: toast.TRANSITIONS.BOUNCE,
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 2000,
+        });
+        return;
+    } 
 
     authStore.access_token = data.result.data.access_token;
     authStore.refresh_token = data.result.data.refresh_token;
@@ -32,12 +42,10 @@ const onSubmitLogin = async () => {
             <div class="">
                 <img src="~/assets/images/logo.png" alt="logo" />
             </div>
-
-            <p>เกี่ยวกับเรา</p>
         </div>
 
-        <div class="mt-10 flex justify-center">
-            <div class="bg-white min-w-[550px] max-w-[550px] min-h-[420px] max-h-[420px] rounded-[40px] p-10">
+        <div class="mt-16 flex justify-center">
+            <div class="bg-white md:w-[550px] w-[400px] rounded-[40px] p-10">
                 <h1 class="text-[24px] text-center">เข้าสู่ระบบ</h1>
                 <p class="mt-4 text-center">กรอกชื่อผู้ใช้และรหัสผ่านของคุณเพื่อเข้าสู่ระบบ</p>
 
@@ -59,11 +67,17 @@ const onSubmitLogin = async () => {
                         class="p-2 px-5 rounded-xl bg-[#DCF2F1]" 
                     />
 
-                    <button type="submit" class="p-2 text-white font-bold bg-[#676B7D] rounded-xl">เข้าสู่ระบบ</button>
+                    <button 
+                        :disabled="email === '' || password === ''"
+                        type="submit" 
+                        class="p-2 text-white font-bold bg-[#676B7D] rounded-xl mt-10"
+                    >
+                        เข้าสู่ระบบ
+                    </button>
                 </form>
 
                 <p class="mt-8 text-center">
-                    ยังไม่มีบัญชี? <span class="underline">ลงทะเบียน</span> 
+                    ยังไม่มีบัญชี? <NuxtLink to="/signup" class="underline">ลงทะเบียน</NuxtLink> 
                 </p>
             </div>
         </div>

@@ -6,19 +6,17 @@ import { saveAs } from 'file-saver';
 
 
 
-export const createAttendance = async (data: AttendanceCreateDto) => {
+export const createAttendance = async (data: AttendanceCreateDto): Promise<Response<null> | null> => {
     try {
         const authStore = useStore.authStore();
 
         if (!await checkToken()) {
-            console.log('Unauthorize');
-
             return null;
         }
 
         const apiUrl = useRuntimeConfig().public.apiUrl;
 
-        const response = await axios({
+        const response = await axios<Response<null>>({
             method: 'post',
             url: apiUrl + "attendance/create-attendance",
             headers: {
@@ -40,13 +38,11 @@ export const createAttendance = async (data: AttendanceCreateDto) => {
     }
 }
 
-export const updateAttendance = async (attendanceId: string, data: AttendanceUpdateDto) => {
+export const updateAttendance = async (attendanceId: string, data: AttendanceUpdateDto): Promise<Response<null> | null> => {
     try {
         const authStore = useStore.authStore();
 
         if (!await checkToken()) {
-            console.log('Unauthorize');
-
             return null;
         }
 
@@ -59,7 +55,8 @@ export const updateAttendance = async (attendanceId: string, data: AttendanceUpd
                 'Authorization': 'Bearer ' + authStore.access_token
             },
             data: {
-                student: data.student
+                student: data.student,
+                attendance_date: data.attendance_date
             }
         })
         return response.data;
@@ -72,13 +69,11 @@ export const updateAttendance = async (attendanceId: string, data: AttendanceUpd
     }
 }
 
-export const deleteAttendance = async (attendanceId: string) => {
+export const deleteAttendance = async (attendanceId: string): Promise<Response<null> | null> => {
     try {
         const authStore = useStore.authStore();
 
         if (!await checkToken()) {
-            console.log('Unauthorize');
-
             return null;
         }
 
@@ -106,8 +101,6 @@ export const getAllAttendance = async (classroomId: string): Promise<Response<At
         const authStore = useStore.authStore();
 
         if (!await checkToken()) {
-            console.log('Unauthorize');
-
             return null;
         }
 
@@ -135,8 +128,6 @@ export const getAttendanceById = async (attendanceId: string) => {
         const authStore = useStore.authStore();
 
         if (!await checkToken()) {
-            console.log('Unauthorize');
-
             return null;
         }
 
@@ -164,8 +155,6 @@ export const exportAttendance = async (classroom_id: string, startDate: string, 
         const authStore = useStore.authStore();
 
         if (!await checkToken()) {
-            console.log('Unauthorize');
-
             return null;
         }
 
@@ -186,18 +175,6 @@ export const exportAttendance = async (classroom_id: string, startDate: string, 
                 end_date: endDate
             }
         })
-
-        // console.log(response);
-
-        // const contentType = response.headers['content-type'];
-        // const contentDisposition = response.headers['content-disposition'];
-
-        // console.log(contentType, contentDisposition)
-      
-        // // Handle successful response
-        // // Save the file using file-saver
-        // const blob = new Blob([response.data], { type: contentType });
-        // saveAs(blob, contentDisposition.split('filename=')[1]);
 
         return response.data;
 

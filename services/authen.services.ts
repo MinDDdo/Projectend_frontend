@@ -14,16 +14,12 @@ export const login = async ({ email, password }: LoginDto): Promise<Response<Log
                 password: password
             }
         })
-
-        console.log(response);
         
         return response.data;
     }catch (error){
         if (error instanceof AxiosError) {
             return error.response?.data;
         }
-
-        console.log(error);
         return null;
     }
 }

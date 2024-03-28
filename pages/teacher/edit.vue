@@ -81,7 +81,7 @@ const updateTeacher = async () => {
         <div class="flex justify-center  pt-24">
             <form 
                 @submit.prevent="updateTeacher"
-                class="p-2 bg-[#FFFFFF] w-[530px] pb-10 rounded-[30px] relative mt-20"
+                class="p-2 bg-[#FFFFFF] md:w-[530px] w-[480px] pb-10 rounded-[30px] relative mt-20"
             >
                 <img 
                     v-if="teacher?.image !== ''"

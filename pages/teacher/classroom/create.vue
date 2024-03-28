@@ -80,7 +80,7 @@ const onCloseSelectAvatarProfile = () => {
         <div class="flex justify-center">
             <form 
                 @submit.prevent="onSubmitCreateClassroom"
-                class="flex flex-col lg:mt-8 mt-14 gap-y-7 lg:w-[500px] md:w-[450px] w-full bg-white rounded-2xl p-10 relative "
+                class="flex flex-col lg:mt-8 mt-14 gap-y-7 lg:w-[500px] w-[490px] bg-white rounded-2xl p-10 relative "
             >
                 <div class="bg-[#7071E8] p-3 rounded-2xl w-[240px] absolute left-1/2 -top-[30px] transform -translate-x-1/2">
                     <p class="text-xl text-white text-center">สร้างชั้นเรียน</p>

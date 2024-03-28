@@ -59,8 +59,6 @@ const getAssignmentAll = async () => {
         return navigateTo('/home');
     }
 
-    console.log(data.result.data);
-
     assignments.value = data.result.data;
 }
 
@@ -224,13 +222,13 @@ const onSubmitDeleteAssignment = async () => {
             />
         </div>
 
-        <div class="flex justify-center ">
+        <div class="flex justify-center mt-10">
             <div class="bg-[#475A7D]  rounded-[15px] w-[300px] h-[65px] ">
                 <p class="text-center text-white text-bold text-2xl mt-4">งานที่มอบหมาย</p>
             </div>
         </div>
 
-        <div class="flex flex-col justify-center mt-8 w-[700px] mx-auto">
+        <div class="flex flex-col justify-center mt-8 md:w-[700px] w-[490px] mx-auto">
             <button 
                 @click="showCreateAssignment = true"
                 type="button" 
@@ -299,7 +297,7 @@ const onSubmitDeleteAssignment = async () => {
 
             <div 
                 v-if="assignments.length === 0" 
-                class="backdrop-blur-md bg-white/50 w-[700px] h-[130px] 
+                class="backdrop-blur-md bg-white/50 md:w-[700px] w-[490px] max-auto h-[130px] 
                 p-5 rounded-[15px] flex items-center justify-center text-gray-500"
             >
                 ไม่มีงานที่มอบหมาย
@@ -331,7 +329,7 @@ const onSubmitDeleteAssignment = async () => {
 
     <div 
         v-if="showCreateAssignment"
-        class="w-[500px] h-[320px] bg-white rounded-md fixed 
+        class="md:w-[500px] w-[490px] h-[320px] bg-white rounded-md fixed 
         top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
         "
     >
@@ -389,7 +387,7 @@ const onSubmitDeleteAssignment = async () => {
 
     <div 
         v-if="showDialogUpdatAssignment"
-        class="w-[500px] h-[320px] bg-white rounded-md fixed 
+        class="md:w-[500px] w-[490px] h-[320px] bg-white rounded-md fixed 
         top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
         "
     >
@@ -453,18 +451,18 @@ const onSubmitDeleteAssignment = async () => {
 
     <div 
         v-if="showDetailAssignment"
-        class="lg:w-[800px] md:w-[600px] w-[400px] bg-white rounded-md fixed 
+        class="lg:w-[800px] md:w-[600px] w-[490px] bg-white rounded-md fixed 
         top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
         "
     >
         <div class="relative">
             <div 
-                class="bg-[#475A7D]  rounded-[15px] absolute h-[65px] px-4 
+                class="bg-[#475A7D]  rounded-[15px] absolute w-fit h-[65px] px-4 
                 flex  items-center justify-center gap-x-2
                 absolute -top-[36px] left-1/2 transform -translate-x-1/2
                 "
             >
-                <p class="text-white text-2xl text-center">สถานะการส่งงาน:</p>
+                <p class="text-white text-2xl text-center md:w-fit w-[200px]">สถานะการส่งงาน:</p>
                 <p class="text-white text-2xl center font-bold">{{ selectAssignment?.assign_name }}</p>
             </div>
         </div>

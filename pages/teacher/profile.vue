@@ -35,7 +35,6 @@ const getTeacherById = async () => {
     if (!data) {
         return navigateTo('/home');
     }
-    console.log(data)
 
     teacher.value = data.result.data
 }
@@ -153,11 +152,10 @@ const onSubmitChangeAvatar = async () => {
 
     <div 
         v-if="showModalChangeAvatar"
-        class="fixed bg-white rounded-[20px]  min-w-[900px] min-h-[650px] z-[999999] 
-        top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 " 
+        class="fixed bg-white rounded-[20px]  lg:w-[600px] md:min-w-[500px] w-full z-[999999] 
+        top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-10" 
     >
-        <div class="overflow-y-scroll overflow-x-hidden min-h-[450px] min-w-[700px] 
-        max-h-[450px] max-w-[700px] mt-[80px] mx-[100px] grid grid-cols-5 gap-1" >
+        <div class="overflow-y-scroll overflow-x-hidden w-full lg:h-[400px] w-full h-[400px]  grid lg:grid-cols-5 md:grid-cols-4 grid-cols-3 p-5 gap-2" >
             <img
                 v-for="item, idx of teacherAvatar"
                 :src="images[`${item.name}`]" 

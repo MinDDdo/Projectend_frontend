@@ -14,8 +14,6 @@ export const createStudent = async (classroomId: string, data: StudentCreateDto)
         const authStore = useStore.authStore();
 
         if (!await checkToken()) {
-            console.log('Unauthorize');
-
             return null;
         }
 
@@ -49,8 +47,6 @@ export const updateStudent = async (studentId: string, data: StudentUpdateDto) =
         const authStudentStore = useStore.authStudentStore();
 
         if (!await checkStudentToken()) {
-            console.log('Unauthorize');
-
             return null;
         }
 
@@ -84,8 +80,6 @@ export const getAllStudent = async (classroomId: string) => {
         const authStore = useStore.authStore();
 
         if (!await checkToken()) {
-            console.log('Unauthorize');
-
             return null;
         }
 
@@ -117,8 +111,6 @@ export const getStudentById = async (
         const authStudentStore = useStore.authStudentStore();
 
         if (!await checkStudentToken()) {
-            console.log('Unauthorize');
-
             return null;
         }
 
@@ -146,8 +138,6 @@ export const deleteStudentById = async (studentId: string) => {
         const authStore = useStore.authStore();
 
         if (!await checkToken()) {
-            console.log('Unauthorize');
-
             return null;
         }
 
@@ -176,8 +166,6 @@ export const randomGroup = async (classroomId: string, data: RandomGroupDto) => 
         const authStore = useStore.authStore();
 
         if (!await checkToken()) {
-            console.log('Unauthorize');
-
             return null;
         }
 
@@ -222,7 +210,6 @@ export const joinClassroom = async (classroomCode: string, no: string): Promise<
             return error.response?.data;
         }
 
-        console.log(error);
         return null;
     }
 }
@@ -232,8 +219,6 @@ export const getClassroomById = async (classroomId: string): Promise<Response<Cl
         const authStudentStore = useStore.authStudentStore();
 
         if (!await checkStudentToken()) {
-            console.log('Unauthorize');
-
             return null;
         }
 
@@ -261,8 +246,6 @@ export const studentCheckStatusAssignment = async (data: AssigntmentCheckStatus)
         const authStudentStore = useStore.authStudentStore();
 
         if (!await checkStudentToken()) {
-            console.log('Unauthorize');
-
             return null;
         }
 
@@ -290,12 +273,9 @@ export const studentCheckStatusAssignment = async (data: AssigntmentCheckStatus)
 
 export const studentCheckStatusAttendance = async (data: AttendanceStudentCheckDto): Promise<Response<StudentAttendanceResponse> | null> => {
     try {
-        console.log(data)
         const authStudentStore = useStore.authStudentStore();
 
         if (!await checkStudentToken()) {
-            console.log('Unauthorize');
-
             return null;
         }
 
@@ -313,8 +293,6 @@ export const studentCheckStatusAttendance = async (data: AttendanceStudentCheckD
                 classroom_id: data.classroom_id
             }
         })
-
-        console.log("This is attendance student", response.data.result.data)
 
         return response.data;
     }catch (error){

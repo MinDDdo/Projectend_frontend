@@ -1,11 +1,12 @@
 export interface AttendanceCreateDto  {
-    attendance_date: Date;
-    student: []
+    attendance_date: string;
+    student: any[]
     classroom_id: string;
 }
 
 export interface AttendanceUpdateDto {
-    student: [];
+    student: any[];
+    attendance_date: string;
 }
 
 export interface AttendanceExportDto {
